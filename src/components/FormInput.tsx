@@ -1,7 +1,7 @@
 import React, { VFC, useState } from "react";
 import { connect, FormikProps } from "formik";
 
-import { FilledInput } from "@mui/material";
+import { FilledInput, BoxProps } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
@@ -10,14 +10,13 @@ import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 
-export type FormInputProps = {
+export type FormInputProps = BoxProps & {
   color?: "primary" | "error" | "secondary" | "info" | "success" | "warning";
   name: string;
   title?: string
   type?: "text" | "textarea" | "datetime" | "datetime-local" | "number"
   onChange?: any;
   disabled?: boolean;
-  children?: any;
   rows?: string | number
   placeholder?: string
   copyBytton?: boolean

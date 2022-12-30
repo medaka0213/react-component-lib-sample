@@ -1,14 +1,12 @@
 import React, { VFC } from "react";
-import { Grid, Box } from "@mui/material";
+import { Grid, Box, BoxProps } from "@mui/material";
 import { SubmitButton } from "./SubmitButton";
 import { FormikProps, FormikErrors, FormikValues } from "formik";
 
-export type FormGridProps = {
+export type FormGridProps = BoxProps & {
   color: "primary" | "error" | "secondary" | "info" | "success" | "warning";
-  sx: any
   childrenSx: any
   childrenList: any[][]
-  children: any
   buttonLabel: string
   disabled: boolean
   buttonPosition: "top" | "bottom"

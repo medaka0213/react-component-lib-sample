@@ -1,16 +1,15 @@
 import React, { VFC, useState, useRef } from "react";
 
 import UploadFileIcon from "@mui/icons-material/UploadFile";
-import Box from "@mui/material/Box";
+import Box, {BoxProps} from "@mui/material/Box";
 import { SubmitButton } from "./SubmitButton";
 
-export type FileInputProps = {
+export type FileInputProps = BoxProps & {
   color: "primary" | "error" | "secondary" | "info" | "success" | "warning";
   title?:string;
   name: string;
   onChange: any;
   disabled: boolean;
-  children: any;
   formik: any
 }
 
@@ -21,7 +20,7 @@ export const FileInput:VFC<FileInputProps> = ({
   onChange,
   disabled = false,
   children,
-  formik: { values, errors, touched, handleChange, handleBlur },
+  formik: { values, handleChange, handleBlur },
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,7 +44,7 @@ export const FileInput:VFC<FileInputProps> = ({
         }}
       >
         <UploadFileIcon />
-        {file ? `選択中: ${file}` : "ファイルを選択"}
+        {file ? `選択中: ${file}` : title || "ファイルを選択"}
       </SubmitButton>
       <input
         onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {

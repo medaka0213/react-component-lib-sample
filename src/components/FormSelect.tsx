@@ -1,11 +1,7 @@
 import React, { VFC } from "react";
 import { connect, FormikProps } from "formik";
 
-import Select from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
+import { Select, InputLabel, MenuItem, FormControl, FormHelperText, BoxProps } from "@mui/material";
 
 export type SelectItem = {
   label?: string
@@ -13,7 +9,7 @@ export type SelectItem = {
   divider?: boolean
 }
 
-export type FormSelectProps = {
+export type FormSelectProps = BoxProps & {
   color: "primary" | "error" | "secondary" | "info" | "success" | "warning";
   name: string;
   title: string;
