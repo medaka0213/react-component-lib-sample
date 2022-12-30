@@ -1,14 +1,14 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { FileInputApp } from "./FileInput";
+import { FileInput } from "./FileInput";
 
 export default {
   title: 'FileInput',
-  component: FileInputApp,
-} as ComponentMeta<typeof FileInputApp>;
+  component: FileInput,
+} as ComponentMeta<typeof FileInput>;
 
-const Template: ComponentStory<typeof FileInputApp> = (args) => <FileInputApp {...args} />;
+const Template: ComponentStory<typeof FileInput> = (args) => <FileInput {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

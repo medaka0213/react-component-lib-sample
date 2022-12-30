@@ -1,14 +1,14 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { FormSelectApp } from "./FormSelect";
+import { FormSelect } from "./FormSelect";
 
 export default {
-  component: FormSelectApp,
+  component: FormSelect,
   title: "FormSelect",
 };
 
-const Template: ComponentStory<typeof FormSelectApp> = (args) => <FormSelectApp {...args} />;
+const Template: ComponentStory<typeof FormSelect> = (args) => <FormSelect {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

@@ -1,5 +1,5 @@
 import React, { VFC, useState } from "react";
-import { connect } from "formik";
+import { connect, FormikProps } from "formik";
 
 import { FilledInput } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
@@ -21,10 +21,10 @@ export type FormInputProps = {
   rows?: string | number
   placeholder?: string
   copyBytton?: boolean
-  formik: any;
+  formik: any
 }
 
-export const FormInputApp:VFC<FormInputProps> = ({
+export const FormInput:VFC<FormInputProps> = ({
   color = "primary",
   name = "",
   type = "text",
@@ -35,7 +35,7 @@ export const FormInputApp:VFC<FormInputProps> = ({
   disabled = false,
   copyBytton = false,
   children,
-  formik: { values, errors, touched, handleChange, handleBlur },
+  formik: { values={}, errors={}, handleChange, handleBlur },
 }) => {
   const [openTip, setOpenTip] = useState(false);
   const handleClickButton = () => {
@@ -87,5 +87,3 @@ export const FormInputApp:VFC<FormInputProps> = ({
     </FormControl>
   );
 };
-
-export const FormInput = connect(FormInputApp);

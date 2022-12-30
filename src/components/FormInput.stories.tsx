@@ -1,14 +1,14 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { FormInputApp } from "./FormInput";
+import { FormInput } from "./FormInput";
 
 export default {
-  component: FormInputApp,
+  component: FormInput,
   title: "FormInput",
 };
 
-const Template: ComponentStory<typeof FormInputApp> = (args) => <FormInputApp {...args} />;
+const Template: ComponentStory<typeof FormInput> = (args) => <FormInput {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

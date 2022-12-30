@@ -1,5 +1,5 @@
 import React, { VFC } from "react";
-import { connect } from "formik";
+import { connect, FormikProps } from "formik";
 
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
@@ -24,13 +24,13 @@ export type FormSelectProps = {
   selectItems: SelectItem[]
 }
 
-export const FormSelectApp: VFC<FormSelectProps> = ({
+export const FormSelect: VFC<FormSelectProps> = ({
   color = "primary",
   variant = "filled",
   name,
   title = "",
   selectItems = [],
-  formik: { values, errors, touched, handleChange, handleBlur },
+  formik: { values={}, errors={}, handleChange, handleBlur },
 }) => {
   console.log(selectItems);
   return (
@@ -55,5 +55,3 @@ export const FormSelectApp: VFC<FormSelectProps> = ({
     </FormControl>
   );
 };
-
-export const FormSelect = connect(FormSelectApp);

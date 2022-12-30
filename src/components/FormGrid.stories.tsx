@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { FormGrid } from "./FormGrid";
-import { FormInputApp } from "./FormInput";
+import { FormInput } from "./FormInput";
 
 const formik = {
   values: {},
@@ -25,11 +25,11 @@ Default.args = {
   disabled: false,
   childrenList: [
     [
-      <FormInputApp name="sample1" formik={formik} />,
-      <FormInputApp name="sample2" formik={formik} />,
-      <FormInputApp name="sample2" formik={formik} />,
+      <FormInput name="sample1" formik={formik} />,
+      <FormInput name="sample2" formik={formik} />,
+      <FormInput name="sample2" formik={formik} />,
     ],
-    [<FormInputApp name="sample3" formik={formik} />],
+    [<FormInput name="sample3" formik={formik} />],
   ],
 };
 
@@ -41,10 +41,10 @@ CustomButton.args = {
   buttonLabel: "Custom Label",
   childrenList: [
     [
-      <FormInputApp name="sample1" formik={formik} />,
-      <FormInputApp name="sample2" formik={formik} />,
-      <FormInputApp name="sample2" formik={formik} />,
+      <FormInput name="sample1" formik={formik} />,
+      <FormInput name="sample2" formik={formik} />,
+      <FormInput name="sample2" formik={formik} />,
     ],
-    [<FormInputApp name="sample3" formik={formik} />],
+    [<FormInput name="sample3" formik={formik} />],
   ],
 };

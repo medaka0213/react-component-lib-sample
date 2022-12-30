@@ -1,5 +1,4 @@
 import React, { VFC, useState, useRef } from "react";
-import { connect, FormikProps } from "formik";
 
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import Box from "@mui/material/Box";
@@ -12,10 +11,10 @@ export type FileInputProps = {
   onChange: any;
   disabled: boolean;
   children: any;
-  formik: any;
+  formik: any
 }
 
-export const FileInputApp:VFC<FileInputProps> = ({
+export const FileInput:VFC<FileInputProps> = ({
   color = "primary",
   title,
   name = "",
@@ -69,5 +68,3 @@ export const FileInputApp:VFC<FileInputProps> = ({
     </Box>
   );
 };
-
-export const FileInput = connect(FileInputApp);
