@@ -1,6 +1,8 @@
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
 import dts from 'rollup-plugin-dts';
+import nodeResolve from 'rollup-plugin-node-resolve';
+
 const pkg = require('./package.json');
 
 export default [
@@ -26,6 +28,7 @@ export default [
         tsconfig: './tsconfig.json',
         exclude: ['**/__tests__/**'],
       }),
+      nodeResolve(),
     ],
     external: ['react', 'react-dom', '@emotion/styled', '@emotion/react'],
   },

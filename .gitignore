@@ -11,7 +11,6 @@ es
 yalc.lock
 
 .idea/
-.vscode/
 temp/
 .tmp-projections
 build/
