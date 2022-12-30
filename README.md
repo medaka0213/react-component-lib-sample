@@ -1,30 +1,28 @@
-# react-ts-sample-component
+# 「ロケみる集会」共通コンポーネント置き場
 
 This is a sample UI component
 
 ## installation
 
 ```bash
-$ npm install react-component-lib-sample @emotion/react @emotion/styled
-```
-
-or
-
-```bash
-$ yarn add react-component-lib-sample @emotion/react @emotion/styled
+yarn install
 ```
 
 ## example
 
-```jsx
-import { Text } from 'react-component-lib-sample'
-
-<Text text="hello, world" />
-```
+WIP
 
 ## develop component
 
 ```bash
-$ yarn install
-$ yarn run storybook
+yarn install
+yarn run storybook
+```
+
+## upload component
+
+```bash
+yarn build
+npm version patch
+npm publish
 ```
