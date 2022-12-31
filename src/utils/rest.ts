@@ -1,11 +1,10 @@
-
 function rest(URL: string, request: any) {
   const ret = fetch(URL, request)
-    .then((res:any) => {
+    .then((res: any) => {
       if (!res.ok) {
         throw Error(res.status);
       }
-      return res.json()
+      return res.json();
     })
     .then((payload) => {
       return { payload };
@@ -22,44 +21,44 @@ export function get(path: string) {
     mode: 'cors',
     headers: {
       //'x-api-key': process.env.NEXT_PUBLIC_API_KEY,
-    }
-  })
+    },
+  });
 }
 
 export function post(path: string, body: any) {
-  console.log("POST", JSON.stringify(body))
+  console.log('POST', JSON.stringify(body));
   return rest(process.env.NEXT_PUBLIC_API_URL + path, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-type": "application/json",
-      'x-api-key': process.env.NEXT_PUBLIC_API_KEY
+      'Content-type': 'application/json',
+      'x-api-key': process.env.NEXT_PUBLIC_API_KEY,
     },
     body: JSON.stringify(body),
-    mode: 'cors'
-  })
+    mode: 'cors',
+  });
 }
 
 export function put(path: string, body: any) {
-  console.log("PUT", JSON.stringify(body))
+  console.log('PUT', JSON.stringify(body));
   return rest(process.env.NEXT_PUBLIC_API_URL + path, {
-    method: "PUT",
+    method: 'PUT',
     headers: {
-      "Content-type": "application/json",
-      'x-api-key': process.env.NEXT_PUBLIC_API_KEY
+      'Content-type': 'application/json',
+      'x-api-key': process.env.NEXT_PUBLIC_API_KEY,
     },
     body: JSON.stringify(body),
-    mode: 'cors'
-  })
+    mode: 'cors',
+  });
 }
 
 export function del(path: string, body: any) {
   return rest(process.env.NEXT_PUBLIC_API_URL + path, {
-    method: "DELETE",
+    method: 'DELETE',
     headers: {
-      "Content-type": "application/json",
-      'x-api-key': process.env.NEXT_PUBLIC_API_KEY
+      'Content-type': 'application/json',
+      'x-api-key': process.env.NEXT_PUBLIC_API_KEY,
     },
     body: JSON.stringify(body),
-    mode: 'cors'
-  })
+    mode: 'cors',
+  });
 }
