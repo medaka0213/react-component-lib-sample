@@ -39,19 +39,14 @@ const initialState = {
   error: '',
 };
 const itemReducer = createReducer(initialState, (builder) => {
-  builder.addCase(GET_CONFIG, (state, action) => {
+  builder.addCase(GET_CONFIG, (state: any, action) => {
     const key = action.payload.type || 'unknown';
-    state[key] = new ItemReducer(
-      Object.assign(
-        {},
-        {
-          config: action.payload.Item,
-          isConfigReceived: false,
-        }
-      )
-    );
+    state[key] = new ItemReducer({
+      config: action.payload.Item,
+      isConfigReceived: false,
+    });
   });
-  builder.addCase(GET_CONFIG_SUCCEEDED, (state, action) => {
+  builder.addCase(GET_CONFIG_SUCCEEDED, (state: any, action: any) => {
     const key = action.payload.type || 'unknown';
     state[key] = new ItemReducer(
       Object.assign({}, state[key] && state[key].data(), {
@@ -61,10 +56,10 @@ const itemReducer = createReducer(initialState, (builder) => {
     );
   });
 
-  builder.addCase(GET_ALL_CONFIG, (state, action) => {
+  builder.addCase(GET_ALL_CONFIG, (state: any, action: any) => {
     state.isConfigReceived = false;
   });
-  builder.addCase(GET_ALL_CONFIG_SUCCEEDED, (state, action) => {
+  builder.addCase(GET_ALL_CONFIG_SUCCEEDED, (state: any, action: any) => {
     const { Items } = action.payload;
     state.isConfigReceived = true;
     for (let k of Object.keys(Items)) {
@@ -77,7 +72,7 @@ const itemReducer = createReducer(initialState, (builder) => {
     }
   });
 
-  builder.addCase(GET_ITEMS, (state, action) => {
+  builder.addCase(GET_ITEMS, (state: any, action: any) => {
     const key = action.payload.type || 'unknown';
     state[key] = new ItemReducer(
       Object.assign({}, state[key] && state[key].data(), {
@@ -86,7 +81,7 @@ const itemReducer = createReducer(initialState, (builder) => {
       })
     );
   });
-  builder.addCase(GET_ITEMS_SUCCEEDED, (state, action) => {
+  builder.addCase(GET_ITEMS_SUCCEEDED, (state: any, action: any) => {
     const key = action.payload.type || 'unknown';
     state[key] = new ItemReducer(
       Object.assign({}, state[key] && state[key].data(), {
@@ -96,7 +91,7 @@ const itemReducer = createReducer(initialState, (builder) => {
     );
   });
 
-  builder.addCase(GET_SINGLE_ITEM, (state, action) => {
+  builder.addCase(GET_SINGLE_ITEM, (state: any, action: any) => {
     const key = action.payload.type || 'unknown';
     state[key] = new ItemReducer(
       Object.assign({}, state[key] && state[key].data(), {
@@ -105,7 +100,7 @@ const itemReducer = createReducer(initialState, (builder) => {
       })
     );
   });
-  builder.addCase(GET_SINGLE_ITEM_SUCCEEDED, (state, action) => {
+  builder.addCase(GET_SINGLE_ITEM_SUCCEEDED, (state: any, action: any) => {
     const key = action.payload.type || 'unknown';
     state[key] = new ItemReducer(
       Object.assign({}, state[key] && state[key].data(), {
@@ -116,32 +111,32 @@ const itemReducer = createReducer(initialState, (builder) => {
     );
   });
 
-  builder.addCase(POST_ITEM_SUCCEEDED, (state) => {
+  builder.addCase(POST_ITEM_SUCCEEDED, (state: any) => {
     state.status = 'POSTED';
   });
-  builder.addCase(POST_ITEM_FAILED, (state, action) => {
+  builder.addCase(POST_ITEM_FAILED, (state: any, action: any) => {
     state.error = action.payload.errorMessage;
     state.status = 'ERROR';
   });
 
-  builder.addCase(DELETE_ITEM_SUCCEEDED, (state) => {
+  builder.addCase(DELETE_ITEM_SUCCEEDED, (state: any) => {
     state.status = 'DELETED';
   });
-  builder.addCase(DELETE_ITEM_FAILED, (state, action) => {
+  builder.addCase(DELETE_ITEM_FAILED, (state: any, action: any) => {
     state.status = 'ERROR';
     state.error = action.payload.errorMessage;
   });
 
-  builder.addCase(PUT_ITEM_SUCCEEDED, (state) => {
+  builder.addCase(PUT_ITEM_SUCCEEDED, (state: any) => {
     state.status = 'UPDATED';
   });
-  builder.addCase(PUT_ITEM_FAILED, (state, action) => {
+  builder.addCase(PUT_ITEM_FAILED, (state: any, action: any) => {
     state.status = 'ERROR';
     state.error = action.payload.errorMessage;
   });
 
   //関連アイテム
-  builder.addCase(GET_RELATION, (state, action) => {
+  builder.addCase(GET_RELATION, (state: any, action: any) => {
     const key = action.payload.type || 'unknown';
     state[key] = new ItemReducer(
       Object.assign({}, state[key] && state[key].data(), {
@@ -150,7 +145,7 @@ const itemReducer = createReducer(initialState, (builder) => {
       })
     );
   });
-  builder.addCase(GET_RELATION_SUCCEEDED, (state, action) => {
+  builder.addCase(GET_RELATION_SUCCEEDED, (state: any, action: any) => {
     const key = action.payload.type || 'unknown';
     state[key] = new ItemReducer(
       Object.assign({}, state[key] && state[key].data(), {
@@ -160,24 +155,24 @@ const itemReducer = createReducer(initialState, (builder) => {
     );
   });
 
-  builder.addCase(POST_RELATION_SUCCEEDED, (state, action) => {
+  builder.addCase(POST_RELATION_SUCCEEDED, (state: any, action: any) => {
     state.status = 'POST_RELATION_SUCCEEDED';
   });
-  builder.addCase(POST_RELATION_FAILED, (state, action) => {
+  builder.addCase(POST_RELATION_FAILED, (state: any, action: any) => {
     state.status = 'ERROR';
     state.error = action.payload.errorMessage;
   });
 
-  builder.addCase(DELETE_RELATION_SUCCEEDED, (state, action) => {
+  builder.addCase(DELETE_RELATION_SUCCEEDED, (state: any, action: any) => {
     state.status = 'DELETE_RELATION_SUCCEEDED';
   });
-  builder.addCase(DELETE_RELATION_FAILED, (state, action) => {
+  builder.addCase(DELETE_RELATION_FAILED, (state: any, action: any) => {
     state.status = 'ERROR';
     state.error = action.payload.errorMessage;
   });
 
   //参照アイテム
-  builder.addCase(GET_REFERENCE, (state, action) => {
+  builder.addCase(GET_REFERENCE, (state: any, action: any) => {
     const key = action.payload.type || 'unknown';
     state[key] = new ItemReducer(
       Object.assign({}, state[key] && state[key].data(), {
@@ -186,7 +181,7 @@ const itemReducer = createReducer(initialState, (builder) => {
       })
     );
   });
-  builder.addCase(GET_REFERENCE_SUCCEEDED, (state, action) => {
+  builder.addCase(GET_REFERENCE_SUCCEEDED, (state: any, action: any) => {
     const key = action.payload.type || 'unknown';
     state[key] = new ItemReducer(
       Object.assign({}, state[key] && state[key].data(), {
@@ -197,18 +192,18 @@ const itemReducer = createReducer(initialState, (builder) => {
     //state[key].ReferenceItems = action.payload.Items.map(i => new Models[key](i))
   });
 
-  builder.addCase(POST_REFERENCE_SUCCEEDED, (state, action) => {
+  builder.addCase(POST_REFERENCE_SUCCEEDED, (state: any, action: any) => {
     state.status = 'POST_REFERENCE_SUCCEEDED';
   });
-  builder.addCase(POST_REFERENCE_FAILED, (state, action) => {
+  builder.addCase(POST_REFERENCE_FAILED, (state: any, action: any) => {
     state.status = 'ERROR';
     state.error = action.payload.errorMessage;
   });
 
-  builder.addCase(DELETE_REFERENCE_SUCCEEDED, (state, action) => {
+  builder.addCase(DELETE_REFERENCE_SUCCEEDED, (state: any, action: any) => {
     state.status = 'DELETE_REFERENCE_SUCCEEDED';
   });
-  builder.addCase(DELETE_REFERENCE_FAILED, (state, action) => {
+  builder.addCase(DELETE_REFERENCE_FAILED, (state: any, action: any) => {
     state.status = 'ERROR';
     state.error = action.payload.errorMessage;
   });

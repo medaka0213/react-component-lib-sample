@@ -37,25 +37,8 @@ import {
 } from '../actions/itemActions';
 import { ERROR } from '../actions/error';
 
-import { GetModel } from '../../models';
-
-function parse_items(items = []) {
-  let _res = {};
-  let _items = items || [];
-  _items.forEach((i) => {
-    const type = i.sk.replace('_item', '');
-
-    const Model = GetModel(type);
-    i = new Model(i);
-
-    if (type in _res) {
-      _res[type].push(i);
-    } else {
-      _res[type] = [i];
-    }
-  });
-  return _res;
-}
+import { ParseItem, ParseItemList } from '../../models';
+import { Config } from '../../models/config';
 
 interface ParamItem {
   key: string;
@@ -88,8 +71,7 @@ async function fetchGetConfig({ type }: Query) {
   if ('payload' in res) {
     res.payload.type = type;
   }
-  const Model = GetModel('config');
-  res.payload.Item = new Model(res.payload.Item);
+  res.payload.Item = new Config(res.payload.Item);
   return res;
 }
 
@@ -102,7 +84,6 @@ export function* getAllConfig(action: any) {
   yield put(GET_ALL_CONFIG_SUCCEEDED(payload));
 }
 async function fetchGetAllConfig() {
-  const Model = GetModel('config');
   const res = (await api.get('/config')) || {};
   if (!res.payload) {
     return {
@@ -112,7 +93,7 @@ async function fetchGetAllConfig() {
     };
   }
   for (let k of Object.keys(res.payload.Items)) {
-    res.payload.Items[k] = new Model(res.payload.Items[k]);
+    res.payload.Items[k] = new Config(res.payload.Items[k]);
   }
   return res;
 }
@@ -132,11 +113,7 @@ async function fetchGetItems({ type, params }: Query) {
   if ('payload' in res) {
     res.payload.type = type;
   }
-  const Model = GetModel(type);
-  let newItems: any = {};
-  console.log(res.payload);
-  newItems[type] = (res.payload.Items || []).map((i: any) => new Model(i));
-  res.payload.Items = newItems;
+  res.payload.Items = ParseItemList(res.payload.Items);
   return res;
 }
 
@@ -153,8 +130,7 @@ async function fetchGetSingleItem({ type, pk }: Query) {
   if ('payload' in res) {
     res.payload.type = type;
   }
-  const Model = GetModel(type);
-  res.payload.Item = new Model(res.payload.Item);
+  res.payload.Item = ParseItem(res.payload.Item);
   return res;
 }
 
@@ -174,7 +150,7 @@ export function* deleteItem(action: any) {
   }
 }
 async function fetchDeleteItem({ type, pk }: Query) {
-  const res = await api.del(`/q/${type}/i/${encodeURI(pk || '')}`);
+  const res = await api.del(`/q/${type}/i/${encodeURI(pk || '')}`, null);
   console.log(res);
   return Object.assign({}, res, {
     type,
@@ -202,7 +178,7 @@ async function fetchPostItem({
   relations,
   references,
 }: Submission) {
-  let res = await api.post(`/q/${type}/`, {
+  let res: any = await api.post(`/q/${type}/`, {
     submission,
   });
   const { pk } = res.payload.Item || {};
@@ -250,7 +226,7 @@ async function fetchPutItem({
   relations,
   references,
 }: Submission) {
-  let res = await api.put(`/q/${type}?overwrite=${overwrite || 'False'}`, {
+  let res: any = await api.put(`/q/${type}?overwrite=${overwrite || 'False'}`, {
     submission,
   });
   const { pk } = res.payload.Item || {};
@@ -289,7 +265,7 @@ async function fetchGetRelation({ type, pk }: Query) {
   if ('payload' in res) {
     res.payload.type = type;
   }
-  res.payload.Items = parse_items(res.payload.Items);
+  res.payload.Items = ParseItemList(res.payload.Items);
   return res;
 }
 
@@ -355,7 +331,7 @@ async function fetchGetReference({ type, pk }: Query) {
   if ('payload' in res) {
     res.payload.type = type;
   }
-  res.payload.Items = parse_items(res.payload.Items);
+  res.payload.Items = ParseItemList(res.payload.Items);
   return res;
 }
 

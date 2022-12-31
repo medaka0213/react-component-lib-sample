@@ -1,4 +1,9 @@
-function rest(URL: string, request: any) {
+type response = {
+  payload: any;
+  error: any;
+};
+
+function rest(URL: string, request: any): Promise<response> {
   const ret = fetch(URL, request)
     .then((res: any) => {
       if (!res.ok) {
@@ -7,11 +12,17 @@ function rest(URL: string, request: any) {
       return res.json();
     })
     .then((payload) => {
-      return { payload };
+      return {
+        payload,
+        error: null,
+      };
     })
     .catch((error) => {
       console.error(error);
-      return { error };
+      return {
+        error,
+        payload: null,
+      };
     });
   return ret;
 }

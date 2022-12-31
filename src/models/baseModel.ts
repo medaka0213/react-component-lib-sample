@@ -12,9 +12,9 @@ export type Fields<T> = UndefinedToOptional<
 >;
 
 export class BaseModel {
-  public readonly pk!: string;
-  public readonly sk!: string;
-  public readonly unique!: string;
+  public readonly pk: string = '';
+  public readonly sk: string = '';
+  public readonly unique: string = '';
 
   constructor(props: Fields<BaseModel>) {
     Object.assign(this, props);
