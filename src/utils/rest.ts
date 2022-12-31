@@ -1,32 +1,7 @@
-export function serverSideValidationError(res){
-  if(res.result){
-      return ""
-  }else{
-      let ErrorMessage = "Server-side Validation Error\n"
-      
-      Object.keys(res.errors || []).forEach( function(value){
-          ErrorMessage += "  " + value + " : " + this[value][0] +"\n"
-      },res.errors)
 
-      return ErrorMessage
-  }
-}
-
-function withErrorMessage(result){
-  console.log(result)
-  if (!result.result){
-      console.log("Server-side Validation Error")
-      console.log(serverSideValidationError(result))
-  }
-
-  return Object.assign({}, result, {
-    errorMessage: serverSideValidationError(result)
-  })
-}
-
-function rest(URL, request) {
+function rest(URL: string, request: any) {
   const ret = fetch(URL, request)
-    .then((res) => {
+    .then((res:any) => {
       if (!res.ok) {
         throw Error(res.status);
       }
@@ -42,7 +17,7 @@ function rest(URL, request) {
   return ret;
 }
 
-export function get(path) {
+export function get(path: string) {
   return rest(process.env.NEXT_PUBLIC_API_URL + path, {
     mode: 'cors',
     headers: {
@@ -51,7 +26,7 @@ export function get(path) {
   })
 }
 
-export function post(path, body) {
+export function post(path: string, body: any) {
   console.log("POST", JSON.stringify(body))
   return rest(process.env.NEXT_PUBLIC_API_URL + path, {
     method: "POST",
@@ -64,7 +39,7 @@ export function post(path, body) {
   })
 }
 
-export function put(path, body) {
+export function put(path: string, body: any) {
   console.log("PUT", JSON.stringify(body))
   return rest(process.env.NEXT_PUBLIC_API_URL + path, {
     method: "PUT",
@@ -77,7 +52,7 @@ export function put(path, body) {
   })
 }
 
-export function del(path, body) {
+export function del(path: string, body: any) {
   return rest(process.env.NEXT_PUBLIC_API_URL + path, {
     method: "DELETE",
     headers: {
