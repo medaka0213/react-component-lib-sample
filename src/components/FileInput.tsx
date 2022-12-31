@@ -3,6 +3,8 @@ import React, { VFC, useState, useRef } from "react";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import Box, {BoxProps} from "@mui/material/Box";
 import { SubmitButton } from "./SubmitButton";
+import { BaseModel } from "../models/baseModel";
+import { Event } from "../models/event";
 
 export type FileInputProps = BoxProps & {
   color: "primary" | "error" | "secondary" | "info" | "success" | "warning";
@@ -31,6 +33,19 @@ export const FileInput:VFC<FileInputProps> = ({
       inputRef.current.click()
     }
   };
+
+  console.log(new BaseModel({
+    pk: "base_XXXX",
+    sk: "base_item",
+  }).itemDetailPath())
+
+
+  console.log(new Event({
+    pk: "base_XXXX",
+    sk: "base_item",
+    attr: "aaa"
+  }))
+
 
   return (
     <Box>
