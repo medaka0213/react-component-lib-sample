@@ -17,4 +17,3 @@ const configureStore = () => {
 };
 
 export const store = configureStore;
-export const wrapper = createWrapper(configureStore);

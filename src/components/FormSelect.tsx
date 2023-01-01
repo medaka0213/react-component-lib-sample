@@ -1,7 +1,8 @@
-import React, { VFC } from "react";
-import { connect, FormikProps } from "formik";
+import React, { ReactNode, VFC } from "react";
 
-import { Select, InputLabel, MenuItem, FormControl, FormHelperText, BoxProps } from "@mui/material";
+import { Select, InputLabel, MenuItem, FormControl, FormHelperText } from "@mui/material";
+
+import { FormProps } from "./types";
 
 export type SelectItem = {
   label?: string
@@ -9,14 +10,8 @@ export type SelectItem = {
   divider?: boolean
 }
 
-export type FormSelectProps = BoxProps & {
-  color: "primary" | "error" | "secondary" | "info" | "success" | "warning";
-  name: string;
-  title: string;
+export type FormSelectProps =  FormProps & {
   variant: "outlined" | "filled" | "standard"
-  onChange: any;
-  disabled: boolean;
-  formik: any;
   selectItems: SelectItem[]
 }
 
@@ -26,7 +21,7 @@ export const FormSelect: VFC<FormSelectProps> = ({
   name,
   title = "",
   selectItems = [],
-  formik: { values={}, errors={}, handleChange, handleBlur },
+  formik: { values={}, errors={}, handleChange },
 }) => {
   console.log(selectItems);
   return (
@@ -37,8 +32,7 @@ export const FormSelect: VFC<FormSelectProps> = ({
         id={name}
         value={values[name]}
         label={title || name}
-        onChange={handleChange}
-        onBlur={handleBlur}
+        onChange={async (e:any, child: ReactNode)=> await handleChange(e)}
         name={name}
       >
         {selectItems.map((item, index) => (

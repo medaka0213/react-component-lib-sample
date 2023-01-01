@@ -1,7 +1,6 @@
-import React, { VFC, useState } from "react";
-import { connect, FormikProps } from "formik";
+import React, { VFC, useState } from "react"
 
-import { FilledInput, BoxProps } from "@mui/material";
+import { FilledInput } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
@@ -10,17 +9,12 @@ import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 
-export type FormInputProps = BoxProps & {
-  color?: "primary" | "error" | "secondary" | "info" | "success" | "warning";
-  name: string;
-  title?: string
+import { FormProps } from "./types";
+
+export type FormInputProps = FormProps & {
   type?: "text" | "textarea" | "datetime" | "datetime-local" | "number"
-  onChange?: any;
-  disabled?: boolean;
   rows?: string | number
-  placeholder?: string
   copyBytton?: boolean
-  formik: any
 }
 
 export const FormInput:VFC<FormInputProps> = ({
@@ -34,7 +28,7 @@ export const FormInput:VFC<FormInputProps> = ({
   disabled = false,
   copyBytton = false,
   children,
-  formik: { values={}, errors={}, handleChange, handleBlur },
+  formik: { values={}, errors={}, handleChange },
 }) => {
   const [openTip, setOpenTip] = useState(false);
   const handleClickButton = () => {
@@ -50,12 +44,11 @@ export const FormInput:VFC<FormInputProps> = ({
         disabled={disabled}
         type={type}
         name={name}
-        onChange={async (e) => {
+        onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
           if (handleChange) await handleChange(e);
           if (onChange) await onChange(e);
           setOpenTip(false);
         }}
-        onBlur={handleBlur}
         value={values[name] || ""}
         defaultValue={values[name] || ""}
         rows={rows}

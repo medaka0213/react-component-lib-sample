@@ -1,16 +1,14 @@
 import React, { VFC } from "react";
 import { Grid, Box, BoxProps } from "@mui/material";
 import { SubmitButton } from "./SubmitButton";
-import { FormikProps, FormikErrors, FormikValues } from "formik";
 
-export type FormGridProps = BoxProps & {
-  color: "primary" | "error" | "secondary" | "info" | "success" | "warning";
+import { FormProps } from "./types";
+
+export type FormGridProps = FormProps & {
   childrenSx: any
   childrenList: any[][]
   buttonLabel: string
-  disabled: boolean
   buttonPosition: "top" | "bottom"
-  formik: any
 }
 
 export const FormGrid:VFC<FormGridProps> = ({
@@ -22,13 +20,13 @@ export const FormGrid:VFC<FormGridProps> = ({
   buttonLabel = "Submit",
   disabled = false,
   buttonPosition = "bottom",
-  formik: { handleSubmit, errors = {}, ...formik } = {},
+  formik: { handleSubmit, errors = {}, values={}, ...formik } = {},
 }) => {
   const Button = () => (
     <SubmitButton
       color={color}
       disabled={disabled || !errors}
-      onClick={handleSubmit}
+      onClick={async ()=>handleSubmit && await handleSubmit(values)}
       variant="contained"
     >
       {buttonLabel}

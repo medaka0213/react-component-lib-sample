@@ -1,13 +1,8 @@
 import React, { VFC, useState } from "react";
-import Button from "@mui/material/Button";
+import Button, { ButtonProps } from "@mui/material/Button";
 
-export type SubmitButtonProps = {
-  color?: "primary" | "error" | "secondary" | "info" | "success" | "warning";
-  children?: any
-  onClick?: any
-  variant: "contained" | "outlined"
-  sx?: any
-  disabled?: boolean
+export type SubmitButtonProps = ButtonProps & {
+  onClick?: ()=>Promise<any>
 }
 
 export const SubmitButton: VFC<SubmitButtonProps> = ({
@@ -20,9 +15,9 @@ export const SubmitButton: VFC<SubmitButtonProps> = ({
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const _onClick = async () => {
+  const _onClick = async (e:any) => {
     setIsSubmitting(true);
-    if (onClick) await onClick();
+    if (onClick) await onClick(e);
     setIsSubmitting(false);
   };
 

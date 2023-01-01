@@ -14,4 +14,4 @@ export {
   DELETE_REFERENCE,
 } from './actions/itemActions';
 
-export { store, wrapper } from './store';
+export { store } from './store';

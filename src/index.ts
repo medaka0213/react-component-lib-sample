@@ -6,4 +6,4 @@ export { FormSelect } from './components/FormSelect';
 export { SubmitButton } from './components/SubmitButton';
 
 //redux関連
-export { wrapper } from './redux/store';
+export { store } from './redux/store';
