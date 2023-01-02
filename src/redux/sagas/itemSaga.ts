@@ -37,7 +37,7 @@ import {
 } from '../actions/itemActions';
 import { ERROR } from '../actions/error';
 
-import { ParseItem, ParseItemList } from '../../models';
+import { ParseItem, ParseItemList, ParseItemByTypes } from '../../models';
 import { Config } from '../../models/config';
 
 interface ParamItem {
@@ -113,7 +113,9 @@ async function fetchGetItems({ type, params }: Query) {
   if ('payload' in res) {
     res.payload.type = type;
   }
-  res.payload.Items = ParseItemList(res.payload.Items);
+  const Items = ParseItemList(res.payload.Items);
+  res.payload.Items = {};
+  res.payload.Items[type] = Items;
   return res;
 }
 
@@ -265,7 +267,7 @@ async function fetchGetRelation({ type, pk }: Query) {
   if ('payload' in res) {
     res.payload.type = type;
   }
-  res.payload.Items = ParseItemList(res.payload.Items);
+  res.payload.Items = ParseItemByTypes(res.payload.Items);
   return res;
 }
 
@@ -331,7 +333,7 @@ async function fetchGetReference({ type, pk }: Query) {
   if ('payload' in res) {
     res.payload.type = type;
   }
-  res.payload.Items = ParseItemList(res.payload.Items);
+  res.payload.Items = ParseItemByTypes(res.payload.Items);
   return res;
 }
 

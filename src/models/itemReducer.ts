@@ -30,4 +30,17 @@ export class ItemReducer {
     let res = this.getRefList(key);
     return res.length ? res[0] : null;
   }
+  data() {
+    return {
+      Item: this.Item,
+      Items: this.Items,
+      config: this.config,
+      isConfigReceived: this.isConfigReceived,
+      isReceived: this.isReceived,
+      isReferenceReceived: this.isReferenceReceived,
+      isRelationReceived: this.isRelationReceived,
+      referenceItems: this.referenceItems,
+      relationItems: this.relationItems,
+    };
+  }
 }
