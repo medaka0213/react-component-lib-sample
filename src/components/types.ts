@@ -11,7 +11,7 @@ export type Color =
 export type Formik = {
   values: any;
   errors: any;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => Promise<any>;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (v: any) => Promise<any>;
 };
 
@@ -23,9 +23,9 @@ export type CommonProps = {
 export type FormProps = CommonProps & {
   color?: Color;
   title?: string;
-  name: string;
+  name?: string;
   onChange?: any;
   disabled?: boolean;
-  formik: any;
+  formik: Formik;
   placeholder?: string;
 };

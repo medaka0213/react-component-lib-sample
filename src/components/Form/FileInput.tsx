@@ -1,31 +1,31 @@
-import React, { VFC, useState, useRef } from "react";
+import React, { VFC, useState, useRef } from 'react';
 
-import UploadFileIcon from "@mui/icons-material/UploadFile";
-import Box from "@mui/material/Box";
-import { SubmitButton } from "./SubmitButton";
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import Box from '@mui/material/Box';
+import { SubmitButton } from './SubmitButton';
 
-import { FormProps, Color } from "./types";
+import { FormProps, Color } from '../types';
 
 export type FileInputProps = FormProps & {
   color: Color;
-}
+};
 
-export const FileInput:VFC<FileInputProps> = ({
-  color = "primary",
+export const FileInput: VFC<FileInputProps> = ({
+  color = 'primary',
   title,
-  name = "",
+  name = '',
   onChange,
   disabled = false,
   children,
-  formik: { values, handleChange, handleBlur },
+  formik: { values, handleChange },
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [file, setFile] = useState<string>("");
+  const [file, setFile] = useState<string>('');
 
   const clickFileUploadButton = async () => {
-    if(inputRef.current){
-      inputRef.current.click()
+    if (inputRef.current) {
+      inputRef.current.click();
     }
   };
 
@@ -37,11 +37,11 @@ export const FileInput:VFC<FileInputProps> = ({
         onClick={clickFileUploadButton}
         variant="outlined"
         sx={{
-          textTransform: "none",
+          textTransform: 'none',
         }}
       >
         <UploadFileIcon />
-        {file ? `選択中: ${file}` : title || "ファイルを選択"}
+        {file ? `選択中: ${file}` : title || 'ファイルを選択'}
       </SubmitButton>
       <input
         onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +54,6 @@ export const FileInput:VFC<FileInputProps> = ({
         id={name}
         disabled={disabled}
         name={name}
-        onBlur={handleBlur}
         value={values[name]}
         hidden
         ref={inputRef as React.RefObject<HTMLInputElement>}

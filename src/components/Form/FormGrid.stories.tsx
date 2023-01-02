@@ -1,23 +1,27 @@
-import React from "react";
+import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { FormGrid } from "./FormGrid";
-import { FormInput } from "./FormInput";
+import { FormGrid } from './FormGrid';
+import { FormInput } from './FormInput';
 
 const formik = {
   values: {},
   errors: {
-    sample: "error",
+    sample: 'error',
   },
   touched: {},
+  handleChange: async (e: any) => {},
+  handleSubmit: async (e: any) => {},
 };
 
 export default {
   component: FormGrid,
-  title: "FormGrid",
+  title: 'FormGrid',
 };
 
-const Template: ComponentStory<typeof FormGrid> = (args) => <FormGrid {...args} />;
+const Template: ComponentStory<typeof FormGrid> = (args) => (
+  <FormGrid {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {
@@ -37,8 +41,8 @@ export const CustomButton = Template.bind({});
 CustomButton.args = {
   sx: {},
   disabled: false,
-  buttonPosition: "top",
-  buttonLabel: "Custom Label",
+  buttonPosition: 'top',
+  buttonLabel: 'Custom Label',
   childrenList: [
     [
       <FormInput name="sample1" formik={formik} />,

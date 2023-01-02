@@ -1,9 +1,11 @@
-export { TextProps, Text } from './components';
-export { FileInput } from './components/FileInput';
-export { FormGrid } from './components/FormGrid';
-export { FormInput } from './components/FormInput';
-export { FormSelect } from './components/FormSelect';
-export { SubmitButton } from './components/SubmitButton';
+export { FileInput } from './components/Form/FileInput';
+export { FormGrid } from './components/Form/FormGrid';
+export { FormInput } from './components/Form/FormInput';
+export { FormSelect } from './components/Form/FormSelect';
+export { SubmitButton } from './components/Form/SubmitButton';
+
+export { Copy } from './components/Copy';
+export { Link } from './components/Link';
 
 //redux関連
 export { store } from './redux/store';

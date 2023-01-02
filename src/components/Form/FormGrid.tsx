@@ -1,33 +1,32 @@
-import React, { VFC } from "react";
-import { Grid, Box, BoxProps } from "@mui/material";
-import { SubmitButton } from "./SubmitButton";
+import React, { VFC } from 'react';
+import { Grid, Box, BoxProps } from '@mui/material';
+import { SubmitButton } from './SubmitButton';
 
-import { FormProps, Color } from "./types";
+import { FormProps, Color } from '../types';
 
 export type FormGridProps = FormProps & {
-  color: Color;
-  childrenSx: any
-  childrenList: any[][]
-  buttonLabel: string
-  buttonPosition: "top" | "bottom"
-}
+  childrenSx?: any;
+  childrenList: any[][];
+  buttonLabel?: string;
+  buttonPosition?: 'top' | 'bottom';
+};
 
-export const FormGrid:VFC<FormGridProps> = ({
-  color="primary",
+export const FormGrid: VFC<FormGridProps> = ({
+  color = 'primary',
   sx,
   childrenList = [[]],
   childrenSx,
   children,
-  buttonLabel = "Submit",
+  buttonLabel = 'Submit',
   disabled = false,
-  buttonPosition = "bottom",
-  formik: { handleSubmit, errors = {}, values={}, ...formik } = {},
+  buttonPosition = 'bottom',
+  formik: { handleSubmit, errors = {}, values = {}, ...formik } = {},
 }) => {
   const Button = () => (
     <SubmitButton
       color={color}
       disabled={disabled || !errors}
-      onClick={async ()=>handleSubmit && await handleSubmit(values)}
+      onClick={async () => handleSubmit && (await handleSubmit(values))}
       variant="contained"
     >
       {buttonLabel}
@@ -35,7 +34,7 @@ export const FormGrid:VFC<FormGridProps> = ({
   );
 
   let _childrenList = childrenList;
-  if (buttonPosition === "bottom") {
+  if (buttonPosition === 'bottom') {
     _childrenList = _childrenList.concat([[<Button />]]);
   } else {
     _childrenList = [[<Button />]].concat(_childrenList);
@@ -44,18 +43,18 @@ export const FormGrid:VFC<FormGridProps> = ({
   return (
     <Box
       sx={{
-        width: "100%",
+        width: '100%',
         my: 2,
         ...sx,
       }}
     >
       <Grid container>
-        {buttonPosition === "top" &&
+        {buttonPosition === 'top' &&
           Object.keys(errors).map((k) => (
             <Box
               sx={{
-                width: "100%",
-                color: "error.main",
+                width: '100%',
+                color: 'error.main',
               }}
             >
               入力検証エラー: {errors[k]}
@@ -78,13 +77,13 @@ export const FormGrid:VFC<FormGridProps> = ({
             ))}
           </>
         ))}
-        <Box sx={{ width: "100%" }}>{children}</Box>
-        {buttonPosition === "bottom" &&
+        <Box sx={{ width: '100%' }}>{children}</Box>
+        {buttonPosition === 'bottom' &&
           Object.keys(errors).map((k) => (
             <Box
               sx={{
-                width: "100%",
-                color: "error.main",
+                width: '100%',
+                color: 'error.main',
               }}
             >
               入力検証エラー: {errors[k]}
