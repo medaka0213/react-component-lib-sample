@@ -17,7 +17,7 @@ export type Formik = {
 
 export type CommonProps = {
   sx?: any;
-  children: ReactNode;
+  children?: ReactNode;
 };
 
 export type FormProps = CommonProps & {
@@ -26,6 +26,6 @@ export type FormProps = CommonProps & {
   name: string;
   onChange?: any;
   disabled?: boolean;
-  formik: Formik;
+  formik: any;
   placeholder?: string;
 };

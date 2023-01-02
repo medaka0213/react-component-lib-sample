@@ -2,9 +2,10 @@ import React, { VFC } from "react";
 import { Grid, Box, BoxProps } from "@mui/material";
 import { SubmitButton } from "./SubmitButton";
 
-import { FormProps } from "./types";
+import { FormProps, Color } from "./types";
 
 export type FormGridProps = FormProps & {
+  color: Color;
   childrenSx: any
   childrenList: any[][]
   buttonLabel: string
@@ -12,7 +13,7 @@ export type FormGridProps = FormProps & {
 }
 
 export const FormGrid:VFC<FormGridProps> = ({
-  color,
+  color="primary",
   sx,
   childrenList = [[]],
   childrenSx,

@@ -2,6 +2,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
 import dts from 'rollup-plugin-dts';
 import nodeResolve from 'rollup-plugin-node-resolve';
+import json from '@rollup/plugin-json';
 
 const pkg = require('./package.json');
 
@@ -29,6 +30,7 @@ export default [
         exclude: ['**/__tests__/**'],
       }),
       nodeResolve(),
+      json(),
     ],
     external: ['react', 'react-dom', '@emotion/styled', '@emotion/react'],
   },

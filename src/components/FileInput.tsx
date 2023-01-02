@@ -1,16 +1,13 @@
 import React, { VFC, useState, useRef } from "react";
 
 import UploadFileIcon from "@mui/icons-material/UploadFile";
-import Box, {BoxProps} from "@mui/material/Box";
+import Box from "@mui/material/Box";
 import { SubmitButton } from "./SubmitButton";
 
-export type FileInputProps = BoxProps & {
-  color: "primary" | "error" | "secondary" | "info" | "success" | "warning";
-  title?:string;
-  name: string;
-  onChange: any;
-  disabled: boolean;
-  formik: any
+import { FormProps, Color } from "./types";
+
+export type FileInputProps = FormProps & {
+  color: Color;
 }
 
 export const FileInput:VFC<FileInputProps> = ({
