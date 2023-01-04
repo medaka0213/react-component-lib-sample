@@ -44,7 +44,7 @@ export const SearchModeList: SearchMode[] = [
   },
   {
     label: '範囲',
-    value: 'BEGINS',
+    value: 'BETWEEN',
     nValues: 2,
     toParam: (value0: any, value1?: any) => `${value0}...${value1}`,
   },
@@ -73,6 +73,20 @@ export const SearchModeList: SearchMode[] = [
     nValues: 0,
   },
 ];
+
+export const GetSearchMode = (value: string): SearchMode => {
+  // valueがラベルか値か判定して、SearchModeを返す
+  let res = SearchModeList.filter((mode) => mode.value === value);
+  if (res.length > 0) {
+    return res[0];
+  } else {
+    res = SearchModeList.filter((mode) => mode.label === value);
+    if (res.length > 0) {
+      return res[0];
+    }
+  }
+  return SearchModeList.filter((mode) => mode.value === 'EQ')[0];
+};
 
 export const ParamToSeachMode = (param: string): SearchMode => {
   if (param.startsWith('"') && param.endsWith('"')) {

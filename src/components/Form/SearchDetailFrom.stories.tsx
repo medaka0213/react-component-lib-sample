@@ -21,6 +21,4 @@ const Template: ComponentStory<typeof SeachDetailFrom> = (args) => (
 );
 
 export const Default = Template.bind({});
-Default.args = {
-  keys: [],
-};
+Default.args = {};

@@ -1,25 +1,27 @@
-import React from "react";
+import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { FormInput } from "./FormInput";
+import { FormInput, FormInputProps } from './FormInput';
 
 export default {
   component: FormInput,
-  title: "FormInput",
+  title: 'FormInput',
 };
 
-const Template: ComponentStory<typeof FormInput> = (args) => <FormInput {...args} />;
+const Template: ComponentStory<typeof FormInput> = (args) => (
+  <FormInput {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {
-  name: "sample",
-  title: "title",
+  name: 'sample',
+  title: 'title',
   formik: {
     values: {
-      sample: "value",
+      sample: 'value',
     },
     errors: {
-      sample: "error",
+      sample: 'error',
     },
     touched: {},
   },
@@ -28,13 +30,13 @@ Default.args = {
 export const NoTiltle = Template.bind({});
 NoTiltle.args = {
   ...Default.args,
-  title: "",
+  title: '',
 };
 
 export const ChangeColor = Template.bind({});
 ChangeColor.args = {
   ...Default.args,
-  color: "secondary",
+  color: 'secondary',
 };
 
 export const CopyText = Template.bind({});
@@ -46,12 +48,12 @@ CopyText.args = {
 export const Multiline = Template.bind({});
 Multiline.args = {
   ...Default.args,
-  type: "textarea",
+  type: 'textarea',
   rows: 10,
   formik: {
     ...Default.args.formik,
     values: {
-      sample: "line1\nline2\n\nline3",
+      sample: 'line1\nline2\n\nline3',
     },
   },
 };

@@ -38,7 +38,7 @@ export const FormSelect: VFC<FormSelectProps> = ({
         labelId={name + '-label'}
         id={name}
         value={values[name]}
-        label={title || name}
+        label={title ? `${title} (${name})` : name}
         onChange={async (e: any, child: ReactNode) => await handleChange(e)}
         name={name}
       >
