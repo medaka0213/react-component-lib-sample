@@ -13,6 +13,7 @@ export type Formik = {
   errors: any;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (v: any) => Promise<any>;
+  setFieldValue: (field: string, value: any) => void;
 };
 
 export type CommonProps = {
