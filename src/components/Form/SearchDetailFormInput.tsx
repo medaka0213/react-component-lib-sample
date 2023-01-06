@@ -1,5 +1,5 @@
 import React, { VFC, useState } from 'react';
-import { Formik, useFormik } from 'formik';
+import { Formik, useFormik, useField } from 'formik';
 
 import { Button, ButtonProps, Box, BoxProps, Grid } from '@mui/material';
 
@@ -15,7 +15,7 @@ import {
   GetSearchMode,
 } from '../../utils/query';
 
-export type KeyItem = {
+export type SearchItems = {
   label?: string;
   value: any;
   divider?: boolean;
@@ -23,25 +23,38 @@ export type KeyItem = {
   enabled?: boolean;
 };
 
-export type SearchDetailFromInputProps = BoxProps & {
-  keys?: KeyItem[];
-  formik: FormikProps;
+export type KeyItem = {
+  key: string;
+  value0: string | number;
+  value1: string | number;
+  enabled: false;
 };
 
-export const SearchDetailFromInput: VFC<SearchDetailFromInputProps> = ({
+export type SearchDetailFormInputProps = BoxProps & {
+  name: string;
+  keys: SearchItems[];
+  formik: FormikProps;
+  onSubmit?: (values: any) => void;
+};
+
+export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
   keys = [
     {
       label: 'ミッション名',
       value: 'name',
-      enabled: false,
     },
   ],
+  name = '',
   sx,
+  onSubmit,
+  formik,
   ...props
 }) => {
+  console.log(name, keys);
+
+  const [field, meta, helpers] = useField(name);
   const render = (_formik: any) => {
     const mode: SearchMode = GetSearchMode(_formik.values.mode);
-    console.log('mode', mode);
     const v1enabled = mode.nValues >= 1;
     const v2enabled = mode.nValues >= 2;
     return (
@@ -130,10 +143,8 @@ export const SearchDetailFromInput: VFC<SearchDetailFromInputProps> = ({
               variant="outlined"
               color="primary"
               onClick={() => {
-                if (_formik.values.key && _formik.values.mode) {
-                  _formik.setFieldValue('enabled', true);
-                  _formik.handleSubmit(_formik.values);
-                }
+                console.log('values', _formik.values);
+                _formik.handleSubmit(_formik.values);
               }}
               sx={{
                 width: '100%',
@@ -151,21 +162,23 @@ export const SearchDetailFromInput: VFC<SearchDetailFromInputProps> = ({
   return (
     <Box {...props}>
       <Formik
-        initialValues={{
-          key: '',
-          value0: '',
-          value1: '',
-          enabled: false,
-        }}
-        onSubmit={async (values, { setSubmitting }) => {
-          setSubmitting(false);
-        }}
-        onChange={async (values: any) => {
+        initialValues={
+          field.value ||
+          (keys.length && {
+            key: keys[0].value,
+            mode: SearchModeList[0].value,
+            enabled: false,
+          })
+        }
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
           console.log('values', values);
+          setSubmitting(false);
+          onSubmit &&
+            (await onSubmit(Object.assign(values, { enabled: true })));
+          resetForm();
         }}
-      >
-        {(formik) => render(formik)}
-      </Formik>
+        render={render}
+      />
     </Box>
   );
 };

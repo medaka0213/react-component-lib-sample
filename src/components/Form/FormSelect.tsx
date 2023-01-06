@@ -30,7 +30,6 @@ export const FormSelect: VFC<FormSelectProps> = ({
   selectItems = [],
   formik: { values = {}, errors = {}, handleChange },
 }) => {
-  console.log(selectItems);
   return (
     <FormControl fullWidth variant={variant} color={color}>
       <InputLabel id={name + '-label'}>{title}</InputLabel>
