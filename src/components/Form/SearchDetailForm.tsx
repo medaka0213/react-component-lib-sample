@@ -55,20 +55,23 @@ export const SearchDetailForm: VFC<SearchDetailFromProps> = ({
   ...props
 }) => {
   const render = (formik: any) => {
-    // q.key === k.value が true になるものを除外する
-    const restKeys: any[] = keys.filter((k: any) => {
-      return (
-        formik.values.queries.filter((q: any) => {
-          return q.key === k.value;
-        }).length === 0
-      );
-    });
+    const restKeys: SearchItems[] = (query: any = null) =>
+      keys.filter((k: SearchItems) => {
+        return (
+          formik.values.queries.filter((q: any) => {
+            if (query && q.key === query.key) {
+              return false;
+            }
+            return q.key === k.value;
+          }).length === 0
+        );
+      });
     return (
       <>
         {formik.values.queries.map((q: any, i: number) => {
           return (
             <SearchDetailFormInput
-              keys={[q, ...restKeys]}
+              keys={restKeys(q)}
               name={'queries[' + i + ']'}
               formik={formik}
               sx={{ mb: 1 }}
@@ -76,20 +79,22 @@ export const SearchDetailForm: VFC<SearchDetailFromProps> = ({
           );
         })}
         <Box sx={{ mb: 1, borderBottom: '1px solid #ccc' }} />
-        <SearchDetailFormInput
-          keys={restKeys}
-          name="new_queriy"
-          onSubmit={(v: any) => {
-            console.log('v', v);
-            console.log('formik', formik);
-            formik.setFieldValue(
-              'queries[' + formik.values.queries.length + ']',
-              v
-            );
-          }}
-          formik={formik}
-          sx={{ mb: 1 }}
-        />
+        {restKeys() && (
+          <SearchDetailFormInput
+            keys={restKeys()}
+            name="new_queriy"
+            onSubmit={(v: any) => {
+              console.log('v', v);
+              console.log('formik', formik);
+              formik.setFieldValue(
+                'queries[' + formik.values.queries.length + ']',
+                v
+              );
+            }}
+            formik={formik}
+            sx={{ mb: 1 }}
+          />
+        )}
       </>
     );
   };

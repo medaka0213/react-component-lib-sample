@@ -72,6 +72,7 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
             name="key"
             title="Key"
             selectItems={keys}
+            disabled={_formik.values.enabled}
           />
         </Grid>
         <Grid

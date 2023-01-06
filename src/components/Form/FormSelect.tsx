@@ -28,6 +28,7 @@ export const FormSelect: VFC<FormSelectProps> = ({
   name,
   title = '',
   selectItems = [],
+  disabled = false,
   formik: { values = {}, errors = {}, handleChange },
 }) => {
   return (
@@ -40,6 +41,7 @@ export const FormSelect: VFC<FormSelectProps> = ({
         label={title ? `${title} (${name})` : name}
         onChange={async (e: any, child: ReactNode) => await handleChange(e)}
         name={name}
+        disabled={disabled}
       >
         {selectItems.map((item, index) => (
           <MenuItem key={index} value={item.value} divider={item.divider}>
