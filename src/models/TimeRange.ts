@@ -18,9 +18,9 @@ export enum DatetimeSearchMode {
 }
 
 export class TimeRange {
-  public readonly start: string;
-  public readonly end: string;
-  public readonly mode: DatetimeSearchMode;
+  public readonly start!: string;
+  public readonly end!: string;
+  public readonly mode!: string;
 
   constructor(props: Fields<TimeRange>) {
     Object.assign(this, {
@@ -179,6 +179,15 @@ export class TimeRange {
     }
   }
 
+  toString = (): string => {
+    if (this.mode === DatetimeSearchMode.CUSTOM_AFTER) {
+      return `${this.start}...`;
+    } else if (this.mode === DatetimeSearchMode.CUSTOM_BEFORE) {
+      return `...${this.end}`;
+    }
+    return `${this.start}...${this.end}`;
+  };
+
   // 前の範囲
   prev(): TimeRange {
     switch (this.mode) {
@@ -222,7 +231,7 @@ export class TimeRange {
   }
 
   now(): TimeRange {
-    return TimeRange.fromMode(new Date(), this.mode, new Date());
+    return TimeRange.fromMode(new Date(), String(this.mode), new Date());
   }
 }
 
@@ -251,59 +260,66 @@ const parseMode = (start: string, end: string): DatetimeSearchMode => {
   return DatetimeSearchMode.CUSTOM_BETWEEN;
 };
 
+const toParam = ({ value0, value1, mode }: QueryItem) =>
+  new TimeRange({
+    start: String(value0),
+    end: String(value1),
+    mode,
+  }).toString();
+
 export const DatetimeSearchModeListDatetime: SearchMode[] = [
   {
     label: 'を含む週 (定期集会用 月曜21時締め)',
     value: 'TEIKI_WEEK',
     nValues: 1,
-    toParam: ({ value0, value1 }) => `${value0}*`,
+    toParam,
   },
   {
     label: 'を含む週 (月曜0時締め)',
     value: 'WEEK_TEIKI',
     nValues: 1,
-    toParam: ({ value0, value1 }) => `${value0}*`,
+    toParam,
   },
   {
     label: 'を含む月',
     value: 'MONTHL',
     nValues: 1,
-    toParam: ({ value0, value1 }) => `${value0}*`,
+    toParam,
   },
   {
     label: 'を含む四半期',
     value: 'QUARTER',
     nValues: 1,
-    toParam: ({ value0, value1 }) => `${value0}*`,
+    toParam,
   },
   {
     label: 'を含む年',
     value: 'YEAR',
     nValues: 1,
-    toParam: ({ value0, value1 }) => `${value0}*`,
+    toParam,
   },
   {
     label: '以前',
     value: 'LT_E',
     nValues: 1,
-    toParam: ({ value0, value1 }) => `...${value0}`,
+    toParam,
   },
   {
     label: '以後',
     value: 'GT_E',
     nValues: 1,
-    toParam: ({ value0, value1 }) => `${value0}...`,
+    toParam,
   },
   {
     label: '範囲指定',
     value: 'BETWEEN',
     nValues: 2,
-    toParam: ({ value0, value1 }) => `${value0}...${value1}`,
+    toParam,
   },
   {
     label: '値が保存されている',
     value: 'EX',
-    toParam: ({ value0, value1 }) => `*`,
     nValues: 0,
+    toParam,
   },
 ];
