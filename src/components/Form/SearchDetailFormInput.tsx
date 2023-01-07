@@ -1,21 +1,27 @@
 import React, { VFC, useState } from 'react';
 import { Formik, useFormik, useField } from 'formik';
 
+import * as Yup from 'yup';
+import { requiredString } from '../../utils/schema';
+
+import AddIcon from '@mui/icons-material/Add';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+
 import { Button, ButtonProps, Box, BoxProps, Grid } from '@mui/material';
 
 import { FormInput } from './FormInput';
 import { FormSelect } from './FormSelect';
-
 import { Formik as FormikProps } from '../types';
 
 import {
+  QueryItem,
   SearchMode,
   SearchModeList,
-  ParamToSeachMode,
+  ParamToSearchMode,
   GetSearchMode,
 } from '../../utils/query';
 
-export type SearchItems = {
+export type SearchItem = {
   label?: string;
   value: any;
   divider?: boolean;
@@ -23,18 +29,12 @@ export type SearchItems = {
   enabled?: boolean;
 };
 
-export type KeyItem = {
-  key: string;
-  value0: string | number;
-  value1: string | number;
-  enabled: false;
-};
-
 export type SearchDetailFormInputProps = BoxProps & {
   name: string;
-  keys: SearchItems[];
+  keys: SearchItem[];
   formik: FormikProps;
   onSubmit?: (values: any) => void;
+  onDelete?: (values: any) => void;
 };
 
 export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
@@ -47,11 +47,11 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
   name = '',
   sx,
   onSubmit,
+  onDelete,
+  onChange,
   formik,
   ...props
 }) => {
-  console.log(name, keys);
-
   const [field, meta, helpers] = useField(name);
   const render = (_formik: any) => {
     const mode: SearchMode = GetSearchMode(_formik.values.mode);
@@ -64,7 +64,7 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
           xs={v1enabled ? 6 : 5}
           md={v1enabled ? 2 : 5}
           sx={{
-            pl: 1,
+            pl: 0.25,
           }}
         >
           <FormSelect
@@ -80,7 +80,7 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
           xs={v1enabled ? 6 : 5}
           md={v1enabled ? 2 : 5}
           sx={{
-            pl: 1,
+            pl: 0.25,
           }}
         >
           <FormSelect
@@ -91,6 +91,13 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
               label: v.label,
               value: v.value,
             }))}
+            onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
+              onChange &&
+                (await onChange({
+                  ..._formik.values,
+                  mode: e.target.value,
+                }));
+            }}
           />
         </Grid>
         {v1enabled && (
@@ -99,10 +106,21 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
             xs={v2enabled ? 12 : 10}
             md={v2enabled ? 3 : 6}
             sx={{
-              pl: 1,
+              pl: 0.25,
             }}
           >
-            <FormInput formik={_formik} name="value0" title="Value" />
+            <FormInput
+              formik={_formik}
+              name="value0"
+              title="Value"
+              onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
+                onChange &&
+                  (await onChange({
+                    ..._formik.values,
+                    value0: e.target.value,
+                  }));
+              }}
+            />
           </Grid>
         )}
         {v2enabled && (
@@ -111,17 +129,28 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
             xs={v2enabled ? 10 : 12}
             md={v2enabled ? 3 : 6}
             sx={{
-              pl: 1,
+              pl: 0.25,
             }}
           >
-            <FormInput formik={_formik} name="value1" title="Value (上限)" />
+            <FormInput
+              formik={_formik}
+              name="value1"
+              title="Value (上限)"
+              onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
+                onChange &&
+                  (await onChange({
+                    ..._formik.values,
+                    value1: e.target.value,
+                  }));
+              }}
+            />
           </Grid>
         )}
         <Grid
           item
           xs={2}
           sx={{
-            pl: 1,
+            pl: 0.25,
             pb: 0.25,
           }}
         >
@@ -129,14 +158,15 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
             <Button
               variant="outlined"
               color="error"
-              onClick={() => {
-                _formik.setFieldValue('enabled', false);
+              onClick={async () => {
+                onDelete && (await onDelete(_formik.values));
               }}
               sx={{
                 width: '100%',
                 height: '100%',
               }}
             >
+              <DeleteOutlineIcon />
               削除
             </Button>
           ) : (
@@ -144,7 +174,6 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
               variant="outlined"
               color="primary"
               onClick={() => {
-                console.log('values', _formik.values);
                 _formik.handleSubmit(_formik.values);
               }}
               sx={{
@@ -152,6 +181,7 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
                 height: '100%',
               }}
             >
+              <AddIcon />
               追加
             </Button>
           )}
@@ -171,12 +201,35 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
             enabled: false,
           })
         }
+        validationSchema={Yup.object().shape({
+          key: requiredString('検索キー'),
+          mode: requiredString('検索モード'),
+          value0: Yup.string().when('mode', {
+            is: (mode: string) => GetSearchMode(mode).nValues >= 1,
+            then: requiredString('値'),
+          }),
+          value1: Yup.string().when('mode', {
+            is: (mode: string) => GetSearchMode(mode).nValues >= 2,
+            then: requiredString('値 (上限)'),
+          }),
+        })}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           console.log('values', values);
           setSubmitting(false);
           onSubmit &&
-            (await onSubmit(Object.assign(values, { enabled: true })));
-          resetForm();
+            (await onSubmit({
+              ...values,
+              type: keys.filter((v: any) => v.value === values.key)[0].type,
+              enabled: true,
+            }));
+          resetForm({
+            values: {
+              key: keys.filter((v: any) => v.value !== values.key)[0].value,
+              type: keys[0].type,
+              mode: values.mode,
+              enabled: false,
+            },
+          });
         }}
         render={render}
       />

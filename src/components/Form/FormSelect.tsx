@@ -1,4 +1,5 @@
 import React, { ReactNode, VFC } from 'react';
+import { Formik, useFormik, useField } from 'formik';
 
 import {
   Select,
@@ -29,8 +30,10 @@ export const FormSelect: VFC<FormSelectProps> = ({
   title = '',
   selectItems = [],
   disabled = false,
+  onChange,
   formik: { values = {}, errors = {}, handleChange },
 }) => {
+  const [field, meta] = useField(name);
   return (
     <FormControl fullWidth variant={variant} color={color}>
       <InputLabel id={name + '-label'}>{title}</InputLabel>
@@ -39,7 +42,10 @@ export const FormSelect: VFC<FormSelectProps> = ({
         id={name}
         value={values[name]}
         label={title ? `${title} (${name})` : name}
-        onChange={async (e: any, child: ReactNode) => await handleChange(e)}
+        onChange={async (e: any, child: ReactNode) => {
+          await handleChange(e);
+          await onChange(e, child);
+        }}
         name={name}
         disabled={disabled}
       >
@@ -49,7 +55,9 @@ export const FormSelect: VFC<FormSelectProps> = ({
           </MenuItem>
         ))}
       </Select>
-      <FormHelperText error>{errors[name]}</FormHelperText>
+      {meta.touched && meta.error && (
+        <FormHelperText error>{meta.error}</FormHelperText>
+      )}
     </FormControl>
   );
 };
