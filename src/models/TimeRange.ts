@@ -68,11 +68,7 @@ export class TimeRange {
   }
 
   // モードから期間を生成
-  static fromMode(
-    dt: Date,
-    mode: DatetimeSearchMode,
-    dt2: Date = new Date()
-  ): TimeRange {
+  static fromMode(dt: Date, mode: string, dt2: Date = new Date()): TimeRange {
     console.log('fromMode', moment(dt), mode);
     let start = moment(dt);
     let end = moment(dt);
@@ -186,6 +182,10 @@ export class TimeRange {
       return `...${this.end}`;
     }
     return `${this.start}...${this.end}`;
+  };
+
+  toQueryItem = (): QueryItem => {
+    return ParamToQueryItem(this.toString());
   };
 
   // 前の範囲
