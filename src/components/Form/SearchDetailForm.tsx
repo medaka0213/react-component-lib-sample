@@ -11,12 +11,12 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-import { SubmitButton } from './SubmitButton';
+import AddIcon from '@mui/icons-material/Add';
+
 import { SearchDetailFormInput, SearchItem } from './SearchDetailFormInput';
 import { FormInput } from './FormInput';
+import { FormModal } from './FormModal';
 import { TimeRange } from '../../models/TimeRange';
-
-import { Formik as FormikProps } from '../types';
 
 import {
   QueryItem,
@@ -88,21 +88,82 @@ export const SearchDetailForm: VFC<SearchDetailFromProps> = ({
             enabled: true,
           };
         });
+
+    const AddKeyModal = () => {
+      return restKeys().length ? (
+        <>
+          <FormModal
+            sx={{ mb: 2 }}
+            title="検索条件を追加する"
+            onSubmit={(v: any) => {
+              //キーがかぶっている場合は上書き
+              for (let i = 0; i < formik.values.queries.length; i++) {
+                if (formik.values.queries[i].key === v.key) {
+                  formik.setFieldValue('queries[' + i + ']', v);
+                  return;
+                }
+              }
+              formik.setFieldValue(
+                'queries[' + formik.values.queries.length + ']',
+                v
+              );
+            }}
+            Form={({ onSubmit }: any) => (
+              <SearchDetailFormInput
+                onSubmit={onSubmit}
+                keys={restKeys()}
+                name="new_queriy"
+                formik={formik}
+                sx={{ mb: 1 }}
+              />
+            )}
+          >
+            <Button
+              sx={{
+                ml: 0.25,
+                pr: 0.25,
+                py: 1.5,
+                width: '100%',
+                height: '100%',
+              }}
+              variant="outlined"
+              color="primary"
+            >
+              <AddIcon fontSize="small" />
+              検索条件を追加
+            </Button>
+          </FormModal>
+        </>
+      ) : (
+        <Button
+          sx={{
+            ml: 0.25,
+            pr: 0.25,
+            py: 1.5,
+            mb: 2,
+            width: '100%',
+            height: '100%',
+          }}
+          variant="outlined"
+          color="inherit"
+          disabled
+        >
+          追加可能な検索条件はありません
+        </Button>
+      );
+    };
     return (
       <>
-        <Typography
-          variant="body2"
-          sx={{ mb: 1, ml: 1, color: 'primary.main' }}
-        >
-          検索条件
-        </Typography>
+        <Grid item xs={3} sm={2}>
+          <AddKeyModal />
+        </Grid>
         {formik.values.queries.map((q: any, i: number) => {
           return (
             <SearchDetailFormInput
               keys={restKeys(q)}
               name={'queries[' + i + ']'}
               formik={formik}
-              sx={{ mb: 1 }}
+              sx={{ mb: 2 }}
               onChange={(v: any) => {
                 //キーがかぶっている場合は上書き
                 for (let i = 0; i < formik.values.queries.length; i++) {
@@ -131,51 +192,28 @@ export const SearchDetailForm: VFC<SearchDetailFromProps> = ({
             />
           );
         })}
-        <Box sx={{ my: 1, ml: 0.25 }}>
-          <FormInput name="limit" title="検索数の上限" formik={formik} />
-        </Box>
-        {restKeys().length ? (
-          <>
-            <Box sx={{ my: 3, borderBottom: '1px solid #ccc' }} />
-            <Typography
-              variant="body2"
-              sx={{ mb: 1, ml: 1, color: 'primary.main' }}
+        <Grid container spacing={1}>
+          <Grid
+            item
+            xs={9}
+            sm={10}
+            sx={{
+              pb: 0.5,
+            }}
+          >
+            <Button
+              onClick={formik.handleSubmit}
+              sx={{ ml: 0.25, width: '100%', height: '100%' }}
+              variant="contained"
             >
-              検索条件を追加する ( [追加] をクリックしてください)
-            </Typography>
-            <SearchDetailFormInput
-              keys={restKeys()}
-              name="new_queriy"
-              onSubmit={(v: any) => {
-                //キーがかぶっている場合は上書き
-                for (let i = 0; i < formik.values.queries.length; i++) {
-                  if (formik.values.queries[i].key === v.key) {
-                    formik.setFieldValue('queries[' + i + ']', v);
-                    return;
-                  }
-                }
-                formik.setFieldValue(
-                  'queries[' + formik.values.queries.length + ']',
-                  v
-                );
-              }}
-              formik={formik}
-              sx={{ mb: 1 }}
-            />
-          </>
-        ) : (
-          <Typography variant="body2" sx={{ mb: 1, ml: 1, color: '#ccc' }}>
-            追加できる検索条件はありません
-          </Typography>
-        )}
-        <Button
-          onClick={formik.handleSubmit}
-          sx={{ mb: 1, ml: 0.25, width: '100%' }}
-          variant="contained"
-        >
-          <SearchIcon />
-          検索
-        </Button>
+              <SearchIcon fontSize="small" />
+              検索
+            </Button>
+          </Grid>
+          <Grid item xs={3} sm={2}>
+            <FormInput name="limit" title="検索数の上限" formik={formik} />
+          </Grid>
+        </Grid>
       </>
     );
   };

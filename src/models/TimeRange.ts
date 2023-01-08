@@ -77,7 +77,7 @@ export class TimeRange {
     let end = moment(dt);
     switch (mode) {
       case DatetimeSearchMode.WEEK_TEIKI:
-        console.log('WEEK_TEIKI');
+        console.log('MODE: WEEK_TEIKI');
         start = moment(dt).startOf('week').add(1, 'day');
         start.set('hour', 12);
         end = moment(dt).add(1, 'week').startOf('week').add(1, 'day');
@@ -88,37 +88,41 @@ export class TimeRange {
         }
         break;
       case DatetimeSearchMode.WEEK:
-        console.log('WEEK');
+        console.log('MODE: WEEK');
         start = moment(dt).startOf('week');
         end = moment(dt).add(1, 'week').startOf('week');
         break;
       case DatetimeSearchMode.MONTH:
-        console.log('MONTH');
+        console.log('MODE: MONTH');
         start = moment(dt).startOf('month');
         end = moment(dt).add(1, 'month').startOf('month');
         break;
       case DatetimeSearchMode.YEAR:
-        console.log('YEAR');
+        console.log('MODE: YEAR');
         start = moment(dt).startOf('year');
         end = moment(dt).add(1, 'year').startOf('year');
         break;
       case DatetimeSearchMode.QUARTER:
-        console.log('QUARTER');
+        console.log('MODE: QUARTER');
         start = moment(dt).startOf('quarter');
         end = moment(dt).add(1, 'quarter').startOf('quarter');
         break;
       case DatetimeSearchMode.CUSTOM_BETWEEN:
-        console.log('CUSTOM_BETWEEN');
+        console.log('MODE: CUSTOM_BETWEEN');
         start = moment(dt);
         end = moment(dt2);
+        mode = parseMode(
+          start.format('YYYY-MM-DDTHH:mm:ss'),
+          end.format('YYYY-MM-DDTHH:mm:ss')
+        );
         break;
       case DatetimeSearchMode.CUSTOM_AFTER:
-        console.log('CUSTOM_AFTER');
+        console.log('MODE: CUSTOM_AFTER');
         start = moment(dt);
         end = moment(dt);
         break;
       case DatetimeSearchMode.CUSTOM_BEFORE:
-        console.log('CUSTOM_BEFORE');
+        console.log('MODE: CUSTOM_BEFORE');
         start = moment(dt);
         end = moment(dt);
         break;
@@ -238,7 +242,7 @@ export class TimeRange {
   }
 }
 
-const parseMode = (start: string, end: string): DatetimeSearchMode => {
+export const parseMode = (start: string, end: string): DatetimeSearchMode => {
   const isSame = (a: TimeRange, b: TimeRange): boolean => {
     return a.start === b.start && a.end === b.end;
   };
@@ -279,7 +283,7 @@ export const SearchModeListDatetime: SearchMode[] = [
   },
   {
     label: 'を含む週 (月曜0時締め)',
-    value: 'WEEK_TEIKI',
+    value: 'WEEK',
     nValues: 1,
     toParam,
   },

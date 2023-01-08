@@ -1,4 +1,4 @@
-import React, { VFC, useState } from 'react';
+import React, { VFC, useState, useEffect } from 'react';
 import { Formik, useFormik, useField } from 'formik';
 import dayjs, { Dayjs } from 'dayjs';
 var utc = require('dayjs/plugin/utc');
@@ -13,12 +13,23 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import HistoryIcon from '@mui/icons-material/History';
 
-import { Button, ButtonProps, Box, BoxProps, Grid } from '@mui/material';
+import {
+  Button,
+  ButtonProps,
+  Box,
+  BoxProps,
+  Grid,
+  Typography,
+} from '@mui/material';
 
 import { FormInput } from './FormInput';
 import { FormSelect } from './FormSelect';
 import { Formik as FormikProps } from '../types';
-import { SearchModeListDatetime, TimeRange } from '../../models/TimeRange';
+import {
+  SearchModeListDatetime,
+  TimeRange,
+  parseMode,
+} from '../../models/TimeRange';
 
 import {
   QueryItem,
@@ -86,154 +97,255 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
     }
 
     return (
-      <Grid container sx={sx}>
-        <Grid
-          item
-          xs={v1enabled ? 6 : 5}
-          md={v1enabled ? 2 : 5}
-          sx={{
-            pl: 0.25,
-          }}
-        >
-          <FormSelect
-            formik={_formik}
-            name="key"
-            title="Key"
-            selectItems={keys}
-            disabled={_formik.values.enabled}
-          />
-        </Grid>
-        <Grid
-          item
-          xs={v1enabled ? 6 : 5}
-          md={v1enabled ? 2 : 5}
-          sx={{
-            pl: 0.25,
-          }}
-        >
-          <FormSelect
-            formik={_formik}
-            name="mode"
-            title="検索モード"
-            selectItems={ModeList.map((v) => ({
-              label: v.label || v.value,
-              value: v.value,
-            }))}
-            onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
-              let pld = {
-                ..._formik.values,
-                mode: e.target.value,
-              };
-              if (type === 'datetime') {
-                pld = {
-                  ...TimeRange.fromMode(
-                    String(pld.value0),
-                    pld.mode
-                  ).toQueryItem(_formik.values.key),
-                  ...pld,
+      <form onSubmit={_formik.handleSubmit}>
+        <Grid container sx={sx}>
+          <Grid
+            item
+            xs={v1enabled ? 6 : 5}
+            sm={v1enabled ? 2 : 5}
+            sx={{
+              pl: 0.25,
+            }}
+          >
+            <FormSelect
+              formik={_formik}
+              name="key"
+              title="Key"
+              selectItems={keys}
+              disabled={_formik.values.enabled}
+            />
+          </Grid>
+          <Grid
+            item
+            xs={v1enabled ? 6 : 5}
+            sm={v1enabled ? 2 : 5}
+            sx={{
+              pl: 0.25,
+            }}
+          >
+            <FormSelect
+              formik={_formik}
+              name="mode"
+              title="検索モード"
+              selectItems={ModeList.map((v) => ({
+                label: v.label || v.value,
+                value: v.value,
+              }))}
+              onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
+                let pld = {
+                  ..._formik.values,
+                  mode: e.target.value,
                 };
-              }
-              onChange && (await onChange(pld));
-            }}
-          />
-        </Grid>
-        {v1enabled && (
-          <Grid
-            item
-            xs={v2enabled ? 12 : 9}
-            sm={v2enabled ? 12 : 10}
-            md={v2enabled ? 3 : 6}
-            sx={{
-              pl: 0.25,
-            }}
-          >
-            <FormInput
-              type={type}
-              formik={_formik}
-              name="value0"
-              title="Value"
-              onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
-                onChange &&
-                  (await onChange({
-                    ..._formik.values,
-                    value0: e.target.value,
-                  }));
+                if (type === 'datetime') {
+                  pld = {
+                    ...TimeRange.fromMode(
+                      String(pld.value0),
+                      pld.mode
+                    ).toQueryItem(_formik.values.key),
+                    type: 'datetime',
+                    ...pld,
+                  };
+                }
+                onChange && (await onChange(pld));
               }}
             />
           </Grid>
-        )}
-        {v2enabled && (
-          <Grid
-            item
-            xs={v2enabled ? 9 : 12}
-            sm={v2enabled ? 10 : 12}
-            md={v2enabled ? 3 : 6}
-            sx={{
-              pl: 0.25,
-            }}
-          >
-            <FormInput
-              type={type}
-              formik={_formik}
-              name="value1"
-              title="Value (上限)"
-              onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
-                onChange &&
-                  (await onChange({
-                    ..._formik.values,
-                    value1: e.target.value,
-                  }));
-              }}
-            />
-          </Grid>
-        )}
-        <Grid
-          item
-          xs={3}
-          sm={2}
-          sx={{
-            pl: 0.25,
-            pb: 0.25,
-          }}
-        >
-          {_formik.values.enabled ? (
-            <Button
-              variant="outlined"
-              color="error"
-              onClick={async () => {
-                onDelete && (await onDelete(_formik.values));
-              }}
-              sx={{
-                width: '100%',
-                height: '100%',
-              }}
-            >
-              <DeleteOutlineIcon />
-              削除
-            </Button>
-          ) : (
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={() => {
-                _formik.setFieldValue('type', type);
-                _formik.handleSubmit(_formik.values);
-              }}
-              sx={{
-                width: '100%',
-                height: '100%',
-              }}
-            >
-              <AddIcon />
-              追加
-            </Button>
-          )}
-        </Grid>
-        {type === 'datetime' && (
-          <>
+          {v1enabled && (
             <Grid
               item
-              xs={4}
+              xs={v2enabled || !_formik.values.enabled ? 12 : 9}
+              sm={
+                _formik.values.enabled ? (v2enabled ? 3 : 6) : v2enabled ? 4 : 8
+              }
+              sx={{
+                pl: 0.25,
+              }}
+            >
+              <FormInput
+                type={type}
+                formik={_formik}
+                name="value0"
+                title="Value"
+                onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
+                  onChange &&
+                    (await onChange({
+                      ..._formik.values,
+                      value0: e.target.value,
+                      type,
+                    }));
+                }}
+              />
+            </Grid>
+          )}
+          {v2enabled && (
+            <Grid
+              item
+              xs={v2enabled ? 9 : 12}
+              sm={
+                _formik.values.enabled ? (v2enabled ? 3 : 6) : v2enabled ? 4 : 8
+              }
+              sx={{
+                pl: 0.25,
+              }}
+            >
+              <FormInput
+                type={type}
+                formik={_formik}
+                name="value1"
+                title="Value (上限)"
+                onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
+                  onChange &&
+                    (await onChange({
+                      ..._formik.values,
+                      value1: e.target.value,
+                      type,
+                    }));
+                }}
+              />
+            </Grid>
+          )}
+          {_formik.values.enabled && (
+            <Grid
+              item
+              xs={3}
+              sm={2}
+              sx={{
+                pl: 0.25,
+                pb: 0.25,
+              }}
+            >
+              <Button
+                variant="outlined"
+                color="error"
+                onClick={async () => {
+                  onDelete && (await onDelete(_formik.values));
+                }}
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                }}
+              >
+                <DeleteOutlineIcon fontSize="small" />
+                削除
+              </Button>
+            </Grid>
+          )}
+          {type === 'datetime' && (
+            <>
+              <Grid
+                item
+                xs={3}
+                sm={2}
+                sx={{
+                  pl: 0.25,
+                }}
+              >
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    py: 1,
+                  }}
+                  onClick={async () => {
+                    let pld = TimeRange.fromMode(
+                      _formik.values.value0,
+                      _formik.values.mode
+                    ).prev();
+                    _formik.setFieldValue('type', type);
+                    _formik.setFieldValue('value0', pld.start);
+                    _formik.setFieldValue('mode', pld.mode);
+                    onDatetimeChange &&
+                      (await onDatetimeChange({
+                        ..._formik.values,
+                        value0: pld.start,
+                        mode: pld.mode,
+                        type: 'datetime',
+                      }));
+                  }}
+                >
+                  <NavigateBeforeIcon fontSize="small" />前
+                </Button>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+                sm={8}
+                sx={{
+                  pl: 0.25,
+                }}
+              >
+                <Button
+                  variant="outlined"
+                  color="info"
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                  }}
+                  onClick={async () => {
+                    let pld = TimeRange.fromMode(
+                      _formik.values.value0,
+                      _formik.values.mode
+                    ).now();
+                    _formik.setFieldValue('type', type);
+                    _formik.setFieldValue('value0', pld.start);
+                    _formik.setFieldValue('mode', pld.mode);
+                    onDatetimeChange &&
+                      (await onDatetimeChange({
+                        ..._formik.values,
+                        value0: pld.start,
+                        mode: pld.mode,
+                        type: 'datetime',
+                      }));
+                  }}
+                >
+                  <HistoryIcon fontSize="small" />
+                  現在時刻の範囲で検索
+                </Button>
+              </Grid>
+              <Grid
+                item
+                xs={3}
+                sm={2}
+                sx={{
+                  pl: 0.25,
+                }}
+              >
+                <Button
+                  variant="outlined"
+                  color="error"
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                  }}
+                  onClick={async () => {
+                    let pld = TimeRange.fromMode(
+                      _formik.values.value0,
+                      _formik.values.mode
+                    ).next();
+                    _formik.setFieldValue('type', type);
+                    _formik.setFieldValue('value0', pld.start);
+                    _formik.setFieldValue('mode', pld.mode);
+                    onDatetimeChange &&
+                      (await onDatetimeChange({
+                        ..._formik.values,
+                        value0: pld.start,
+                        mode: pld.mode,
+                        type: 'datetime',
+                      }));
+                  }}
+                >
+                  次
+                  <NavigateNextIcon fontSize="small" />
+                </Button>
+              </Grid>
+            </>
+          )}
+          {!_formik.values.enabled && (
+            <Grid
+              item
+              xs={12}
               sx={{
                 pl: 0.25,
               }}
@@ -241,91 +353,23 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
               <Button
                 variant="outlined"
                 color="primary"
+                onClick={() => {
+                  _formik.setFieldValue('type', type);
+                  _formik.handleSubmit(_formik.values);
+                }}
                 sx={{
                   width: '100%',
                   height: '100%',
-                }}
-                onClick={async () => {
-                  let pld = TimeRange.fromMode(
-                    _formik.values.value0,
-                    _formik.values.mode
-                  ).prev();
-                  _formik.setFieldValue('type', type);
-                  _formik.setFieldValue('value0', pld.start);
-                  _formik.setFieldValue('mode', pld.mode);
-                  onDatetimeChange &&
-                    (await onDatetimeChange({
-                      ..._formik.values,
-                      value0: pld.start,
-                      mode: pld.mode,
-                      type: 'datetime',
-                    }));
+                  py: 1.5,
                 }}
               >
-                <NavigateBeforeIcon />前
+                <AddIcon fontSize="small" />
+                検索条件を追加
               </Button>
             </Grid>
-            <Grid item xs={4}>
-              <Button
-                variant="outlined"
-                color="info"
-                sx={{
-                  width: '100%',
-                  height: '100%',
-                }}
-                onClick={async () => {
-                  let pld = TimeRange.fromMode(
-                    _formik.values.value0,
-                    _formik.values.mode
-                  ).now();
-                  _formik.setFieldValue('type', type);
-                  _formik.setFieldValue('value0', pld.start);
-                  _formik.setFieldValue('mode', pld.mode);
-                  onDatetimeChange &&
-                    (await onDatetimeChange({
-                      ..._formik.values,
-                      value0: pld.start,
-                      mode: pld.mode,
-                      type: 'datetime',
-                    }));
-                }}
-              >
-                <HistoryIcon />
-                現在
-              </Button>
-            </Grid>
-            <Grid item xs={4}>
-              <Button
-                variant="outlined"
-                color="error"
-                sx={{
-                  width: '100%',
-                  height: '100%',
-                }}
-                onClick={async () => {
-                  let pld = TimeRange.fromMode(
-                    _formik.values.value0,
-                    _formik.values.mode
-                  ).next();
-                  _formik.setFieldValue('type', type);
-                  _formik.setFieldValue('value0', pld.start);
-                  _formik.setFieldValue('mode', pld.mode);
-                  onDatetimeChange &&
-                    (await onDatetimeChange({
-                      ..._formik.values,
-                      value0: pld.start,
-                      mode: pld.mode,
-                      type: 'datetime',
-                    }));
-                }}
-              >
-                次
-                <NavigateNextIcon />
-              </Button>
-            </Grid>
-          </>
-        )}
-      </Grid>
+          )}
+        </Grid>
+      </form>
     );
   };
 

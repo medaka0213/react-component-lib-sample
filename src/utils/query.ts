@@ -130,6 +130,14 @@ export const ParamToSearchMode = (param: string): SearchMode => {
   return res;
 };
 
+const splitValue = (value: string): string => {
+  if (value.startsWith('"') && value.endsWith('"')) {
+    // 文字列の場合はダブルクォーテーションを削除
+    value = value.slice(1, -1);
+  }
+  return value;
+};
+
 export const ParamToQueryItem = (param: string): QueryItem => {
   const searchMode = ParamToSearchMode(param);
   const key = param.split('=')[0];
@@ -158,8 +166,8 @@ export const ParamToQueryItem = (param: string): QueryItem => {
     const value1 = value.split('...')[1];
     return {
       key,
-      value0,
-      value1,
+      value0: splitValue(value0),
+      value1: splitValue(value1),
       enabled: true,
       mode: searchMode.value,
       type: 'string',
@@ -168,7 +176,7 @@ export const ParamToQueryItem = (param: string): QueryItem => {
     const value0 = value.split('...')[1];
     return {
       key,
-      value0,
+      value0: splitValue(value0),
       value1: '',
       enabled: true,
       mode: searchMode.value,
@@ -178,7 +186,7 @@ export const ParamToQueryItem = (param: string): QueryItem => {
     const value0 = value.split('..')[1];
     return {
       key,
-      value0,
+      value0: splitValue(value0),
       value1: '',
       enabled: true,
       mode: searchMode.value,
@@ -188,7 +196,7 @@ export const ParamToQueryItem = (param: string): QueryItem => {
     const value0 = value.split('...')[0];
     return {
       key,
-      value0,
+      value0: splitValue(value0),
       value1: '',
       enabled: true,
       mode: searchMode.value,
@@ -198,7 +206,7 @@ export const ParamToQueryItem = (param: string): QueryItem => {
     const value0 = value.split('..')[0];
     return {
       key,
-      value0,
+      value0: splitValue(value0),
       value1: '',
       enabled: true,
       mode: searchMode.value,
@@ -208,7 +216,7 @@ export const ParamToQueryItem = (param: string): QueryItem => {
     const value0 = value.split('--')[1];
     return {
       key,
-      value0,
+      value0: splitValue(value0),
       value1: '',
       enabled: true,
       mode: searchMode.value,
@@ -218,7 +226,7 @@ export const ParamToQueryItem = (param: string): QueryItem => {
     const value0 = value.split('*')[1];
     return {
       key,
-      value0,
+      value0: splitValue(value0),
       value1: '',
       enabled: true,
       mode: searchMode.value,
@@ -228,7 +236,7 @@ export const ParamToQueryItem = (param: string): QueryItem => {
     const value0 = value.split('*')[0];
     return {
       key,
-      value0,
+      value0: splitValue(value0),
       value1: '',
       enabled: true,
       mode: searchMode.value,
@@ -237,7 +245,7 @@ export const ParamToQueryItem = (param: string): QueryItem => {
   } else {
     return {
       key,
-      value0: value,
+      value0: splitValue(value),
       value1: '',
       enabled: true,
       mode: searchMode.value,
@@ -253,11 +261,15 @@ export const SearchModeToParam = (query: QueryItem): string => {
     mode: query.mode,
     key: query.key,
     value0:
-      query.type === 'string' || query.type === 'datetime'
+      (query.type === 'string' || query.type === 'datetime') &&
+      !String(query.value0).startsWith('"') &&
+      !String(query.value0).endsWith('"')
         ? `"${query.value0}"`
         : query.value0,
     value1:
-      query.type === 'string' || query.type === 'datetime'
+      (query.type === 'string' || query.type === 'datetime') &&
+      !String(query.value0).startsWith('"') &&
+      !String(query.value0).endsWith('"')
         ? `"${query.value1}"`
         : query.value1,
     enabled: query.enabled,
