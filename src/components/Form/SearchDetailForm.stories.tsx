@@ -26,4 +26,7 @@ PresetValue.args = {
       mode: 'BETWEEN',
     },
   ],
+  onSubmit: (values) => {
+    console.log('onSubmit', values);
+  },
 };

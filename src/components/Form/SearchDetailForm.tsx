@@ -112,10 +112,7 @@ export const SearchDetailForm: VFC<SearchDetailFromProps> = ({
                     formik.setFieldValue('queries[' + i + ']', v);
                   }
                 }
-                //時間が変化した場合はSubmit
-                if (v.type === 'datetime') {
-                  formik.handleSubmit();
-                }
+                formik.handleSubmit();
               }}
               onDelete={(v: any) => {
                 formik.setFieldValue(
