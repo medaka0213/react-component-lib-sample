@@ -14,6 +14,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { SubmitButton } from './SubmitButton';
 import { SearchDetailFormInput, SearchItem } from './SearchDetailFormInput';
 import { FormInput } from './FormInput';
+import { TimeRange } from '../../models/TimeRange';
 
 import { Formik as FormikProps } from '../types';
 
@@ -33,6 +34,12 @@ export type SearchDetailFromProps = BoxProps & {
 
 export const SearchDetailForm: VFC<SearchDetailFromProps> = ({
   keys = [
+    {
+      label: '日時',
+      value: 'datetime',
+      enabled: false,
+      type: 'datetime',
+    },
     {
       label: 'ミッション名',
       value: 'name',
@@ -90,6 +97,18 @@ export const SearchDetailForm: VFC<SearchDetailFromProps> = ({
                   }
                 }
               }}
+              onDatetimeChange={(v: any) => {
+                //キーがかぶっている場合は上書き
+                for (let i = 0; i < formik.values.queries.length; i++) {
+                  if (formik.values.queries[i].key === v.key) {
+                    formik.setFieldValue('queries[' + i + ']', v);
+                  }
+                }
+                //時間が変化した場合はSubmit
+                if (v.type === 'datetime') {
+                  formik.handleSubmit();
+                }
+              }}
               onDelete={(v: any) => {
                 formik.setFieldValue(
                   'queries',
@@ -101,17 +120,17 @@ export const SearchDetailForm: VFC<SearchDetailFromProps> = ({
             />
           );
         })}
-        <Box sx={{ mb: 1, ml: 0.25 }}>
+        <Box sx={{ my: 1, ml: 0.25 }}>
           <FormInput name="limit" title="検索数の上限" formik={formik} />
         </Box>
         {restKeys().length ? (
           <>
-            <Box sx={{ mb: 1, borderBottom: '1px solid #ccc' }} />
+            <Box sx={{ my: 3, borderBottom: '1px solid #ccc' }} />
             <Typography
               variant="body2"
               sx={{ mb: 1, ml: 1, color: 'primary.main' }}
             >
-              [追加] をクリックして、検索条件を追加してください
+              検索条件を追加する ( [追加] をクリックしてください)
             </Typography>
             <SearchDetailFormInput
               keys={restKeys()}
@@ -169,9 +188,14 @@ export const SearchDetailForm: VFC<SearchDetailFromProps> = ({
           setSubmitting(false);
           console.log('values.queries', values.queries);
           let queries = values.queries.map((q: QueryItem) => {
-            return SearchModeToParam(q);
+            if (q.type === 'datetime') {
+              return TimeRange.fromMode(q.value0, q.mode, q.value1).toString(
+                q.key
+              );
+            } else {
+              return SearchModeToParam(q);
+            }
           });
-          queries.push('limit=' + Number(values.limit));
           console.log('queries', queries.join('&'));
         }}
       >

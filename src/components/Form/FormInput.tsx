@@ -7,13 +7,25 @@ import FormHelperText from '@mui/material/FormHelperText';
 import CopyToClipBoard from 'react-copy-to-clipboard';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
+import TextField from '@mui/material/TextField';
+
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+
 import AssignmentIcon from '@mui/icons-material/Assignment';
 
 import { FormProps } from '../types';
 
 export type FormInputProps = FormProps & {
   name: string;
-  type?: 'text' | 'textarea' | 'datetime' | 'datetime-local' | 'number';
+  type?:
+    | 'string'
+    | 'text'
+    | 'textarea'
+    | 'datetime'
+    | 'datetime-local'
+    | 'number';
   rows?: string | number;
   copyBytton?: boolean;
 };
@@ -38,43 +50,74 @@ export const FormInput: VFC<FormInputProps> = ({
 
   return (
     <FormControl color={color} variant={'filled'} fullWidth focused>
-      <InputLabel htmlFor={name}>{title || name}</InputLabel>
-      <FilledInput
-        color={color}
-        id={name}
-        disabled={disabled}
-        type={type}
-        name={name}
-        onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
-          if (handleChange) await handleChange(e);
-          if (onChange) await onChange(e);
-          setOpenTip(false);
-        }}
-        value={values[name] || ''}
-        defaultValue={values[name] || ''}
-        rows={rows}
-        placeholder={placeholder}
-        style={{
-          verticalAlign: 'middle',
-          position: 'relative',
-        }}
-        multiline={type === 'textarea'}
-        maxRows={type === 'textarea' ? rows : 1}
-        endAdornment={
-          copyBytton && (
-            <InputAdornment position="end">
-              <CopyToClipBoard text={values[name] || ''}>
-                <IconButton
-                  disabled={values[name] === ''}
-                  onClick={handleClickButton}
-                >
-                  <AssignmentIcon color={openTip ? 'disabled' : color} />
-                </IconButton>
-              </CopyToClipBoard>
-            </InputAdornment>
-          )
-        }
-      />
+      {type !== 'datetime' ? (
+        <>
+          <InputLabel htmlFor={name}>{title || name}</InputLabel>
+          <FilledInput
+            color={color}
+            id={name}
+            disabled={disabled}
+            type={type}
+            name={name}
+            onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
+              if (handleChange) await handleChange(e);
+              if (onChange) await onChange(e);
+              setOpenTip(false);
+            }}
+            value={values[name] || ''}
+            defaultValue={values[name] || ''}
+            rows={rows}
+            placeholder={placeholder}
+            style={{
+              verticalAlign: 'middle',
+              position: 'relative',
+            }}
+            multiline={type === 'textarea'}
+            maxRows={type === 'textarea' ? rows : 1}
+            endAdornment={
+              copyBytton && (
+                <InputAdornment position="end">
+                  <CopyToClipBoard text={values[name] || ''}>
+                    <IconButton
+                      disabled={values[name] === ''}
+                      onClick={handleClickButton}
+                    >
+                      <AssignmentIcon color={openTip ? 'disabled' : color} />
+                    </IconButton>
+                  </CopyToClipBoard>
+                </InputAdornment>
+              )
+            }
+          />
+        </>
+      ) : (
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DateTimePicker
+            label={title || name}
+            inputFormat="YYYY-MM-DDTHH:mm:ss"
+            value={values[name] || ''}
+            onChange={async (e: any) => {
+              const event = {
+                target: {
+                  value: e.format('YYYY-MM-DDTHH:mm:ss'),
+                  name,
+                },
+              };
+              if (onChange) await onChange(event);
+              if (handleChange) await handleChange(event);
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant={'filled'}
+                color={color}
+                focused
+                fullWidth
+              />
+            )}
+          />
+        </LocalizationProvider>
+      )}
       <FormHelperText error>{errors[name]}</FormHelperText>
       {children}
     </FormControl>

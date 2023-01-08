@@ -68,8 +68,11 @@ export class TimeRange {
   }
 
   // モードから期間を生成
-  static fromMode(dt: Date, mode: string, dt2: Date = new Date()): TimeRange {
-    console.log('fromMode', moment(dt), mode);
+  static fromMode(
+    dt: Date | string,
+    mode: string,
+    dt2: Date | string = new Date()
+  ): TimeRange {
     let start = moment(dt);
     let end = moment(dt);
     switch (mode) {
@@ -175,17 +178,17 @@ export class TimeRange {
     }
   }
 
-  toString = (): string => {
+  toString = (key: string = 'datetime'): string => {
     if (this.mode === DatetimeSearchMode.CUSTOM_AFTER) {
-      return `${this.start}...`;
+      return `${key}=${this.start}...`;
     } else if (this.mode === DatetimeSearchMode.CUSTOM_BEFORE) {
-      return `...${this.end}`;
+      return `${key}=...${this.end}`;
     }
-    return `${this.start}...${this.end}`;
+    return `${key}=${this.start}...${this.end}`;
   };
 
-  toQueryItem = (): QueryItem => {
-    return ParamToQueryItem(this.toString());
+  toQueryItem = (key: string = 'datetime'): QueryItem => {
+    return ParamToQueryItem(this.toString(key));
   };
 
   // 前の範囲
@@ -260,17 +263,17 @@ const parseMode = (start: string, end: string): DatetimeSearchMode => {
   return DatetimeSearchMode.CUSTOM_BETWEEN;
 };
 
-const toParam = ({ value0, value1, mode }: QueryItem) =>
+const toParam = ({ key, value0, value1, mode }: QueryItem): string =>
   new TimeRange({
     start: String(value0),
     end: String(value1),
     mode,
-  }).toString();
+  }).toString(key);
 
-export const DatetimeSearchModeListDatetime: SearchMode[] = [
+export const SearchModeListDatetime: SearchMode[] = [
   {
     label: 'を含む週 (定期集会用 月曜21時締め)',
-    value: 'TEIKI_WEEK',
+    value: 'WEEK_TEIKI',
     nValues: 1,
     toParam,
   },
@@ -282,7 +285,7 @@ export const DatetimeSearchModeListDatetime: SearchMode[] = [
   },
   {
     label: 'を含む月',
-    value: 'MONTHL',
+    value: 'MONTH',
     nValues: 1,
     toParam,
   },

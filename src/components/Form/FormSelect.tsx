@@ -43,8 +43,8 @@ export const FormSelect: VFC<FormSelectProps> = ({
         value={values[name]}
         label={title ? `${title} (${name})` : name}
         onChange={async (e: any, child: ReactNode) => {
-          await handleChange(e);
-          await onChange(e, child);
+          handleChange && (await handleChange(e));
+          onChange && (await onChange(e, child));
         }}
         name={name}
         disabled={disabled}
