@@ -21,6 +21,7 @@ export type FormSelectProps = FormProps & {
   name: string;
   variant?: 'outlined' | 'filled' | 'standard';
   selectItems: SelectItem[];
+  size?: 'small' | 'medium';
 };
 
 export const FormSelect: VFC<FormSelectProps> = ({
@@ -31,12 +32,14 @@ export const FormSelect: VFC<FormSelectProps> = ({
   selectItems = [],
   disabled = false,
   onChange,
+  size = 'small',
   formik: { values = {}, errors = {}, handleChange },
 }) => {
   return (
     <FormControl fullWidth variant={variant} color={color}>
       <InputLabel id={name + '-label'}>{title}</InputLabel>
       <Select
+        size={size}
         labelId={name + '-label'}
         id={name}
         value={values[name]}

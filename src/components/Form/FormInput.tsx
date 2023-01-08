@@ -28,6 +28,7 @@ export type FormInputProps = FormProps & {
     | 'number';
   rows?: string | number;
   copyBytton?: boolean;
+  size?: 'small' | 'medium';
 };
 
 export const FormInput: VFC<FormInputProps> = ({
@@ -41,6 +42,7 @@ export const FormInput: VFC<FormInputProps> = ({
   disabled = false,
   copyBytton = false,
   children,
+  size = 'small',
   formik: { values = {}, errors = {}, handleChange },
 }) => {
   const [openTip, setOpenTip] = useState(false);
@@ -54,6 +56,7 @@ export const FormInput: VFC<FormInputProps> = ({
         <>
           <InputLabel htmlFor={name}>{title || name}</InputLabel>
           <FilledInput
+            size={size}
             color={color}
             id={name}
             disabled={disabled}
@@ -113,6 +116,7 @@ export const FormInput: VFC<FormInputProps> = ({
                 color={color}
                 focused
                 fullWidth
+                size={size}
               />
             )}
           />

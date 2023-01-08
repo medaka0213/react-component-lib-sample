@@ -236,7 +236,6 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
               xs={4}
               sx={{
                 pl: 0.25,
-                pb: 0.25,
               }}
             >
               <Button
@@ -259,6 +258,7 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
                       ..._formik.values,
                       value0: pld.start,
                       mode: pld.mode,
+                      type: 'datetime',
                     }));
                 }}
               >
@@ -286,6 +286,7 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
                       ..._formik.values,
                       value0: pld.start,
                       mode: pld.mode,
+                      type: 'datetime',
                     }));
                 }}
               >
@@ -314,6 +315,7 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
                       ..._formik.values,
                       value0: pld.start,
                       mode: pld.mode,
+                      type: 'datetime',
                     }));
                 }}
               >
