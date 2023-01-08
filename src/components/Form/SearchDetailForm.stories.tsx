@@ -14,3 +14,16 @@ const Template: ComponentStory<typeof SearchDetailForm> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {};
+
+export const PresetValue = Template.bind({});
+PresetValue.args = {
+  queries: [
+    {
+      key: 'datetime',
+      value0: '2021-01-01T00:00:00Z',
+      value1: '2021-01-08T00:00:00Z',
+      enabled: true,
+      mode: 'BETWEEN',
+    },
+  ],
+};

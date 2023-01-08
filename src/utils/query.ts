@@ -246,21 +246,21 @@ export const ParamToQueryItem = (param: string): QueryItem => {
   }
 };
 
-export const SearchModeToParam = (qruery: QueryItem): string => {
-  const searchMode = GetSearchMode(qruery.mode);
+export const SearchModeToParam = (query: QueryItem): string => {
+  const searchMode = GetSearchMode(query.mode);
   const param = searchMode.toParam({
-    type: qruery.type,
-    mode: qruery.mode,
-    key: qruery.key,
+    type: query.type,
+    mode: query.mode,
+    key: query.key,
     value0:
-      qruery.type === 'string' || qruery.type === 'datetime'
-        ? `"${qruery.value0}"`
-        : qruery.value0,
+      query.type === 'string' || query.type === 'datetime'
+        ? `"${query.value0}"`
+        : query.value0,
     value1:
-      qruery.type === 'string' || qruery.type === 'datetime'
-        ? `"${qruery.value1}"`
-        : qruery.value1,
-    enabled: qruery.enabled,
+      query.type === 'string' || query.type === 'datetime'
+        ? `"${query.value1}"`
+        : query.value1,
+    enabled: query.enabled,
   });
-  return qruery.key + '=' + param;
+  return query.key + '=' + param;
 };

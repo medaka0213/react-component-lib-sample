@@ -24,6 +24,7 @@ export type CopyProps = BoxProps &
     buttonProps?: ButtonProps;
     buttonLabel?: string;
     multiLine?: boolean;
+    area: boolean;
   };
 
 export const Copy: VFC<CopyProps> = ({
@@ -33,6 +34,7 @@ export const Copy: VFC<CopyProps> = ({
   children,
   buttonProps,
   buttonLabel,
+  area = true,
 }) => {
   const [state, setState] = useState({
     open: false,
@@ -61,6 +63,8 @@ export const Copy: VFC<CopyProps> = ({
     <Box
       sx={{
         display: multiLine ? 'block' : 'flex',
+        backgroundColor: area && 'action.hover',
+        border: area && '1px solid #ccc',
         ...sx,
       }}
     >
@@ -95,7 +99,6 @@ export const Copy: VFC<CopyProps> = ({
           my: 'auto',
           whiteSpace: 'pre',
           p: multiLine ? 1 : 0,
-          border: multiLine ? '1px solid #ccc' : 'none',
         }}
       >
         {link ? (

@@ -25,6 +25,7 @@ export { Task } from './task';
 export { SlideText } from './slideText';
 export { Rocket } from './rocket';
 export { RocketSeries } from './rocketSeries';
+export { TimeRange } from './TimeRange';
 
 export { ItemReducer } from './itemReducer';
 

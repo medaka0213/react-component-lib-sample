@@ -14,23 +14,15 @@ export const Default = Template.bind({});
 Default.args = {
   value: 'https://google.com',
   external: true,
+  area: false,
 };
 
-export const Link = Template.bind({});
-Link.args = {
+export const SigleLine = Template.bind({});
+SigleLine.args = {
   value: 'hello world',
-  external: true,
-  sx: {
-    backgroundColor: '#eee',
-    border: '1px solid #ccc',
-  },
 };
 
 export const MultiLine = Template.bind({});
 MultiLine.args = {
   value: 'line1\nline2\n\nline3',
-  external: true,
-  sx: {
-    backgroundColor: '#eee',
-  },
 };

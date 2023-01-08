@@ -1,4 +1,4 @@
-import React, { VFC, useState } from 'react';
+import React, { VFC, useState, useEffect } from 'react';
 import { Formik, useFormik } from 'formik';
 
 import {
@@ -60,20 +60,28 @@ export const SearchDetailForm: VFC<SearchDetailFromProps> = ({
     },
   ],
   sx,
+  onSubmit,
   ...props
 }) => {
   const render = (formik: any) => {
     const restKeys = (query: any = null): SearchItem[] =>
-      keys.filter((k: SearchItem) => {
-        return (
-          formik.values.queries.filter((q: any) => {
-            if (query && q.key === query.key) {
-              return false;
-            }
-            return q.key === k.value;
-          }).length === 0
-        );
-      });
+      keys
+        .filter((k: SearchItem) => {
+          return (
+            formik.values.queries.filter((q: any) => {
+              if (query && q.key === query.key) {
+                return false;
+              }
+              return q.key === k.value;
+            }).length === 0
+          );
+        })
+        .map((k: SearchItem) => {
+          return {
+            ...k,
+            enabled: true,
+          };
+        });
     return (
       <>
         <Typography
@@ -186,7 +194,6 @@ export const SearchDetailForm: VFC<SearchDetailFromProps> = ({
         }}
         onSubmit={async (values, { setSubmitting }) => {
           setSubmitting(false);
-          console.log('values.queries', values.queries);
           let queries = values.queries.map((q: QueryItem) => {
             if (q.type === 'datetime') {
               return TimeRange.fromMode(q.value0, q.mode, q.value1).toString(
@@ -196,7 +203,7 @@ export const SearchDetailForm: VFC<SearchDetailFromProps> = ({
               return SearchModeToParam(q);
             }
           });
-          console.log('queries', queries.join('&'));
+          onSubmit && (await onSubmit(queries));
         }}
       >
         {(formik) => render(formik)}

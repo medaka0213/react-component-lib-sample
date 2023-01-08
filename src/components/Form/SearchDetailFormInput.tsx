@@ -116,7 +116,7 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
             name="mode"
             title="検索モード"
             selectItems={ModeList.map((v) => ({
-              label: v.label,
+              label: v.label || v.value,
               value: v.value,
             }))}
             onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {

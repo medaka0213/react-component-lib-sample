@@ -33,7 +33,6 @@ export const FormSelect: VFC<FormSelectProps> = ({
   onChange,
   formik: { values = {}, errors = {}, handleChange },
 }) => {
-  const [field, meta] = useField(name);
   return (
     <FormControl fullWidth variant={variant} color={color}>
       <InputLabel id={name + '-label'}>{title}</InputLabel>
@@ -55,9 +54,7 @@ export const FormSelect: VFC<FormSelectProps> = ({
           </MenuItem>
         ))}
       </Select>
-      {meta.touched && meta.error && (
-        <FormHelperText error>{meta.error}</FormHelperText>
-      )}
+      {errors[name] && <FormHelperText error>{errors[name]}</FormHelperText>}
     </FormControl>
   );
 };
