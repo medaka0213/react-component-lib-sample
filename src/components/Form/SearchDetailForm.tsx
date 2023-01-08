@@ -64,6 +64,12 @@ export const SearchDetailForm: VFC<SearchDetailFromProps> = ({
   ...props
 }) => {
   const render = (formik: any) => {
+    useEffect(() => {
+      formik.setFieldValue(
+        'queries',
+        queries.filter((q: any) => q.key !== 'limit')
+      );
+    }, [queries]);
     const restKeys = (query: any = null): SearchItem[] =>
       keys
         .filter((k: SearchItem) => {
