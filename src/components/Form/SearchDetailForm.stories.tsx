@@ -73,6 +73,12 @@ PresetValue2.args = {
       enabled: true,
       mode: 'BEGINS',
     },
+    {
+      key: 'limit',
+      value0: '1000',
+      enabled: true,
+      mode: 'EQ',
+    },
   ],
   onSubmit: (values) => {
     console.log('onSubmit', values);

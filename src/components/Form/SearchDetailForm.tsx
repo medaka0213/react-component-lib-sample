@@ -70,7 +70,10 @@ export const SearchDetailForm: VFC<SearchDetailFromProps> = ({
         'queries',
         queries.filter((q: any) => q.key !== 'limit')
       );
+      const limit = queries.filter((q: any) => q.key === 'limit')[0];
+      formik.setFieldValue('limit', limit ? limit.value0 : 100);
     }, [queries]);
+
     const restKeys = (query: any = null): SearchItem[] =>
       keys
         .filter((k: SearchItem) => {

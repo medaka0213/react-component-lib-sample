@@ -187,7 +187,7 @@ export const DEFAULT_QUERY = {
     },
     {
       key: 'limit',
-      value: 1000,
+      value: '1000',
     },
   ],
   launch: () => [
@@ -199,7 +199,7 @@ export const DEFAULT_QUERY = {
     },
     {
       key: 'limit',
-      value: 1000,
+      value: '1000',
     },
   ],
   event: () => [
@@ -211,7 +211,7 @@ export const DEFAULT_QUERY = {
     },
     {
       key: 'limit',
-      value: 1000,
+      value: '1000',
     },
   ],
   meetup: () => [
@@ -223,7 +223,7 @@ export const DEFAULT_QUERY = {
     },
     {
       key: 'limit',
-      value: 1000,
+      value: '1000',
     },
   ],
   slide: () => [
@@ -235,7 +235,7 @@ export const DEFAULT_QUERY = {
     },
     {
       key: 'limit',
-      value: 1000,
+      value: '1000',
     },
   ],
   task: () => [
@@ -245,7 +245,7 @@ export const DEFAULT_QUERY = {
     },
     {
       key: 'limit',
-      value: 1000,
+      value: '1000',
     },
   ],
   image: () => [
@@ -261,7 +261,7 @@ export const DEFAULT_QUERY = {
     },
     {
       key: 'limit',
-      value: 1000,
+      value: '1000',
     },
   ],
 };

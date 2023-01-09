@@ -53,6 +53,9 @@ export function GetModel(type: string) {
 }
 
 export function ParseItem(item: any): any {
+  if (!item) {
+    return BaseModel;
+  }
   const type = item.sk.replace('_item', '');
   const Model = GetModel(type);
   return new Model(item);

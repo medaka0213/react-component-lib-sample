@@ -98,7 +98,7 @@ export class Event extends BaseModel {
         event.name_JP || event.name
       }`;
     } else {
-      return event.name || event.name;
+      return event.name_JP || event.name;
     }
   }
 
