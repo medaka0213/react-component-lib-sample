@@ -244,6 +244,7 @@ export const SearchDetailForm: VFC<SearchDetailFromProps> = ({
               return SearchModeToParam(q);
             }
           });
+          queries.push('limit=' + values.limit);
           onSubmit && (await onSubmit(queries));
         }}
       >
