@@ -97,8 +97,9 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
     }
 
     useEffect(() => {
-      console.log('SearchDetailFormInput', field.value);
-      _formik.setValues(field.value);
+      if (_formik.values.enabled) {
+        _formik.setValues(field.value);
+      }
     }, [field.value]);
 
     return (
