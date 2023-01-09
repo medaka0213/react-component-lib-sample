@@ -68,4 +68,58 @@ export class Event extends BaseModel {
   title(): string {
     return `${this.get_jp_value('name')}`;
   }
+
+  missionTitle_EN_Short(): string {
+    const event: any = this.data();
+    if ((event.sk || '').startsWith('launch')) {
+      return `${event.rocket || ''} | ${event.name}`;
+    } else {
+      return event.name;
+    }
+  }
+
+  missionOverView_EN(): string {
+    const event: any = this.data();
+    return `${event.overview ? ', ' + event.overview : ''}`;
+  }
+
+  missionTitle_EN(isShort = true): string {
+    if (!isShort) {
+      return this.missionTitle_EN_Short() + this.missionOverView_EN();
+    } else {
+      return this.missionTitle_EN_Short();
+    }
+  }
+
+  missionTitle_JP_Short(): string {
+    const event: any = this.data();
+    if (event.sk.startsWith('launch')) {
+      return `${event.rocket_JP || event.rocket} | ${
+        event.name_JP || event.name
+      }`;
+    } else {
+      return event.name || event.name;
+    }
+  }
+
+  missionOverView_JP(): string {
+    const event: any = this.data();
+    return `${event.overview_JP ? ' (' + event.overview_JP + ')' : ''}`;
+  }
+
+  missionTitle_JP(isShort = true): string {
+    if (!isShort) {
+      return this.missionTitle_JP_Short() + this.missionOverView_JP();
+    } else {
+      return this.missionTitle_JP_Short();
+    }
+  }
+
+  meetUpInfo() {
+    return {
+      title: this.missionTitle_EN(true),
+      title_JP: this.missionTitle_JP(true),
+      missionID: `${this.itemType()}_${this.unique}`,
+    };
+  }
 }
