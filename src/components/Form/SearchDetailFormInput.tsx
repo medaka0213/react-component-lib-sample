@@ -96,6 +96,11 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
       }
     }
 
+    useEffect(() => {
+      console.log('SearchDetailFormInput', field.value);
+      _formik.setValues(field.value);
+    }, [field.value]);
+
     return (
       <form onSubmit={_formik.handleSubmit}>
         <Grid container sx={sx}>
