@@ -22,6 +22,8 @@ import {
   Typography,
 } from '@mui/material';
 
+import { SearchItem } from '../../utils/query';
+
 import { FormInput } from './FormInput';
 import { FormSelect } from './FormSelect';
 import { Formik as FormikProps } from '../types';
@@ -38,14 +40,6 @@ import {
   ParamToSearchMode,
   GetSearchMode,
 } from '../../utils/query';
-
-export type SearchItem = {
-  label?: string;
-  value: any;
-  divider?: boolean;
-  type: 'number' | 'string' | 'datetime';
-  enabled?: boolean;
-};
 
 export type SearchDetailFormInputProps = BoxProps & {
   name: string;

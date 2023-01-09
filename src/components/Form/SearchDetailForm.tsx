@@ -9,14 +9,15 @@ import {
   BoxProps,
   Grid,
 } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
 
+import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
 
-import { SearchDetailFormInput, SearchItem } from './SearchDetailFormInput';
+import { SearchDetailFormInput } from './SearchDetailFormInput';
 import { FormInput } from './FormInput';
 import { FormModal } from './FormModal';
 import { TimeRange } from '../../models/TimeRange';
+import { SearchItem } from '../../utils/query';
 
 import {
   QueryItem,
@@ -107,6 +108,7 @@ export const SearchDetailForm: VFC<SearchDetailFromProps> = ({
                 'queries[' + formik.values.queries.length + ']',
                 v
               );
+              formik.handleSubmit();
             }}
             Form={({ onSubmit }: any) => (
               <SearchDetailFormInput
@@ -188,6 +190,7 @@ export const SearchDetailForm: VFC<SearchDetailFromProps> = ({
                     .slice(0, i)
                     .concat(formik.values.queries.slice(i + 1))
                 );
+                formik.handleSubmit();
               }}
             />
           );

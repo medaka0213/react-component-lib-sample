@@ -59,3 +59,6 @@ export {
 export * as api from './utils/rest';
 export { sort_array } from './utils/sort';
 export { ParamToQueryItem } from './utils/query';
+
+// 構成関連
+export { SEARCH_ITEMS, DEFAULT_QUERY } from './config/query';

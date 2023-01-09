@@ -1,3 +1,11 @@
+export type SearchItem = {
+  label?: string;
+  value: any;
+  divider?: boolean;
+  type: 'number' | 'string' | 'datetime';
+  enabled?: boolean;
+};
+
 export type QueryItem = {
   key: string;
   value0: string | number;
