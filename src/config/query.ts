@@ -214,10 +214,22 @@ export const DEFAULT_QUERY = {
       value: 1000,
     },
   ],
+  meetup: () => [
+    {
+      key: 'datetime',
+      value: TimeRange.fromMode(new Date(), 'WEEK_TEIKI')
+        .toString('datetime')
+        .replace('datetime=', ''),
+    },
+    {
+      key: 'limit',
+      value: 1000,
+    },
+  ],
   slide: () => [
     {
       key: 'updated-at',
-      value: TimeRange.fromMode(new Date(), 'WEEK_TEIKI')
+      value: TimeRange.fromMode(new Date(), 'MONTH')
         .toString('datetime')
         .replace('datetime=', ''),
     },
