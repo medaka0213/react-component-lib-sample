@@ -9,6 +9,7 @@ export type FormGridProps = FormProps & {
   childrenList: any[][];
   buttonLabel?: string;
   buttonPosition?: 'top' | 'bottom';
+  buttonEnabled?: boolean;
 };
 
 export const FormGrid: VFC<FormGridProps> = ({
@@ -20,6 +21,7 @@ export const FormGrid: VFC<FormGridProps> = ({
   buttonLabel = 'Submit',
   disabled = false,
   buttonPosition = 'bottom',
+  buttonEnabled = true,
   formik: { handleSubmit, errors = {}, values = {}, ...formik } = {},
 }) => {
   const Button = () => (
@@ -34,10 +36,12 @@ export const FormGrid: VFC<FormGridProps> = ({
   );
 
   let _childrenList = childrenList;
-  if (buttonPosition === 'bottom') {
-    _childrenList = _childrenList.concat([[<Button />]]);
-  } else {
-    _childrenList = [[<Button />]].concat(_childrenList);
+  if (buttonEnabled) {
+    if (buttonPosition === 'bottom') {
+      _childrenList = _childrenList.concat([[<Button />]]);
+    } else {
+      _childrenList = [[<Button />]].concat(_childrenList);
+    }
   }
 
   return (

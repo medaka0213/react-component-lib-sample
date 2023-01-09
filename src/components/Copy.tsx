@@ -92,13 +92,13 @@ export const Copy: VFC<CopyProps> = ({
           </IconButton>
         )}
       </CopyToClipboard>
-      <Typography
-        component="p"
+      <Box
         sx={{
           flex: 1,
           my: 'auto',
-          whiteSpace: 'pre',
           p: multiLine ? 1 : 0,
+          'white-space': 'pre-line',
+          'overflow-wrap': 'break-word',
         }}
       >
         {link ? (
@@ -108,7 +108,7 @@ export const Copy: VFC<CopyProps> = ({
         ) : (
           children || value
         )}
-      </Typography>
+      </Box>
       <Snackbar
         open={state.open}
         onClose={handleClose}

@@ -24,5 +24,6 @@ SigleLine.args = {
 
 export const MultiLine = Template.bind({});
 MultiLine.args = {
-  value: 'line1\nline2\n\nline3',
+  value:
+    'line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1\nline2\n\nline3',
 };

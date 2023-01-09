@@ -8,6 +8,14 @@ export type LinkProps = CommonProps & {
   external?: boolean;
 };
 
+const iconWrapStyle = {
+  display: 'inline-flex',
+  VerticalAlign: 'text-bottom',
+  BoxSizing: 'inherit',
+  textAlign: 'center',
+  AlignItems: 'center',
+};
+
 export const Link: VFC<LinkProps> = ({
   sx,
   children,
@@ -19,14 +27,15 @@ export const Link: VFC<LinkProps> = ({
       href={href}
       target={external ? '_blank' : '_self'}
       rel="noopener noreferrer"
-      style={sx}
+      style={{ ...iconWrapStyle, ...sx }}
     >
       {children || href}
       {external && (
         <LaunchIcon
           sx={{
-            fontSize: '1rem',
-            ml: 0.5,
+            fontSize: '0.8rem',
+            ml: 0.25,
+            mt: 0.5,
           }}
         />
       )}
