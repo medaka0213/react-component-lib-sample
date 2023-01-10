@@ -7,6 +7,7 @@ export { SearchDetailForm } from './components/Form/SearchDetailForm';
 
 export { Copy } from './components/Copy';
 export { Link } from './components/Link';
+export { YoutubePlayer as Youtube } from './components/Youtube';
 
 //redux関連
 export { store } from './redux/store';

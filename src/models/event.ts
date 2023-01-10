@@ -43,11 +43,11 @@ export class Event extends BaseModel {
   }
 
   youtubeId(): string {
-    return this._extract_yt_id(this.watch_URL_option || this.watch_URL);
+    return this._extract_yt_id(this.watch_URL_option || this.watch_URL || '');
   }
 
   youtubeShortId(): string {
-    return this._extract_yt_id(this.watch_URL_short);
+    return this._extract_yt_id(this.watch_URL_short || '');
   }
 
   datetime_format_sort(): string {
