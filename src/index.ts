@@ -1,9 +1,13 @@
+import dynamic from 'next/dynamic';
+
 export { FileInput } from './components/Form/FileInput';
 export { FormGrid } from './components/Form/FormGrid';
 export { FormInput } from './components/Form/FormInput';
 export { FormSelect } from './components/Form/FormSelect';
 export { SubmitButton } from './components/Form/SubmitButton';
 export { SearchDetailForm } from './components/Form/SearchDetailForm';
+export { ItemListTable } from './components/ItemListTable';
+export { SlideShow } from './components/SlideShow';
 
 export { Copy } from './components/Copy';
 export { Link } from './components/Link';

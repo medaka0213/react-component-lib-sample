@@ -109,3 +109,41 @@ export function format_countdown(datetime: string): string {
 
   return res;
 }
+
+export const moment_to_dict = (dt: moment.Moment) => {
+  return {
+    year: dt.year(),
+    month: dt.month() + 1,
+    date: dt.date(),
+    hour: dt.hour(),
+    minute: dt.minute(),
+    second: dt.second(),
+    date_string: dt.format('YYYY-MM-DD'),
+    time_string: dt.format('HH:mm'),
+    time_string_lts: dt.format('HH:mm:ss'),
+    time_string_iso: dt.toISOString(),
+    raw_data: dt,
+  };
+};
+
+// カウントダウン関連
+export const cowntdown_time = (
+  iso_time: string,
+  delta_t = { hours: 0, minutes: 0, seconds: 0 },
+  is_T_minus: boolean = true,
+  locale: string = 'ja'
+) => {
+  var dt = moment(String(iso_time + 'Z')).tz('Asia/Tokyo');
+
+  if (is_T_minus) {
+    dt.subtract(delta_t);
+  } else {
+    dt.add(delta_t);
+  }
+
+  if (locale !== 'ja') {
+    dt.tz('Etc/GMT').locale('en');
+  }
+
+  return moment_to_dict(dt);
+};

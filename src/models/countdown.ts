@@ -1,6 +1,8 @@
 import { BaseModel, Fields } from './baseModel';
 import { sort_array } from '../utils/sort';
 
+import { cowntdown_time } from '../utils/time';
+
 export class Countdown extends BaseModel {
   public readonly launch: string = '';
   public readonly event: string = '';
@@ -42,5 +44,40 @@ export class Countdown extends BaseModel {
     let timeline = target[key];
     timeline[index] = value;
     return this.set_timeline(key, timeline);
+  }
+
+  format(dt_utc: string) {
+    let target = this;
+    let t_plus = target.t_plus.map((e) => {
+      return {
+        td_str:
+          String(e.hours).padStart(2, '0') +
+          ':' +
+          String(e.minutes).padStart(2, '0') +
+          ':' +
+          String(e.seconds).padStart(2, '0'),
+        jst: cowntdown_time(dt_utc, e, false).time_string,
+        utc: cowntdown_time(dt_utc, e, false, 'en').time_string,
+        ...e,
+      };
+    });
+    let t_minus = target.t_minus.map((e) => {
+      return {
+        td_str:
+          String(e.hours).padStart(2, '0') +
+          ':' +
+          String(e.minutes).padStart(2, '0') +
+          ':' +
+          String(e.seconds).padStart(2, '0'),
+        jst: cowntdown_time(dt_utc, e, true).time_string,
+        utc: cowntdown_time(dt_utc, e, true, 'en').time_string,
+        ...e,
+      };
+    });
+    return {
+      ...target,
+      t_plus,
+      t_minus,
+    };
   }
 }

@@ -33,7 +33,7 @@ export class Slide extends BaseModel {
     return result;
   }
   imagePaths() {
-    if (this.paths) {
+    if (this.paths.length > 0) {
       return this.paths;
     } else if (this['data-length']) {
       let res = [];
