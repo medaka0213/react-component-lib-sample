@@ -14,9 +14,6 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 
 const SideBar = () => (
   <div>
-    <Toolbar />
-    <Divider />
-    <Divider />
     <List>
       <ListItem key={'twitter'} disablePadding>
         <ListItemButton
@@ -50,8 +47,22 @@ Default.args = {
       src="https://sxcontent9668.azureedge.us/cms-assets/assets/Launch_Page_Starlink1_vertical_18_DESKTOP_209c4e50a1.jpg/"
       alt="Starlink"
       width={'100%'}
-      height={'100%'}
+      height={'auto'}
     />
   ),
+  drawer: <SideBar />,
+};
+
+export const CustomColor = Template.bind({});
+CustomColor.args = {
+  children: (
+    <img
+      src="https://sxcontent9668.azureedge.us/cms-assets/assets/Launch_Page_Starlink1_vertical_18_DESKTOP_209c4e50a1.jpg/"
+      alt="Starlink"
+      width={'100%'}
+      height={'auto'}
+    />
+  ),
+  bgColor: '#004F8A',
   drawer: <SideBar />,
 };

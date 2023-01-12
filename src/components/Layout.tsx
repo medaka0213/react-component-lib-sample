@@ -1,46 +1,51 @@
 import * as React from 'react';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import theme from './theme';
 
-import PropTypes from 'prop-types';
+import { styled, useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
-
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 
+import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
-import HomeIcon from '@mui/icons-material/Home';
-import SearchIcon from '@mui/icons-material/Search';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import ForumIcon from '@mui/icons-material/Forum';
-import EventIcon from '@mui/icons-material/Event';
-import InfoIcon from '@mui/icons-material/Info';
-
-import Router from 'next/router';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 import Logo from './Logo';
 
 const drawerWidth = 240;
 
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: 'flex-end',
+}));
+
 export type LayoutProps = {
   children: React.ReactNode;
   window?: () => Window;
   drawer: React.ReactNode;
+  bgColor: string;
 };
 
-export function Layout(props: LayoutProps) {
-  const { window, drawer } = props;
+function LayoutApp(props: LayoutProps) {
+  const { window, drawer, bgColor = 'primary.main' } = props;
+  const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
+
+  const handleDrawerToggleMobile = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
   const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
+    setOpen(!open);
   };
 
   const container =
@@ -56,9 +61,9 @@ export function Layout(props: LayoutProps) {
       <AppBar
         position="fixed"
         sx={{
-          width: { md: `calc(100% - ${drawerWidth}px)` },
-          ml: { md: `${drawerWidth}px` },
-          backgroundColor: '#004F8A',
+          width: { md: `calc(100% - ${(open && drawerWidth) || 0}px)` },
+          ml: { md: `${(open && drawerWidth) || 0}px` },
+          backgroundColor: bgColor,
         }}
       >
         <Toolbar>
@@ -66,8 +71,11 @@ export function Layout(props: LayoutProps) {
             color="inherit"
             aria-label="open drawer"
             edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { md: 'none' } }}
+            onClick={() => {
+              handleDrawerToggleMobile();
+              handleDrawerToggle();
+            }}
+            sx={{ mr: 2, display: { md: open ? 'none' : 'block' } }}
           >
             <MenuIcon />
           </IconButton>
@@ -75,15 +83,20 @@ export function Layout(props: LayoutProps) {
             variant="white"
             sx={{
               height: '40px',
+              display: { md: open ? 'none' : 'block' },
             }}
           />
         </Toolbar>
       </AppBar>
       <Box
         component="nav"
-        sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
+        sx={{
+          width: { md: (open && drawerWidth) || 0 },
+          flexShrink: { md: 0 },
+        }}
         aria-label="mailbox folders"
       >
+        {/* モバイル用 */}
         <Drawer
           container={container}
           variant="temporary"
@@ -100,19 +113,81 @@ export function Layout(props: LayoutProps) {
             },
           }}
         >
+          <DrawerHeader sx={{ backgroundColor: bgColor }}>
+            <Logo
+              variant="white"
+              sx={{
+                height: '40px',
+                mr: 'auto',
+                ml: 1,
+              }}
+            />
+            <IconButton
+              onClick={handleDrawerToggleMobile}
+              color="inherit"
+              sx={{
+                color: 'white',
+              }}
+            >
+              {theme.direction === 'ltr' ? (
+                <ChevronLeftIcon
+                  sx={{
+                    color: 'white',
+                  }}
+                />
+              ) : (
+                <ChevronRightIcon
+                  sx={{
+                    color: 'white',
+                  }}
+                />
+              )}
+            </IconButton>
+          </DrawerHeader>
           {drawer}
         </Drawer>
+        {/* PC用 */}
         <Drawer
           variant="permanent"
           sx={{
             display: { xs: 'none', md: 'block' },
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
-              width: drawerWidth,
+              width: (open && drawerWidth) || 0,
             },
           }}
           open
         >
+          <DrawerHeader sx={{ backgroundColor: bgColor }}>
+            <Logo
+              variant="white"
+              sx={{
+                height: '40px',
+                mr: 'auto',
+                ml: 1,
+              }}
+            />
+            <IconButton
+              onClick={handleDrawerToggle}
+              sx={{
+                color: 'white',
+              }}
+            >
+              {theme.direction === 'ltr' ? (
+                <ChevronLeftIcon
+                  sx={{
+                    color: 'white',
+                  }}
+                />
+              ) : (
+                <ChevronRightIcon
+                  sx={{
+                    color: 'white',
+                  }}
+                />
+              )}
+            </IconButton>
+          </DrawerHeader>
           {drawer}
         </Drawer>
       </Box>
@@ -120,7 +195,7 @@ export function Layout(props: LayoutProps) {
         component="main"
         sx={{
           flexGrow: 1,
-          width: { md: `calc(100% - ${drawerWidth}px)` },
+          width: { md: `calc(100% - ${(open && drawerWidth) || 0}px)` },
           height: '100%',
           minHeight: '100vh',
           backgroundColor: '#eee',
@@ -143,3 +218,12 @@ export function Layout(props: LayoutProps) {
     </Box>
   );
 }
+
+export const Layout = (props: LayoutProps) => {
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <LayoutApp {...props} />
+    </ThemeProvider>
+  );
+};

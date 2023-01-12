@@ -10,7 +10,6 @@ import {
   IconButton,
   Snackbar,
   Slide,
-  Typography,
 } from '@mui/material';
 
 import { Link } from './Link';
@@ -27,7 +26,7 @@ export type CopyProps = BoxProps &
     area: boolean;
   };
 
-export const Copy: VFC<CopyProps> = ({
+const App: VFC<CopyProps> = ({
   sx,
   value,
   external = false,
@@ -119,3 +118,14 @@ export const Copy: VFC<CopyProps> = ({
     </Box>
   );
 };
+
+import theme from './theme';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+export const Copy = (props: CopyProps) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <App {...props} />
+  </ThemeProvider>
+);

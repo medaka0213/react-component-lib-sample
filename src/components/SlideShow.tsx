@@ -1,9 +1,7 @@
 import React from 'react';
 
 import {
-  Paper,
   Box,
-  Typography,
   Button,
   Slider as MuiSlider,
   Input as MuiInput,
@@ -148,28 +146,11 @@ export const SlideShowContent: React.VFC<SlideShowProps> = ({
           {fullScreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
         </Button>
       </Box>
-      {texts && texts[slideIndex] && (
-        <Paper
-          elevation={0}
-          sx={{
-            p: 1,
-            mb: 1,
-          }}
-        >
-          <Typography
-            sx={{
-              whiteSpace: 'pre-line',
-            }}
-          >
-            {texts[slideIndex]}
-          </Typography>
-        </Paper>
-      )}
     </Box>
   );
 };
 
-export const SlideShow: React.VFC<SlideShowProps> = ({ sx, ...props }) => {
+export const App: React.VFC<SlideShowProps> = ({ sx, ...props }) => {
   const [open, setOpen] = React.useState(false);
   return (
     <>
@@ -207,4 +188,16 @@ export const SlideShow: React.VFC<SlideShowProps> = ({ sx, ...props }) => {
     </>
   );
 };
+
+import theme from './theme';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+export const SlideShow = (props: SlideShowProps) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <App {...props} />
+  </ThemeProvider>
+);
+
 export default SlideShow;

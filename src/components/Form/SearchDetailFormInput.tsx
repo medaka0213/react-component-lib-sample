@@ -13,14 +13,7 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import HistoryIcon from '@mui/icons-material/History';
 
-import {
-  Button,
-  ButtonProps,
-  Box,
-  BoxProps,
-  Grid,
-  Typography,
-} from '@mui/material';
+import { Button, Box, BoxProps, Grid } from '@mui/material';
 
 import { SearchItem } from '../../utils/query';
 

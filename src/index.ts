@@ -1,5 +1,3 @@
-import dynamic from 'next/dynamic';
-
 export { FileInput } from './components/Form/FileInput';
 export { FormGrid } from './components/Form/FormGrid';
 export { FormInput } from './components/Form/FormInput';
@@ -13,6 +11,7 @@ export { DialogWrapper } from './components/DialogWrapper';
 export { Copy } from './components/Copy';
 export { Link } from './components/Link';
 export { YoutubePlayer as Youtube } from './components/Youtube';
+export { Layout } from './components/Layout';
 
 //redux関連
 export { store } from './redux/store';

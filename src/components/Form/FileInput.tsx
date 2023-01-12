@@ -10,7 +10,7 @@ export type FileInputProps = FormProps & {
   color: Color;
 };
 
-export const FileInput: VFC<FileInputProps> = ({
+const App: VFC<FileInputProps> = ({
   color = 'primary',
   title,
   name = '',
@@ -63,3 +63,14 @@ export const FileInput: VFC<FileInputProps> = ({
     </Box>
   );
 };
+
+import theme from '../theme';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+export const FileInput = (props: FileInputProps) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <App {...props} />
+  </ThemeProvider>
+);

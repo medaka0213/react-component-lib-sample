@@ -1,14 +1,7 @@
 import React, { VFC, useState, useEffect } from 'react';
 import { Formik, useFormik } from 'formik';
 
-import {
-  Typography,
-  Button,
-  ButtonProps,
-  Box,
-  BoxProps,
-  Grid,
-} from '@mui/material';
+import { Button, Box, BoxProps, Grid } from '@mui/material';
 
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
@@ -33,7 +26,7 @@ export type SearchDetailFromProps = BoxProps & {
   queries?: QueryItem[];
 };
 
-export const SearchDetailForm: VFC<SearchDetailFromProps> = ({
+const App: VFC<SearchDetailFromProps> = ({
   keys = [
     {
       label: '日時',
@@ -259,3 +252,14 @@ export const SearchDetailForm: VFC<SearchDetailFromProps> = ({
     </Box>
   );
 };
+
+import theme from '../theme';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+export const SearchDetailForm = (props: SearchDetailFromProps) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <App {...props} />
+  </ThemeProvider>
+);

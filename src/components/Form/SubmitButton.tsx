@@ -1,38 +1,45 @@
-import React, { VFC, useState } from "react";
-import Button, { ButtonProps } from "@mui/material/Button";
+import React, { VFC, useState } from 'react';
+import theme from '../theme';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+import Button, { ButtonProps } from '@mui/material/Button';
 
 export type SubmitButtonProps = ButtonProps & {
-  onClick?: ()=>Promise<any>
-}
+  onClick?: () => Promise<any>;
+};
 
 export const SubmitButton: VFC<SubmitButtonProps> = ({
   children,
   onClick,
-  variant = "contained",
+  variant = 'contained',
   sx,
   disabled,
-  color="primary"
+  color = 'primary',
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const _onClick = async (e:any) => {
+  const _onClick = async (e: any) => {
     setIsSubmitting(true);
     if (onClick) await onClick(e);
     setIsSubmitting(false);
   };
 
   return (
-    <Button
-      disabled={isSubmitting || disabled}
-      onClick={_onClick}
-      variant={variant}
-      sx={{
-        width: "100%",
-        ...sx,
-      }}
-      color={color}
-    >
-      {isSubmitting ? "loading..." : children || "Submit"}
-    </Button>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Button
+        disabled={isSubmitting || disabled}
+        onClick={_onClick}
+        variant={variant}
+        sx={{
+          width: '100%',
+          ...sx,
+        }}
+        color={color}
+      >
+        {isSubmitting ? 'loading...' : children || 'Submit'}
+      </Button>
+    </ThemeProvider>
   );
 };

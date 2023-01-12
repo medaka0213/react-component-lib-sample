@@ -1,6 +1,5 @@
 import React, { useRef, useCallback } from 'react';
 import { Modal, Box, BoxProps } from '@mui/material';
-import { Typography } from '@mui/joy';
 
 type DialogWrapperProps = {
   children: React.ReactNode;
@@ -8,36 +7,8 @@ type DialogWrapperProps = {
 
 export const DialogWrapper: React.VFC<DialogWrapperProps> = ({ children }) => {
   const [open, setOpen] = React.useState(false);
-
   return (
-    <React.Fragment>
-      <Box
-        onClick={() => setOpen(true)}
-        sx={{
-          '&:hover': {
-            opacity: 0.8,
-          },
-        }}
-      >
-        <Typography
-          component={'span'}
-          sx={{
-            position: 'absolute' as 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            display: 'none',
-            '&:hover': {
-              display: 'block',
-            },
-            height: '100%',
-            width: '100%',
-          }}
-        >
-          Click to open
-        </Typography>
-        {children}
-      </Box>
+    <>
       <Modal open={open} onClose={() => setOpen(!open)}>
         <Box
           sx={{
@@ -51,6 +22,19 @@ export const DialogWrapper: React.VFC<DialogWrapperProps> = ({ children }) => {
           {children}
         </Box>
       </Modal>
-    </React.Fragment>
+      <Box
+        sx={{
+          width: '100%',
+          height: '100%',
+          zIndex: 10000,
+          '&:hover': {
+            opacity: 0.9,
+          },
+        }}
+        onClick={() => setOpen(true)}
+      >
+        {children}
+      </Box>
+    </>
   );
 };

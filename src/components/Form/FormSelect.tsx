@@ -24,7 +24,7 @@ export type FormSelectProps = FormProps & {
   size?: 'small' | 'medium';
 };
 
-export const FormSelect: VFC<FormSelectProps> = ({
+export const App: VFC<FormSelectProps> = ({
   color = 'primary',
   variant = 'filled',
   name,
@@ -61,3 +61,14 @@ export const FormSelect: VFC<FormSelectProps> = ({
     </FormControl>
   );
 };
+
+import theme from '../theme';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+export const FormSelect = (props: FormSelectProps) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <App {...props} />
+  </ThemeProvider>
+);
