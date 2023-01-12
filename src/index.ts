@@ -8,6 +8,7 @@ export { SubmitButton } from './components/Form/SubmitButton';
 export { SearchDetailForm } from './components/Form/SearchDetailForm';
 export { ItemListTable } from './components/ItemListTable';
 export { SlideShow } from './components/SlideShow';
+export { DialogWrapper } from './components/DialogWrapper';
 
 export { Copy } from './components/Copy';
 export { Link } from './components/Link';

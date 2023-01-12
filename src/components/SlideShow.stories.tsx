@@ -41,3 +41,15 @@ NoTexts.args = {
     return '';
   }),
 };
+
+export const Fullscreen = Template.bind({});
+Fullscreen.args = {
+  images,
+  fullScreen: true,
+  texts: images.map((i) => {
+    return '';
+  }),
+  sx: {
+    width: '50%',
+  },
+};
