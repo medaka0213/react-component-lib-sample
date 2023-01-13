@@ -10,8 +10,6 @@ export const CountDownClock = ({ datetime_iso }: CountDownClockProps) => {
     format_countdown(datetime_iso)
   );
 
-  console.log('time_format', datetime_iso);
-
   // 0.1秒ごとにvalueを1ずつ増やす
   React.useEffect(() => {
     const timer = setInterval(() => {

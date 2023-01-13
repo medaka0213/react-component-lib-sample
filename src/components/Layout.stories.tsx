@@ -9,6 +9,7 @@ import {
   ListItemIcon,
   ListItemText,
   Toolbar,
+  Box,
 } from '@mui/material';
 import TwitterIcon from '@mui/icons-material/Twitter';
 
@@ -43,14 +44,29 @@ const Template: ComponentStory<typeof Layout> = (args) => <Layout {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   children: (
-    <img
-      src="https://sxcontent9668.azureedge.us/cms-assets/assets/Launch_Page_Starlink1_vertical_18_DESKTOP_209c4e50a1.jpg/"
-      alt="Starlink"
-      width={'100%'}
-      height={'auto'}
-    />
+    <Box
+      sx={{
+        width: '100%',
+        height: '100%',
+        bgcolor: 'primary.main',
+      }}
+    >
+      ここにメインコンテンツ
+    </Box>
   ),
   drawer: <SideBar />,
+  footer: <p>ここにフッター</p>,
+  sidebar: (
+    <Box
+      sx={{
+        bgcolor: 'secondary.main',
+        width: '100%',
+        height: '100%',
+      }}
+    >
+      ここにサイトバー
+    </Box>
+  ),
 };
 
 export const CustomColor = Template.bind({});
@@ -65,4 +81,5 @@ CustomColor.args = {
   ),
   bgColor: '#004F8A',
   drawer: <SideBar />,
+  footer: <p>ここにフッター</p>,
 };

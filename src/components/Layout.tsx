@@ -8,6 +8,7 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
+import Paper from '@mui/material/Paper';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
@@ -31,6 +32,8 @@ export type LayoutProps = {
   children: React.ReactNode;
   window?: () => Window;
   drawer: React.ReactNode;
+  sidebar: React.ReactNode;
+  footer: React.ReactNode;
   bgColor: string;
 };
 
@@ -52,170 +55,215 @@ function LayoutApp(props: LayoutProps) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-      }}
-    >
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        sx={{
-          width: { md: `calc(100% - ${(open && drawerWidth) || 0}px)` },
-          ml: { md: `${(open && drawerWidth) || 0}px` },
-          backgroundColor: bgColor,
-        }}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={() => {
-              handleDrawerToggleMobile();
-              handleDrawerToggle();
-            }}
-            sx={{ mr: 2, display: { md: open ? 'none' : 'block' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Logo
-            variant="white"
-            sx={{
-              height: '40px',
-              display: { md: open ? 'none' : 'block' },
-            }}
-          />
-        </Toolbar>
-      </AppBar>
+    <>
       <Box
-        component="nav"
         sx={{
-          width: { md: (open && drawerWidth) || 0 },
-          flexShrink: { md: 0 },
+          display: 'flex',
         }}
-        aria-label="mailbox folders"
       >
-        {/* モバイル用 */}
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
+        <AppBar
           sx={{
-            display: { xs: 'block', md: 'none' },
-            '& .MuiDrawer-paper': {
-              boxSizing: 'border-box',
-              width: drawerWidth,
-            },
+            width: { xl: `calc(100% - ${(open && drawerWidth) || 0}px)` },
+            ml: { xl: `${(open && drawerWidth) || 0}px` },
+            backgroundColor: bgColor,
           }}
         >
-          <DrawerHeader sx={{ backgroundColor: bgColor }}>
-            <Logo
-              variant="white"
-              sx={{
-                height: '40px',
-                mr: 'auto',
-                ml: 1,
-              }}
-            />
+          <Toolbar>
             <IconButton
-              onClick={handleDrawerToggleMobile}
               color="inherit"
-              sx={{
-                color: 'white',
+              aria-label="open drawer"
+              edge="start"
+              onClick={() => {
+                handleDrawerToggleMobile();
+                handleDrawerToggle();
               }}
+              sx={{ mr: 2, display: { xl: open ? 'none' : 'block' } }}
             >
-              {theme.direction === 'ltr' ? (
-                <ChevronLeftIcon
-                  sx={{
-                    color: 'white',
-                  }}
-                />
-              ) : (
-                <ChevronRightIcon
-                  sx={{
-                    color: 'white',
-                  }}
-                />
-              )}
+              <MenuIcon />
             </IconButton>
-          </DrawerHeader>
-          {drawer}
-        </Drawer>
-        {/* PC用 */}
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: 'none', md: 'block' },
-            '& .MuiDrawer-paper': {
-              boxSizing: 'border-box',
-              width: (open && drawerWidth) || 0,
-            },
-          }}
-          open
-        >
-          <DrawerHeader sx={{ backgroundColor: bgColor }}>
             <Logo
               variant="white"
               sx={{
                 height: '40px',
-                mr: 'auto',
-                ml: 1,
+                display: { xl: open ? 'none' : 'block' },
               }}
             />
-            <IconButton
-              onClick={handleDrawerToggle}
-              sx={{
-                color: 'white',
-              }}
-            >
-              {theme.direction === 'ltr' ? (
-                <ChevronLeftIcon
-                  sx={{
-                    color: 'white',
-                  }}
-                />
-              ) : (
-                <ChevronRightIcon
-                  sx={{
-                    color: 'white',
-                  }}
-                />
-              )}
-            </IconButton>
-          </DrawerHeader>
-          {drawer}
-        </Drawer>
-      </Box>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          width: { md: `calc(100% - ${(open && drawerWidth) || 0}px)` },
-          height: '100%',
-          minHeight: '100vh',
-          backgroundColor: '#eee',
-        }}
-      >
-        <Toolbar />
+          </Toolbar>
+        </AppBar>
+        <Box
+          component="nav"
+          sx={{
+            width: { xl: (open && drawerWidth) || 0 },
+            flexShrink: { xl: 0 },
+          }}
+          aria-label="mailbox folders"
+        >
+          {/* モバイル用 */}
+          <Drawer
+            container={container}
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+            sx={{
+              display: { xs: 'block', xl: 'none' },
+              '& .MuiDrawer-paper': {
+                boxSizing: 'border-box',
+                width: drawerWidth,
+              },
+            }}
+          >
+            <DrawerHeader sx={{ backgroundColor: bgColor }}>
+              <Logo
+                variant="white"
+                sx={{
+                  height: '40px',
+                  mr: 'auto',
+                  ml: 1,
+                }}
+              />
+              <IconButton
+                onClick={handleDrawerToggleMobile}
+                color="inherit"
+                sx={{
+                  color: 'white',
+                }}
+              >
+                {theme.direction === 'ltr' ? (
+                  <ChevronLeftIcon
+                    sx={{
+                      color: 'white',
+                    }}
+                  />
+                ) : (
+                  <ChevronRightIcon
+                    sx={{
+                      color: 'white',
+                    }}
+                  />
+                )}
+              </IconButton>
+            </DrawerHeader>
+            {drawer}
+          </Drawer>
+          {/* PC用 */}
+          <Drawer
+            variant="permanent"
+            sx={{
+              display: { xs: 'none', xl: 'block' },
+              '& .MuiDrawer-paper': {
+                boxSizing: 'border-box',
+                width: (open && drawerWidth) || 0,
+              },
+            }}
+            open
+          >
+            <DrawerHeader sx={{ backgroundColor: bgColor }}>
+              <Logo
+                variant="white"
+                sx={{
+                  height: '40px',
+                  mr: 'auto',
+                  ml: 1,
+                }}
+              />
+              <IconButton
+                onClick={handleDrawerToggle}
+                sx={{
+                  color: 'white',
+                }}
+              >
+                {theme.direction === 'ltr' ? (
+                  <ChevronLeftIcon
+                    sx={{
+                      color: 'white',
+                    }}
+                  />
+                ) : (
+                  <ChevronRightIcon
+                    sx={{
+                      color: 'white',
+                    }}
+                  />
+                )}
+              </IconButton>
+            </DrawerHeader>
+            {drawer}
+          </Drawer>
+        </Box>
         <Box
           sx={{
-            border: '1px solid #eaeaea',
-            borderRadius: '4px',
-            backgroundColor: 'transparent',
-            p: 1,
-            maxWidth: '1280px',
-            '@media (min-width: 600px)': {},
+            display: 'block',
+            width: '100%',
+            height: '100%',
+            minHeight: '100vh',
+            backgroundColor: '#eee',
           }}
         >
-          {props.children}
+          <Box
+            sx={{
+              height: '100%',
+              display: 'flex',
+              mx: {
+                xs: 0,
+                lg: 'auto',
+              },
+            }}
+          >
+            <Box
+              sx={{
+                display: 'block',
+                maxWidth: {
+                  xs: '100%',
+                  lg: '1200px',
+                },
+                width: '100%',
+                height: '100%',
+              }}
+            >
+              <DrawerHeader />
+              {props.children}
+            </Box>
+            <Box
+              sx={{
+                width: {
+                  xs: '0',
+                  lg: '350px',
+                },
+                height: '100%',
+                display: { xs: 'none', lg: 'block' },
+              }}
+            >
+              <DrawerHeader />
+              {props.sidebar}
+            </Box>
+          </Box>
         </Box>
       </Box>
-    </Box>
+      <Paper
+        className="footer"
+        sx={{
+          justifyContent: 'center',
+          align: 'center',
+          width: '100%',
+          py: 1,
+          zIndex: 'drawer',
+        }}
+        elevation={3}
+      >
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          mx="auto"
+          flexWrap="wrap"
+        >
+          {props.footer}
+        </Box>
+      </Paper>
+    </>
   );
 }
 
