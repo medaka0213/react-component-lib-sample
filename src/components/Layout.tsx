@@ -103,7 +103,7 @@ function LayoutApp(props: LayoutProps) {
             container={container}
             variant="temporary"
             open={mobileOpen}
-            onClose={handleDrawerToggle}
+            onClose={handleDrawerToggleMobile}
             ModalProps={{
               keepMounted: true, // Better open performance on mobile.
             }}

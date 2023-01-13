@@ -13,6 +13,7 @@ export { Link } from './components/Link';
 export { YoutubePlayer as Youtube } from './components/Youtube';
 export { Layout } from './components/Layout';
 export { CountDownClock } from './components/CountDownClock';
+export { TabsParent } from './components/TabsParent';
 
 //redux関連
 export { store } from './redux/store';
