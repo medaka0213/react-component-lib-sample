@@ -12,6 +12,7 @@ export { Copy } from './components/Copy';
 export { Link } from './components/Link';
 export { YoutubePlayer as Youtube } from './components/Youtube';
 export { Layout } from './components/Layout';
+export { CountDownClock } from './components/CountDownClock';
 
 //redux関連
 export { store } from './redux/store';

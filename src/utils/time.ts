@@ -91,9 +91,9 @@ export function format_countdown(datetime: string): string {
   let seconds = zeroPadding(Math.abs(duration.seconds()), 2);
 
   if (duration.asMilliseconds() < 0) {
-    res = 'T+ ';
+    res = 'T + ';
   } else {
-    res = 'T- ';
+    res = 'T - ';
   }
 
   if (years > 0) {
