@@ -12,14 +12,7 @@ import { FormModal } from './FormModal';
 import { TimeRange } from '../../models/TimeRange';
 import { SearchItem } from '../../utils/query';
 
-import {
-  QueryItem,
-  SearchMode,
-  SearchModeList,
-  ParamToSearchMode,
-  SearchModeToParam,
-  GetSearchMode,
-} from '../../utils/query';
+import { QueryItem, SearchModeToParam } from '../../utils/query';
 
 export type SearchDetailFromProps = BoxProps & {
   keys?: SearchItem[];

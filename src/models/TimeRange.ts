@@ -174,17 +174,28 @@ export class TimeRange {
     }
   }
 
-  toString = (key: string = 'datetime'): string => {
+  toString = (key: string = 'datetime', incl_key = true): string => {
+    let value = '';
     if (this.mode === DatetimeSearchMode.CUSTOM_AFTER) {
-      return `${key}=${this.start}...`;
+      value = `${this.start}...`;
     } else if (this.mode === DatetimeSearchMode.CUSTOM_BEFORE) {
-      return `${key}=...${this.end}`;
+      value = `...${this.end}`;
+    } else {
+      value = `${this.start}...${this.end}`;
     }
-    return `${key}=${this.start}...${this.end}`;
+    return incl_key ? `${key}=${value}` : value;
   };
 
   toQueryItem = (key: string = 'datetime'): QueryItem => {
-    return ParamToQueryItem(this.toString(key));
+    const { value0, value1 } = ParamToQueryItem(this.toString(key, false));
+    return {
+      key,
+      value0,
+      value1,
+      mode: this.mode,
+      enabled: this.mode !== DatetimeSearchMode.DISABLED,
+      type: 'datetime',
+    };
   };
 
   // 前の範囲

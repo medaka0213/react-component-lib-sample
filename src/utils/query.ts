@@ -116,13 +116,20 @@ export const ParamToSearchMode = (param: string): SearchMode => {
     res = GetSearchMode('EX');
   } else if (param === '--') {
     res = GetSearchMode('N_EX');
-  } else if (param.startsWith('...')) {
-    res = GetSearchMode('LT_E');
+  } else if (param.indexOf('...') != -1) {
+    const [v0 = '', v1 = ''] = param.split('...');
+    if (v0.length && v1.length) {
+      res = GetSearchMode('BETWEEN');
+    } else if (v0.length) {
+      res = GetSearchMode('LT_E');
+    } else if (v1.length) {
+      res = GetSearchMode('GT_E');
+    } else {
+      res = GetSearchMode('EQ');
+    }
   } else if (param.startsWith('..')) {
     res = GetSearchMode('LT');
   } else if (param.endsWith('...')) {
-    res = GetSearchMode('GT_E');
-  } else if (param.endsWith('..')) {
     res = GetSearchMode('GT');
   } else if (param.startsWith('--')) {
     res = GetSearchMode('N_EQ');
@@ -130,8 +137,6 @@ export const ParamToSearchMode = (param: string): SearchMode => {
     res = GetSearchMode('CONTAINS');
   } else if (param.endsWith('*')) {
     res = GetSearchMode('BEGINS');
-  } else if (param.indexOf('...') != -1) {
-    res = GetSearchMode('BETWEEN');
   } else {
     res = GetSearchMode('EQ');
   }
@@ -148,9 +153,8 @@ const splitValue = (value: string): string => {
 
 export const ParamToQueryItem = (param: string): QueryItem => {
   const searchMode = ParamToSearchMode(param);
-  const key = param.split('=')[0];
+  const [key, value = param] = param.split('=');
   const keyItem = SearchModeList.filter((mode) => mode.value === key)[0];
-  const value = param.split('=')[1];
   if (param === '*') {
     return {
       key,
@@ -181,7 +185,7 @@ export const ParamToQueryItem = (param: string): QueryItem => {
       type: 'string',
     };
   } else if (searchMode.value === 'LT_E') {
-    const value0 = value.split('...')[1];
+    const value0 = value.split('...')[0];
     return {
       key,
       value0: splitValue(value0),
@@ -201,7 +205,7 @@ export const ParamToQueryItem = (param: string): QueryItem => {
       type: 'string',
     };
   } else if (searchMode.value === 'GT_E') {
-    const value0 = value.split('...')[0];
+    const value0 = value.split('...')[1];
     return {
       key,
       value0: splitValue(value0),

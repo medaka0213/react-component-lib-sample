@@ -25,7 +25,6 @@ export const DialogWrapper: React.VFC<DialogWrapperProps> = ({ children }) => {
       <Box
         sx={{
           width: '100%',
-          height: '100%',
           zIndex: 10000,
           '&:hover': {
             opacity: 0.9,

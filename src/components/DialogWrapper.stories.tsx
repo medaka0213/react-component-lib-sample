@@ -31,10 +31,9 @@ export const Long = Template.bind({});
 Long.args = {
   children: (
     <img
-      src="https://sxcontent9668.azureedge.us/cms-assets/assets/Launch_Page_Starlink1_vertical_18_MOBILE_e059d50626.jpg"
+      src="https://img.virtualrocketwatching.net/image/image_eb573419-a62c-43d0-a8de-0bcb6a4e2c6f.jpeg"
       alt="Starlink"
-      width={'100%'}
-      height={'100%'}
+      style={{ maxWidth: '100vw', maxHeight: '90vh' }}
     />
   ),
 };
