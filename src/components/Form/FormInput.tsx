@@ -68,7 +68,6 @@ export const App: VFC<FormInputProps> = ({
               setOpenTip(false);
             }}
             value={values[name] || ''}
-            defaultValue={values[name] || ''}
             rows={rows}
             placeholder={placeholder}
             style={{

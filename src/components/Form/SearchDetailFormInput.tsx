@@ -104,7 +104,7 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
               formik={_formik}
               name="key"
               title="Key"
-              selectItems={keys}
+              options={keys}
               disabled={_formik.values.enabled}
             />
           </Grid>
@@ -120,7 +120,7 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
               formik={_formik}
               name="mode"
               title="検索モード"
-              selectItems={ModeList.map((v) => ({
+              options={ModeList.map((v) => ({
                 label: v.label || v.value,
                 value: v.value,
               }))}

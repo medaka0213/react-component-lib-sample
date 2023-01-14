@@ -1,19 +1,21 @@
-import React from "react";
+import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { FormSelect } from "./FormSelect";
+import { FormSelect } from './FormSelect';
 
 export default {
   component: FormSelect,
-  title: "FormSelect",
+  title: 'FormSelect',
 };
 
-const Template: ComponentStory<typeof FormSelect> = (args) => <FormSelect {...args} />;
+const Template: ComponentStory<typeof FormSelect> = (args) => (
+  <FormSelect {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {
-  name: "sample",
-  title: "title",
+  name: 'sample',
+  title: 'title',
   onChange() {
     //一秒待つ
     return new Promise((resolve) => setTimeout(resolve, 1000));
@@ -21,21 +23,21 @@ Default.args = {
   formik: {
     values: {},
     errors: {
-      sample: "error",
+      sample: 'error',
     },
     touched: {},
   },
-  selectItems: [
+  options: [
     {
-      value: "value1",
+      value: 'value1',
     },
     {
-      value: "value2",
-      label: "value2 (with divder)",
+      value: 'value2',
+      label: 'value2 (with divder)',
       divider: true,
     },
     {
-      value: "value2",
+      value: 'value2',
     },
   ],
 };

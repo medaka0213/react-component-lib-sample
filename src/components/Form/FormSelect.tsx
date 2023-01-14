@@ -20,7 +20,7 @@ export type SelectItem = {
 export type FormSelectProps = FormProps & {
   name: string;
   variant?: 'outlined' | 'filled' | 'standard';
-  selectItems: SelectItem[];
+  options: SelectItem[];
   size?: 'small' | 'medium';
 };
 
@@ -29,7 +29,7 @@ export const App: VFC<FormSelectProps> = ({
   variant = 'filled',
   name,
   title = '',
-  selectItems = [],
+  options = [],
   disabled = false,
   onChange,
   size = 'small',
@@ -51,7 +51,7 @@ export const App: VFC<FormSelectProps> = ({
         name={name}
         disabled={disabled}
       >
-        {selectItems.map((item, index) => (
+        {options.map((item, index) => (
           <MenuItem key={index} value={item.value} divider={item.divider}>
             {item.label || item.value}
           </MenuItem>

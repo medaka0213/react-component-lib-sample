@@ -10,6 +10,7 @@ export type FormGridProps = FormProps & {
   buttonLabel?: string;
   buttonPosition?: 'top' | 'bottom';
   buttonEnabled?: boolean;
+  xs?: number;
 };
 
 const App: VFC<FormGridProps> = ({
@@ -22,6 +23,7 @@ const App: VFC<FormGridProps> = ({
   disabled = false,
   buttonPosition = 'bottom',
   buttonEnabled = true,
+  xs = 12,
   formik: { handleSubmit, errors = {}, values = {}, ...formik } = {},
 }) => {
   const Button = () => (
@@ -67,7 +69,7 @@ const App: VFC<FormGridProps> = ({
         {_childrenList.map((childrenRow, i) => (
           <>
             {childrenRow.map((child, j) => (
-              <Grid key={j} xs={12} sm={Number(12 / childrenRow.length)}>
+              <Grid key={j} xs={xs} sm={Number(xs / childrenRow.length)}>
                 <Box
                   sx={{
                     pr: 1,

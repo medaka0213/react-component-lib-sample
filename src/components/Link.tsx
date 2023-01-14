@@ -1,4 +1,6 @@
 import React, { VFC } from 'react';
+import NextLink from 'next/link';
+
 import LaunchIcon from '@mui/icons-material/Launch';
 
 import { CommonProps } from './types';
@@ -17,13 +19,15 @@ const iconWrapStyle = {
 };
 
 const App: VFC<LinkProps> = ({ sx, children, href, external = false }) => {
+  let props: any = {
+    href,
+    style: { ...iconWrapStyle, ...sx },
+  };
+  if (external) {
+    props = { ...props, target: '_blank' };
+  }
   return (
-    <a
-      href={href}
-      target={external ? '_blank' : '_self'}
-      rel="noopener noreferrer"
-      style={{ ...iconWrapStyle, ...sx }}
-    >
+    <NextLink {...props}>
       {children || href}
       {external && (
         <LaunchIcon
@@ -34,7 +38,7 @@ const App: VFC<LinkProps> = ({ sx, children, href, external = false }) => {
           }}
         />
       )}
-    </a>
+    </NextLink>
   );
 };
 
