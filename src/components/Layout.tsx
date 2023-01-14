@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -9,18 +9,14 @@ import Paper from '@mui/material/Paper';
 import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 import Logo from './Logo';
 
 const drawerWidth = 240;
 
-const DrawerHeader = styled('div')(({ theme }) => ({
+const DrawerHeader = styled('div')(() => ({
   display: 'flex',
   alignItems: 'center',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
 }));
 
@@ -35,7 +31,6 @@ export type LayoutProps = {
 
 export const Layout = (props: LayoutProps) => {
   const { window, drawer, bgColor = 'primary.main' } = props;
-  const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [open, setOpen] = React.useState(true);
 
@@ -127,19 +122,11 @@ export const Layout = (props: LayoutProps) => {
                   color: 'white',
                 }}
               >
-                {theme.direction === 'ltr' ? (
-                  <ChevronLeftIcon
-                    sx={{
-                      color: 'white',
-                    }}
-                  />
-                ) : (
-                  <ChevronRightIcon
-                    sx={{
-                      color: 'white',
-                    }}
-                  />
-                )}
+                <ChevronLeftIcon
+                  sx={{
+                    color: 'white',
+                  }}
+                />
               </IconButton>
             </DrawerHeader>
             {drawer}
@@ -171,19 +158,11 @@ export const Layout = (props: LayoutProps) => {
                   color: 'white',
                 }}
               >
-                {theme.direction === 'ltr' ? (
-                  <ChevronLeftIcon
-                    sx={{
-                      color: 'white',
-                    }}
-                  />
-                ) : (
-                  <ChevronRightIcon
-                    sx={{
-                      color: 'white',
-                    }}
-                  />
-                )}
+                <ChevronLeftIcon
+                  sx={{
+                    color: 'white',
+                  }}
+                />
               </IconButton>
             </DrawerHeader>
             {drawer}

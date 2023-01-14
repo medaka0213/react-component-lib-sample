@@ -119,7 +119,7 @@ export const SlideShowContent: React.VFC<SlideShowProps> = ({
           valueLabelDisplay="auto"
           value={slideIndex}
           onChange={(e) => {
-            setSlideIndex(parseInt(e.target.value));
+            setSlideIndex(parseInt(e?.target?.value as string));
           }}
         />
 
