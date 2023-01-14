@@ -31,7 +31,7 @@ export type FormInputProps = FormProps & {
   size?: 'small' | 'medium';
 };
 
-export const App: VFC<FormInputProps> = ({
+export const FormInput: VFC<FormInputProps> = ({
   color = 'primary',
   name = '',
   type = 'text',
@@ -126,14 +126,3 @@ export const App: VFC<FormInputProps> = ({
     </FormControl>
   );
 };
-
-import theme from '../theme';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-
-export const FormInput = (props: FormInputProps) => (
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <App {...props} />
-  </ThemeProvider>
-);

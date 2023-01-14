@@ -150,7 +150,7 @@ export const SlideShowContent: React.VFC<SlideShowProps> = ({
   );
 };
 
-export const App: React.VFC<SlideShowProps> = ({ sx, ...props }) => {
+export const SlideShow: React.VFC<SlideShowProps> = ({ sx, ...props }) => {
   const [open, setOpen] = React.useState(false);
   return (
     <>
@@ -188,16 +188,3 @@ export const App: React.VFC<SlideShowProps> = ({ sx, ...props }) => {
     </>
   );
 };
-
-import theme from './theme';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-
-export const SlideShow = (props: SlideShowProps) => (
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <App {...props} />
-  </ThemeProvider>
-);
-
-export default SlideShow;

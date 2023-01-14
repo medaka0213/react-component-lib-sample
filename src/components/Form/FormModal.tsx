@@ -31,7 +31,7 @@ export type FormModalProps = FormProps & {
   title: string;
 };
 
-const App: VFC<FormModalProps> = ({
+export const FormModal: VFC<FormModalProps> = ({
   children,
   sx,
   Form,
@@ -79,14 +79,3 @@ const App: VFC<FormModalProps> = ({
     </>
   );
 };
-
-import theme from '../theme';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-
-export const FormModal = (props: FormModalProps) => (
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <App {...props} />
-  </ThemeProvider>
-);

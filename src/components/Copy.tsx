@@ -26,7 +26,7 @@ export type CopyProps = BoxProps &
     area: boolean;
   };
 
-const App: VFC<CopyProps> = ({
+export const Copy: VFC<CopyProps> = ({
   sx,
   value,
   external = false,
@@ -118,14 +118,3 @@ const App: VFC<CopyProps> = ({
     </Box>
   );
 };
-
-import theme from './theme';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-
-export const Copy = (props: CopyProps) => (
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <App {...props} />
-  </ThemeProvider>
-);

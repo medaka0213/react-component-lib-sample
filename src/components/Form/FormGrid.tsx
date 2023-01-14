@@ -13,7 +13,7 @@ export type FormGridProps = FormProps & {
   xs?: number;
 };
 
-const App: VFC<FormGridProps> = ({
+export const FormGrid: VFC<FormGridProps> = ({
   color = 'primary',
   sx,
   childrenList = [[]],
@@ -99,14 +99,3 @@ const App: VFC<FormGridProps> = ({
     </Box>
   );
 };
-
-import theme from '../theme';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-
-export const FormGrid = (props: FormGridProps) => (
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <App {...props} />
-  </ThemeProvider>
-);

@@ -30,7 +30,7 @@ export type TabsProps = BoxProps & {
   list: TabListItem[];
 };
 
-const App = ({ list, index = 0, sx, ...props }: TabsProps) => {
+export const TabsParent = ({ list, index = 0, sx, ...props }: TabsProps) => {
   const [value, setValue] = useState(index);
 
   const handleChange = (event: any, newValue: any) => {
@@ -70,14 +70,3 @@ const App = ({ list, index = 0, sx, ...props }: TabsProps) => {
     </Box>
   );
 };
-
-import theme from './theme';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-
-export const TabsParent = (props: TabsProps) => (
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <App {...props} />
-  </ThemeProvider>
-);
