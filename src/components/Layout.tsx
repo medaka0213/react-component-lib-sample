@@ -267,9 +267,10 @@ function LayoutApp(props: LayoutProps) {
   );
 }
 
+import _theme from './theme';
 export const Layout = (props: LayoutProps) => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={_theme}>
       <CssBaseline />
       <LayoutApp {...props} />
     </ThemeProvider>
