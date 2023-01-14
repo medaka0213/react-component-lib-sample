@@ -19,7 +19,7 @@ export type SearchDetailFromProps = BoxProps & {
   queries?: QueryItem[];
 };
 
-export const SearchDetailForm: VFC<SearchDetailFromProps> = ({
+const App: VFC<SearchDetailFromProps> = ({
   keys = [
     {
       label: '日時',
@@ -245,3 +245,14 @@ export const SearchDetailForm: VFC<SearchDetailFromProps> = ({
     </Box>
   );
 };
+
+import theme from '../theme';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+export const SearchDetailForm = (props: SearchDetailFromProps) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <App {...props} />
+  </ThemeProvider>
+);

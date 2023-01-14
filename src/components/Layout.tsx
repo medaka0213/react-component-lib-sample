@@ -1,4 +1,8 @@
 import React, { useState, ReactNode } from 'react';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import theme from './theme';
+
 import { styled, useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -33,7 +37,7 @@ export type LayoutProps = {
   bgColor: string;
 };
 
-export const Layout = (props: LayoutProps) => {
+function LayoutApp(props: LayoutProps) {
   const { window, drawer, bgColor = 'primary.main' } = props;
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -260,5 +264,14 @@ export const Layout = (props: LayoutProps) => {
         </Box>
       </Paper>
     </>
+  );
+}
+
+export const Layout = (props: LayoutProps) => {
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <LayoutApp {...props} />
+    </ThemeProvider>
   );
 };

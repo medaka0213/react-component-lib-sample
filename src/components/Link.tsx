@@ -18,12 +18,7 @@ const iconWrapStyle = {
   AlignItems: 'center',
 };
 
-export const Link: VFC<LinkProps> = ({
-  sx,
-  children,
-  href,
-  external = false,
-}) => {
+const App: VFC<LinkProps> = ({ sx, children, href, external = false }) => {
   let props: any = {
     href,
     style: { ...iconWrapStyle, ...sx },
@@ -46,3 +41,14 @@ export const Link: VFC<LinkProps> = ({
     </NextLink>
   );
 };
+
+import theme from './theme';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+export const Link = (props: LinkProps) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <App {...props} />
+  </ThemeProvider>
+);

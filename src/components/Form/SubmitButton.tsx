@@ -1,4 +1,7 @@
 import React, { VFC, useState } from 'react';
+import theme from '../theme';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
 import Button, { ButtonProps } from '@mui/material/Button';
 
@@ -23,17 +26,20 @@ export const SubmitButton: VFC<SubmitButtonProps> = ({
   };
 
   return (
-    <Button
-      disabled={isSubmitting || disabled}
-      onClick={_onClick}
-      variant={variant}
-      sx={{
-        width: '100%',
-        ...sx,
-      }}
-      color={color}
-    >
-      {isSubmitting ? 'loading...' : children || 'Submit'}
-    </Button>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Button
+        disabled={isSubmitting || disabled}
+        onClick={_onClick}
+        variant={variant}
+        sx={{
+          width: '100%',
+          ...sx,
+        }}
+        color={color}
+      >
+        {isSubmitting ? 'loading...' : children || 'Submit'}
+      </Button>
+    </ThemeProvider>
   );
 };
