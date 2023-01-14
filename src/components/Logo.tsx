@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, BoxProps } from '@mui/material';
+import Box, { BoxProps } from '@mui/material/Box';
 
 type LogoProps = BoxProps & {
   variant?: 'jp' | 'en' | 'white';
