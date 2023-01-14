@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { format_countdown } from '../utils/time';
 
 export type CountDownClockProps = {
@@ -6,12 +6,10 @@ export type CountDownClockProps = {
 };
 
 export const CountDownClock = ({ datetime_iso }: CountDownClockProps) => {
-  const [time_format, setTimeFormat] = React.useState(
-    format_countdown(datetime_iso)
-  );
+  const [time_format, setTimeFormat] = useState(format_countdown(datetime_iso));
 
   // 0.1秒ごとにvalueを1ずつ増やす
-  React.useEffect(() => {
+  useEffect(() => {
     const timer = setInterval(() => {
       setTimeFormat(format_countdown(datetime_iso));
     }, 100);

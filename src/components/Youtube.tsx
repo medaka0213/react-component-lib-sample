@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { VFC } from 'react';
 import { Box, BoxProps } from '@mui/material';
 import { extract_youtube_id } from '../utils/string';
 import { CommonProps } from './types';
@@ -11,7 +11,7 @@ type YoutubeProps = CommonProps &
     width: string;
   };
 
-export const YoutubePlayer: React.VFC<YoutubeProps> = ({
+export const YoutubePlayer: VFC<YoutubeProps> = ({
   videoId,
   videoUrl,
   start = 0,

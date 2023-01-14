@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { VFC } from 'react';
 import Box, { BoxProps } from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -36,7 +36,7 @@ function getColspan(row: any, colums: any[], index: number) {
   return colspan;
 }
 
-export const ItemListTable: React.VFC<ItemListTableProps> = ({
+export const ItemListTable: VFC<ItemListTableProps> = ({
   rows = [],
   columns = [],
   sx,

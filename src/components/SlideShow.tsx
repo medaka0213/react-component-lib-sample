@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, VFC, useEffect } from 'react';
 
 import {
   Box,
@@ -24,7 +24,7 @@ type SlideShowProps = CommonProps & {
   onFullScreen?: () => void;
 };
 
-export const SlideShowContent: React.VFC<SlideShowProps> = ({
+export const SlideShowContent: VFC<SlideShowProps> = ({
   images,
   texts,
   onChange,
@@ -32,13 +32,13 @@ export const SlideShowContent: React.VFC<SlideShowProps> = ({
   fullScreen = false,
   ...props
 }) => {
-  const [slideIndex, setSlideIndex] = React.useState<number>(index);
+  const [slideIndex, setSlideIndex] = useState<number>(index);
 
-  React.useEffect(() => {
+  useEffect(() => {
     onChange && onChange(slideIndex);
   }, [slideIndex]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setSlideIndex(index);
   }, [index]);
 
@@ -150,8 +150,8 @@ export const SlideShowContent: React.VFC<SlideShowProps> = ({
   );
 };
 
-export const SlideShow: React.VFC<SlideShowProps> = ({ sx, ...props }) => {
-  const [open, setOpen] = React.useState(false);
+export const SlideShow: VFC<SlideShowProps> = ({ sx, ...props }) => {
+  const [open, setOpen] = useState(false);
   return (
     <>
       <SlideShowContent

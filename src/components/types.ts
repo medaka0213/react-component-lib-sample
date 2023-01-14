@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, ChangeEvent } from 'react';
 
 export type Color =
   | 'primary'
@@ -11,7 +11,7 @@ export type Color =
 export type Formik = {
   values: any;
   errors: any;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (v: any) => Promise<any>;
   setFieldValue: (field: string, value: any) => void;
 };

@@ -1,4 +1,4 @@
-import React, { VFC, useState } from 'react';
+import React, { VFC, useState, ChangeEvent } from 'react';
 
 import { FilledInput } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
@@ -62,7 +62,7 @@ export const FormInput: VFC<FormInputProps> = ({
             disabled={disabled}
             type={type}
             name={name}
-            onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
+            onChange={async (e: ChangeEvent<HTMLInputElement>) => {
               if (handleChange) await handleChange(e);
               if (onChange) await onChange(e);
               setOpenTip(false);

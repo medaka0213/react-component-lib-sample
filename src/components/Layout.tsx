@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, ReactNode } from 'react';
 import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -21,18 +21,18 @@ const DrawerHeader = styled('div')(() => ({
 }));
 
 export type LayoutProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   window?: () => Window;
-  drawer: React.ReactNode;
-  sidebar: React.ReactNode;
-  footer: React.ReactNode;
+  drawer: ReactNode;
+  sidebar: ReactNode;
+  footer: ReactNode;
   bgColor: string;
 };
 
 export const Layout = (props: LayoutProps) => {
   const { window, drawer, bgColor = 'primary.main' } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [open, setOpen] = React.useState(true);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const handleDrawerToggleMobile = () => {
     setMobileOpen(!mobileOpen);

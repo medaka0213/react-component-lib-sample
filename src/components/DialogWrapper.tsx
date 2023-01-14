@@ -1,12 +1,12 @@
-import React, { useRef, useCallback } from 'react';
+import React, { VFC, ReactNode, useState } from 'react';
 import { Modal, Box, BoxProps } from '@mui/material';
 
 type DialogWrapperProps = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
-export const DialogWrapper: React.VFC<DialogWrapperProps> = ({ children }) => {
-  const [open, setOpen] = React.useState(false);
+export const DialogWrapper: VFC<DialogWrapperProps> = ({ children }) => {
+  const [open, setOpen] = useState(false);
   return (
     <>
       <Modal open={open} onClose={() => setOpen(!open)}>

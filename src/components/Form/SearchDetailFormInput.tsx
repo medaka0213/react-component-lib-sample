@@ -1,4 +1,4 @@
-import React, { VFC, useState, useEffect } from 'react';
+import React, { VFC, ChangeEvent, useEffect } from 'react';
 import { Formik, useFormik, useField } from 'formik';
 import dayjs, { Dayjs } from 'dayjs';
 var utc = require('dayjs/plugin/utc');
@@ -124,7 +124,7 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
                 label: v.label || v.value,
                 value: v.value,
               }))}
-              onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
+              onChange={async (e: ChangeEvent<HTMLInputElement>) => {
                 let pld = {
                   ..._formik.values,
                   mode: e.target.value,
@@ -159,7 +159,7 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
                 formik={_formik}
                 name="value0"
                 title="Value"
-                onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
+                onChange={async (e: ChangeEvent<HTMLInputElement>) => {
                   onChange &&
                     (await onChange({
                       ..._formik.values,
@@ -186,7 +186,7 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
                 formik={_formik}
                 name="value1"
                 title="Value (上限)"
-                onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
+                onChange={async (e: ChangeEvent<HTMLInputElement>) => {
                   onChange &&
                     (await onChange({
                       ..._formik.values,

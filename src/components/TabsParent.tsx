@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-
-import { Box, BoxProps, Tabs, Tab, Typography, Button } from '@mui/material';
+import React, { useEffect, useState, ReactNode } from 'react';
+import { Box, BoxProps, Tabs, Tab } from '@mui/material';
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props;
@@ -21,11 +19,11 @@ function TabPanel(props: any) {
 
 type TabListItem = {
   title: string;
-  content: React.ReactNode;
+  content: ReactNode;
 };
 
 export type TabsProps = BoxProps & {
-  children: React.ReactNode;
+  children: ReactNode;
   index: number;
   list: TabListItem[];
 };

@@ -1,4 +1,4 @@
-import React, { VFC, useState, useRef } from 'react';
+import React, { VFC, useState, useRef, ChangeEvent, RefObject } from 'react';
 
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import Box from '@mui/material/Box';
@@ -44,7 +44,7 @@ export const FileInput: VFC<FileInputProps> = ({
         {file ? `選択中: ${file}` : title || 'ファイルを選択'}
       </SubmitButton>
       <input
-        onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
+        onChange={async (e: ChangeEvent<HTMLInputElement>) => {
           setIsLoading(true);
           if (handleChange) await handleChange(e);
           if (onChange) await onChange(e);
@@ -56,7 +56,7 @@ export const FileInput: VFC<FileInputProps> = ({
         name={name}
         value={values[name]}
         hidden
-        ref={inputRef as React.RefObject<HTMLInputElement>}
+        ref={inputRef as RefObject<HTMLInputElement>}
         type="file"
       />
       {children}
