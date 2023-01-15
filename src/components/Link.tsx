@@ -1,5 +1,4 @@
 import React, { VFC } from 'react';
-import NextLink from 'next/link';
 
 import LaunchIcon from '@mui/icons-material/Launch';
 
@@ -27,7 +26,7 @@ const App: VFC<LinkProps> = ({ sx, children, href, external = false }) => {
     props = { ...props, target: '_blank' };
   }
   return (
-    <NextLink {...props}>
+    <a {...props}>
       {children || href}
       {external && (
         <LaunchIcon
@@ -38,7 +37,7 @@ const App: VFC<LinkProps> = ({ sx, children, href, external = false }) => {
           }}
         />
       )}
-    </NextLink>
+    </a>
   );
 };
 

@@ -101,9 +101,9 @@ const App: VFC<CopyProps> = ({
         }}
       >
         {link ? (
-          <a href={value} external={external}>
+          <Link href={value} external={external}>
             {children || value}
-          </a>
+          </Link>
         ) : (
           children || value
         )}
