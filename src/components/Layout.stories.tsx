@@ -67,6 +67,7 @@ Default.args = {
       ここにサイトバー
     </Box>
   ),
+  appBar: <p>ここにAppバー</p>,
 };
 
 export const CustomColor = Template.bind({});
@@ -82,4 +83,5 @@ CustomColor.args = {
   bgColor: '#004F8A',
   drawer: <SideBar />,
   footer: <p>ここにフッター</p>,
+  appBar: <p>ここにAppバー</p>,
 };

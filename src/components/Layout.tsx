@@ -32,9 +32,11 @@ export type LayoutProps = {
   children: ReactNode;
   window?: () => Window;
   drawer: ReactNode;
-  sidebar: ReactNode;
-  footer: ReactNode;
+  sidebar?: ReactNode;
+  footer?: ReactNode;
+  appBar?: ReactNode;
   bgColor: string;
+  logoVariant?: 'white' | 'en' | 'jp';
 };
 
 function LayoutApp(props: LayoutProps) {
@@ -82,12 +84,14 @@ function LayoutApp(props: LayoutProps) {
               <MenuIcon />
             </IconButton>
             <Logo
-              variant="white"
+              variant={props.logoVariant || 'white'}
               sx={{
                 height: '40px',
-                display: { xl: open ? 'none' : 'block' },
+                display: { sm: open ? 'none' : 'block', xs: 'none' },
+                mr: 3,
               }}
             />
+            {props.appBar}
           </Toolbar>
         </AppBar>
         <Box
@@ -117,7 +121,7 @@ function LayoutApp(props: LayoutProps) {
           >
             <DrawerHeader sx={{ backgroundColor: bgColor }}>
               <Logo
-                variant="white"
+                variant={props.logoVariant || 'white'}
                 sx={{
                   height: '40px',
                   mr: 'auto',
@@ -162,7 +166,7 @@ function LayoutApp(props: LayoutProps) {
           >
             <DrawerHeader sx={{ backgroundColor: bgColor }}>
               <Logo
-                variant="white"
+                variant={props.logoVariant || 'white'}
                 sx={{
                   height: '40px',
                   mr: 'auto',

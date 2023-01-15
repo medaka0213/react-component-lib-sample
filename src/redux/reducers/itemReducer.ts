@@ -42,7 +42,7 @@ const initialState = {
   isSubmitted: false,
   error: '',
 };
-const itemReducer = createReducer(initialState, (builder) => {
+const itemReducer = createReducer(initialState, (builder:any) => {
   builder.addCase(GET_CONFIG, (state: any, action) => {
     const key = action.payload.type || 'unknown';
     state[key] = new ItemReducer({
@@ -117,6 +117,7 @@ const itemReducer = createReducer(initialState, (builder) => {
   builder.addCase(POST_ITEM, (state: any, action: any) => {
     state.status = 'POSTING';
     state.isSubmitted = false;
+  });
   builder.addCase(POST_ITEM_SUCCEEDED, (state: any) => {
     state.status = 'POSTED';
     state.isSubmitted = true;
