@@ -39,7 +39,6 @@ import { ItemReducer } from '../../models/itemReducer';
 
 const initialState = {
   isConfigReceived: false,
-  isSubmitted: false,
   error: '',
 };
 const itemReducer = createReducer(initialState, (builder:any) => {
@@ -116,41 +115,41 @@ const itemReducer = createReducer(initialState, (builder:any) => {
   });
   builder.addCase(POST_ITEM, (state: any, action: any) => {
     state.status = 'POSTING';
-    state.isSubmitted = false;
+    state.isSubmitting = true
   });
   builder.addCase(POST_ITEM_SUCCEEDED, (state: any) => {
     state.status = 'POSTED';
-    state.isSubmitted = true;
+    state.isSubmitting = false
   });
   builder.addCase(POST_ITEM_FAILED, (state: any, action: any) => {
     state.status = 'ERROR';
-    state.isSubmitted = true;
+    state.isSubmitting = false
     state.error = action.payload.errorMessage;
   });
   builder.addCase(DELETE_ITEM, (state: any) => {
     state.status = 'DELETING';
-    state.isSubmitted = false;
+    state.isSubmitting = true
   });
   builder.addCase(DELETE_ITEM_SUCCEEDED, (state: any) => {
     state.status = 'DELETED';
-    state.isSubmitted = true;
+    state.isSubmitting = false
   });
   builder.addCase(DELETE_ITEM_FAILED, (state: any, action: any) => {
     state.status = 'ERROR';
-    state.isSubmitted = true;
+    state.isSubmitting = false
     state.error = action.payload.errorMessage;
   });
   builder.addCase(PUT_ITEM, (state: any, action: any) => {
     state.status = 'UPDATING';
-    state.isSubmitted = false;
+    state.isSubmitting = true
   });
   builder.addCase(PUT_ITEM_SUCCEEDED, (state: any) => {
     state.status = 'UPDATED';
-    state.isSubmitted = true;
+    state.isSubmitting = false
   });
   builder.addCase(PUT_ITEM_FAILED, (state: any, action: any) => {
     state.status = 'ERROR';
-    state.isSubmitted = true;
+    state.isSubmitting = false
     state.error = action.payload.errorMessage;
   });
 
@@ -175,7 +174,7 @@ const itemReducer = createReducer(initialState, (builder:any) => {
   });
   builder.addCase(POST_RELATION, (state: any, action: any) => {
     state.status = 'POSTING';
-    state.isSubmitted = false;
+    state.isSubmitting = true
   });
   builder.addCase(POST_RELATION_SUCCEEDED, (state: any, action: any) => {
     state.status = 'POST_RELATION_SUCCEEDED';
@@ -186,16 +185,16 @@ const itemReducer = createReducer(initialState, (builder:any) => {
   });
   builder.addCase(DELETE_RELATION, (state: any, action: any) => {
     state.status = 'DELETING';
-    state.isSubmitted = false;
+    state.isSubmitting = true
   });
   builder.addCase(DELETE_RELATION_SUCCEEDED, (state: any, action: any) => {
     state.status = 'DELETE_RELATION_SUCCEEDED';
-    state.isSubmitted = true;
+    state.isSubmitting = false
   });
   builder.addCase(DELETE_RELATION_FAILED, (state: any, action: any) => {
     state.status = 'ERROR';
     state.error = action.payload.errorMessage;
-    state.isSubmitted = true;
+    state.isSubmitting = false
   });
 
   //参照アイテム
@@ -221,29 +220,29 @@ const itemReducer = createReducer(initialState, (builder:any) => {
 
   builder.addCase(POST_REFERENCE, (state: any, action: any) => {
     state.status = 'POSTING';
-    state.isSubmitted = false;
+    state.isSubmitting = true
   });
   builder.addCase(POST_REFERENCE_SUCCEEDED, (state: any, action: any) => {
     state.status = 'POST_REFERENCE_SUCCEEDED';
-    state.isSubmitted = true;
+    state.isSubmitting = false
   });
   builder.addCase(POST_REFERENCE_FAILED, (state: any, action: any) => {
     state.status = 'ERROR';
     state.error = action.payload.errorMessage;
-    state.isSubmitted = true;
+    state.isSubmitting = false
   });
 
   builder.addCase(DELETE_REFERENCE, (state: any, action: any) => {
     state.status = 'DELETING';
-    state.isSubmitted = false;
+    state.isSubmitting = true
   });
   builder.addCase(DELETE_REFERENCE_SUCCEEDED, (state: any, action: any) => {
     state.status = 'DELETE_REFERENCE_SUCCEEDED';
-    state.isSubmitted = true;
+    state.isSubmitting = false
   });
   builder.addCase(DELETE_REFERENCE_FAILED, (state: any, action: any) => {
     state.status = 'ERROR';
-    state.isSubmitted = true;
+    state.isSubmitting = false
     state.error = action.payload.errorMessage;
   });
 });

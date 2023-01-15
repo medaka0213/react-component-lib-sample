@@ -37,9 +37,13 @@ export type LayoutProps = {
   appBar?: ReactNode;
   bgColor: string;
   logoVariant?: 'white' | 'en' | 'jp';
+  maxWidth: number;
+  drawerWidth: number;
+  sidebarWidth: number;
 };
 
 function LayoutApp(props: LayoutProps) {
+  const { maxWidth = 1980, drawerWidth = 240, sidebarWidth = 350 } = props;
   const { window, drawer, bgColor = 'primary.main' } = props;
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -221,7 +225,7 @@ function LayoutApp(props: LayoutProps) {
                 display: 'block',
                 maxWidth: {
                   xs: '100%',
-                  lg: '1200px',
+                  lg: `${maxWidth}px`,
                 },
                 width: '100%',
                 height: '100%',
@@ -234,7 +238,7 @@ function LayoutApp(props: LayoutProps) {
               sx={{
                 width: {
                   xs: '0',
-                  lg: '350px',
+                  lg: `${sidebarWidth}px`,
                 },
                 height: '100%',
                 display: { xs: 'none', lg: 'block' },
