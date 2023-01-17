@@ -52,7 +52,7 @@ const itemReducer = createReducer(initialState, (builder:any) => {
   builder.addCase(GET_CONFIG_SUCCEEDED, (state: any, action: any) => {
     const key = action.payload.type || 'unknown';
     state[key] = new ItemReducer(
-      Object.assign({}, state[key] && state[key].data(), {
+      Object.assign(state[key] || {}, {
         config: action.payload.Item,
         isConfigReceived: true,
       })
@@ -78,7 +78,7 @@ const itemReducer = createReducer(initialState, (builder:any) => {
   builder.addCase(GET_ITEMS, (state: any, action: any) => {
     const key = action.payload.type || 'unknown';
     state[key] = new ItemReducer(
-      Object.assign({}, state[key] && state[key].data(), {
+      Object.assign(state[key] || {}, {
         Items: [],
         isReceived: false,
       })
@@ -87,7 +87,7 @@ const itemReducer = createReducer(initialState, (builder:any) => {
   builder.addCase(GET_ITEMS_SUCCEEDED, (state: any, action: any) => {
     const key = action.payload.type || 'unknown';
     state[key] = new ItemReducer(
-      Object.assign({}, state[key] && state[key].data(), {
+      Object.assign(state[key] || {}, {
         Items: action.payload.Items[key],
         isReceived: true,
       })
@@ -97,7 +97,7 @@ const itemReducer = createReducer(initialState, (builder:any) => {
   builder.addCase(GET_SINGLE_ITEM, (state: any, action: any) => {
     const key = action.payload.type || 'unknown';
     state[key] = new ItemReducer(
-      Object.assign({}, state[key] && state[key].data(), {
+      Object.assign(state[key] || {}, {
         Items: null,
         isReceived: false,
       })
@@ -106,7 +106,7 @@ const itemReducer = createReducer(initialState, (builder:any) => {
   builder.addCase(GET_SINGLE_ITEM_SUCCEEDED, (state: any, action: any) => {
     const key = action.payload.type || 'unknown';
     state[key] = new ItemReducer(
-      Object.assign({}, state[key] && state[key].data(), {
+      Object.assign(state[key] || {}, {
         status: 'RECEIVED',
         Item: action.payload.Item,
         isReceived: true,
@@ -157,7 +157,7 @@ const itemReducer = createReducer(initialState, (builder:any) => {
   builder.addCase(GET_RELATION, (state: any, action: any) => {
     const key = action.payload.type || 'unknown';
     state[key] = new ItemReducer(
-      Object.assign({}, state[key] && state[key].data(), {
+      Object.assign(state[key] || {}, {
         isRelationReceived: false,
         relationItems: [],
       })
@@ -166,7 +166,7 @@ const itemReducer = createReducer(initialState, (builder:any) => {
   builder.addCase(GET_RELATION_SUCCEEDED, (state: any, action: any) => {
     const key = action.payload.type || 'unknown';
     state[key] = new ItemReducer(
-      Object.assign({}, state[key] && state[key].data(), {
+      Object.assign(state[key] || {}, {
         isRelationReceived: true,
         relationItems: action.payload.Items,
       })
@@ -201,7 +201,7 @@ const itemReducer = createReducer(initialState, (builder:any) => {
   builder.addCase(GET_REFERENCE, (state: any, action: any) => {
     const key = action.payload.type || 'unknown';
     state[key] = new ItemReducer(
-      Object.assign({}, state[key] && state[key].data(), {
+      Object.assign(state[key] || {}, {
         isReferenceReceived: false,
         referenceItems: action.payload.Items,
       })
@@ -210,7 +210,7 @@ const itemReducer = createReducer(initialState, (builder:any) => {
   builder.addCase(GET_REFERENCE_SUCCEEDED, (state: any, action: any) => {
     const key = action.payload.type || 'unknown';
     state[key] = new ItemReducer(
-      Object.assign({}, state[key] && state[key].data(), {
+      Object.assign(state[key] || {}, {
         isReferenceReceived: true,
         referenceItems: action.payload.Items,
       })

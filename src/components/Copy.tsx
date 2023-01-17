@@ -97,7 +97,7 @@ const App: VFC<CopyProps> = ({
           my: 'auto',
           p: multiLine ? 1 : 0,
           'white-space': 'pre-line',
-          'overflow-wrap': 'break-word',
+          'overflow-wrap': 'anywhere',
         }}
       >
         {link ? (
