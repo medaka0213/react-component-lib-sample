@@ -17,8 +17,6 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 import Logo from './Logo';
 
-const drawerWidth = 240;
-
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -37,9 +35,9 @@ export type LayoutProps = {
   appBar?: ReactNode;
   bgColor: string;
   logoVariant?: 'white' | 'en' | 'jp';
-  maxWidth: number;
-  drawerWidth: number;
-  sidebarWidth: number;
+  maxWidth?: number;
+  drawerWidth?: number;
+  sidebarWidth?: number;
 };
 
 function LayoutApp(props: LayoutProps) {
