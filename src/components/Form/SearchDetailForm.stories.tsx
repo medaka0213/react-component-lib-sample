@@ -3,6 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { SearchDetailForm } from './SearchDetailForm';
 import { TimeRange } from '../../models/TimeRange';
+import { ParamToQueryItem } from '../../utils/query';
 
 export default {
   component: SearchDetailForm,
@@ -132,6 +133,36 @@ PresetValue3.args = {
         '2021-01-01T00:00:00...2021-02-01T00:00:00'
       ).toQueryItem(),
       key: 'datetime4',
+    },
+  ],
+  onSubmit: (values) => {
+    console.log('onSubmit', values);
+  },
+};
+
+export const PresetValue4 = Template.bind({});
+PresetValue4.args = {
+  keys: [
+    {
+      label: '値が存在するテスト',
+      value: 'string1',
+      enabled: false,
+      type: 'string',
+    },
+    {
+      label: '値が存在しないテスト',
+      value: 'string2',
+      enabled: false,
+      type: 'string',
+    },
+  ],
+  queries: [
+    {
+      ...ParamToQueryItem('string1=*'),
+    },
+    {
+      ...TimeRange.fromMode(new Date(), 'GT_E').toQueryItem(),
+      key: 'datetime2',
     },
   ],
   onSubmit: (values) => {

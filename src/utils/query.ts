@@ -152,10 +152,9 @@ const splitValue = (value: string): string => {
 };
 
 export const ParamToQueryItem = (param: string): QueryItem => {
-  const searchMode = ParamToSearchMode(param);
   const [key, value = param] = param.split('=');
-  const keyItem = SearchModeList.filter((mode) => mode.value === key)[0];
-  if (param === '*') {
+  const searchMode = ParamToSearchMode(value);
+  if (searchMode.value === 'EX') {
     return {
       key,
       value0: '',
@@ -164,7 +163,7 @@ export const ParamToQueryItem = (param: string): QueryItem => {
       mode: searchMode.value,
       type: 'string',
     };
-  } else if (param === '--') {
+  } else if (searchMode.value === 'N_EX') {
     return {
       key,
       value0: '',
