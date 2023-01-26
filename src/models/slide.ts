@@ -64,8 +64,10 @@ export class Slide extends BaseModel {
       return this.marpRefWithCredit(start, end);
     }
     let res = '';
+    console.log('start', start);
     for (let i = start; i <= end; i++) {
       res += '---\n\n';
+      res += `<!--スライド引用: \n${this.user} / ${this.name}\n-->\n\n`;
       res += `![bg fit](${this.imageLinksCached()[i]})\n\n`;
     }
     return res;
@@ -75,6 +77,7 @@ export class Slide extends BaseModel {
     let res = '';
     for (let i = start; i <= end; i++) {
       res += '---\n\n';
+      res += `<!--スライド引用: \n${this.user} / ${this.name}\n-->\n\n`;
       res += `![bg h:85%](${this.imageLinksCached()[i]})\n\n`;
       res += `<!--\n_footer: "Credit: ${this.user}"\n-->\n\n`;
     }
@@ -82,6 +85,10 @@ export class Slide extends BaseModel {
   }
 
   videoLink() {
+    return `${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/video/${this.pk}.mp4`;
+  }
+
+  videoLink2() {
     return `${process.env.NEXT_PUBLIC_CLOUDFRONT_URL}/video/${this.pk}.mp4`;
   }
   videoLinkCached() {

@@ -9,6 +9,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@marp-team/marp-core": "^3.4.2",
     "@mui/icons-material": "^5.11.0",
     "@mui/joy": "^5.0.0-alpha.62",
     "@mui/material": "^5.11.4",
@@ -28,6 +29,7 @@
     "react-copy-to-clipboard": "^5.1.0",
     "react-icons": "^4.7.1",
     "react-slick": "^0.29.0",
+    "react-to-print": "^2.14.11",
     "react-youtube": "^10.1.0",
     "redux": "^4.2.0",
     "redux-logger": "^3.0.6",
