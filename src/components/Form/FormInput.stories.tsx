@@ -57,3 +57,9 @@ Multiline.args = {
     },
   },
 };
+
+export const MultilineCopy = Template.bind({});
+MultilineCopy.args = {
+  ...Multiline.args,
+  copyBytton: true,
+};

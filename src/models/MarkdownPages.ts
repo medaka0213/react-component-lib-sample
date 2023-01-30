@@ -1,43 +1,41 @@
-import { string } from 'yup';
 import { Fields } from './baseModel';
 
 const pageSettings = `---
 marp: true
 paginate: false
+style: |
+  p, ul {
+    font-size: 18px;
+  }
+  table {
+    font-size: 16px;
+  }
+  h1{
+    font-size: 42px;
+    padding: 10px 0;
+    margin: 10px 0;
+  }
+  h2{
+    font-size: 36px;
+    padding: 10px 0;
+    margin: 5px 0;
+  }
+  h3{
+    font-size: 30px;
+    padding: 10px 0;
+    margin: 5px 0;
+  }
+  h4{
+    font-size: 24px;
+    padding: 10px 0;
+    margin: 2px 0;
+  }
+  h5{
+    font-size: 18px;
+    padding: 10px 0;
+    margin: 2px 0;
+  }
 ---
-`;
-
-const pageStyle = `
-<style>
-    p, table, ul {
-        font-size: 18px;
-    }
-    h1{
-        font-size: 42px;
-        padding: 10px 0;
-        margin: 10px 0;
-    }
-    h2{
-        font-size: 36px;
-        padding: 10px 0;
-        margin: 5px 0;
-    }
-    h3{
-        font-size: 30px;
-        padding: 10px 0;
-        margin: 5px 0;
-    }
-    h4{
-        font-size: 24px;
-        padding: 10px 0;
-        margin: 2px 0;
-    }
-    h5{
-        font-size: 18px;
-        padding: 10px 0;
-        margin: 2px 0;
-    }
-</style>
 `;
 
 function extractText(target: string, regex: RegExp) {
@@ -58,7 +56,6 @@ export class MarkdownPages {
   public text: string = '';
   public pages: string[] = [];
   public marpSettings: string = pageSettings;
-  public marpStyle: string = pageStyle;
 
   constructor(props: Fields<MarkdownPages>) {
     Object.assign(this, props);
@@ -77,31 +74,21 @@ export class MarkdownPages {
     //pageの抽出
     let pages = _text.split(/\n\n-{3,}\n/g);
 
-    //styleの抽出
-    let styleEx = extractText(pages[0], /<style>([^(<\/)]+)<\/style>\n/g);
-    let marpStyle = styleEx.text;
-    if (marpStyle === '') {
-      marpStyle = pageStyle;
-    }
-    pages[0] = styleEx.rest;
-
     return new MarkdownPages({
       text: _text,
       pages,
       marpSettings,
-      marpStyle,
     });
   }
 
   parseText() {
     let _text = this.text;
-    _text = _text.replace(this.marpSettings, '').replace(this.marpStyle, '');
+    _text = _text.replace(this.marpSettings, '');
     this.pages = _text.split(/\n\n-{3,}\n/g);
   }
 
   genText() {
-    this.text =
-      this.marpSettings + this.marpStyle + this.pages?.join('\n\n---\n');
+    this.text = this.marpSettings + this.pages?.join('\n\n---\n');
     return this.text;
   }
 
@@ -124,10 +111,6 @@ export class MarkdownPages {
     this.reset();
   }
 
-  setStyle(style: string) {
-    this.marpStyle = style;
-    this.reset();
-  }
   setSettings(settings: string) {
     this.marpSettings = settings;
     this.reset();

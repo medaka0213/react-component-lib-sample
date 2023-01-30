@@ -13,6 +13,7 @@ export type MarpFormInputProps = {
   onSubmit: (values: any) => void;
   pageIndex?: number;
   markdown?: string;
+  title?: string;
 };
 
 export const MarpFormInput = ({
@@ -20,6 +21,7 @@ export const MarpFormInput = ({
   onSubmit,
   pageIndex = 0,
   markdown = '',
+  title = '',
 }: MarpFormInputProps) => {
   const [markdownPages, setInitialValues] = useState(
     MarkdownPages.fromText(markdown)
@@ -27,14 +29,14 @@ export const MarpFormInput = ({
   const [inputValue, setInputValue] = useState(
     markdownPages.pages[pageIndex] || ''
   );
+  const [titleValue, setTitleValue] = useState(title || '');
 
   useEffect(() => {
     const timer = setTimeout(() => {
       onPageChanged(inputValue);
     }, 1000);
-
     return () => clearTimeout(timer);
-  }, [inputValue]);
+  }, [inputValue, titleValue]);
 
   const sendData = (index = pageIndex) => {
     const maxPages = markdownPages.pages.length;
@@ -44,6 +46,7 @@ export const MarpFormInput = ({
     onSubmit({
       markdown: markdownPages.genText(),
       pageIndex: index,
+      title: titleValue,
     });
   };
 
@@ -53,7 +56,7 @@ export const MarpFormInput = ({
     sendData(index + 1);
   };
   const onPageDeleted = async (index: number) => {
-    markdownPages.deletePage(index, '');
+    markdownPages.deletePage(index);
     setInitialValues(markdownPages);
     sendData();
   };
@@ -73,6 +76,14 @@ export const MarpFormInput = ({
     return (
       <form key={pageIndex} className="bg-white p-3 m-3">
         <FormInput
+          name={'title'}
+          title="スライドのタイトル"
+          formik={formik}
+          onChange={async (e: any) => {
+            setTitleValue(e.target.value);
+          }}
+        />
+        <FormInput
           type="textarea"
           title={`Page #${pageIndex}`}
           name={`md_page_${pageIndex}`}
@@ -80,7 +91,7 @@ export const MarpFormInput = ({
             display: 'flex',
           }}
           formik={formik}
-          onChange={async (e) => {
+          onChange={async (e: any) => {
             setInputValue(e.target.value);
           }}
           rows={30}
@@ -100,7 +111,10 @@ export const MarpFormInput = ({
     <Box sx={sx}>
       <Formik
         enableReinitialize={true}
-        initialValues={markdownPages.toPagesObj()}
+        initialValues={{
+          title: titleValue,
+          ...markdownPages.toPagesObj(),
+        }}
         //validationSchema={validationSchema}
         onSubmit={_onSubmit}
         render={renderForm}

@@ -5,40 +5,37 @@ import { MarpForm } from './MarpForm';
 
 const T6 = `---
 marp: true
-paginate: true
+paginate: false
+style: |
+  p, table, ul {
+    font-size: 18px;
+  }
+  h1{
+    font-size: 42px;
+    padding: 10px 0;
+    margin: 10px 0;
+  }
+  h2{
+    font-size: 36px;
+    padding: 10px 0;
+    margin: 5px 0;
+  }
+  h3{
+    font-size: 30px;
+    padding: 10px 0;
+    margin: 5px 0;
+  }
+  h4{
+    font-size: 24px;
+    padding: 10px 0;
+    margin: 2px 0;
+  }
+  h5{
+    font-size: 18px;
+    padding: 10px 0;
+    margin: 2px 0;
+  }
 ---
-<!--業務連絡 Attrs: event, spacecrafts, rocket, reuse_attempts, reuse_attempts[]["vehicle"]-->
-<style>
-    p, table, ul {
-        font-size: 18px;
-    }
-    h1{
-        font-size: 42px;
-        padding: 10px 0;
-        margin: 10px 0;
-    }
-    h2{
-        font-size: 36px;
-        padding: 10px 0;
-        margin: 5px 0;
-    }
-    h3{
-        font-size: 30px;
-        padding: 10px 0;
-        margin: 5px 0;
-    }
-    h4{
-        font-size: 24px;
-        padding: 10px 0;
-        margin: 2px 0;
-    }
-    h5{
-        font-size: 18px;
-        padding: 10px 0;
-        margin: 2px 0;
-    }
-</style>
-
 
 
 <!--
@@ -759,5 +756,6 @@ Default.args = {};
 
 export const Sample = Template.bind({});
 Sample.args = {
+  title: 'Transporter 6',
   markdown: T6,
 };

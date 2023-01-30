@@ -39,14 +39,17 @@ const SlidePage = ({ slide, comments = [], i, sx }: SlidePageProps) => {
 export type MarpFormProps = {
   sx?: any;
   markdown?: string;
+  title?: string;
 };
 
 export const MarpForm = ({
   sx,
   markdown: _markdown = '',
+  title: _title = '',
   ...props
 }: MarpFormProps) => {
   const [markdown, setMarkdown] = useState(_markdown);
+  const [title, setTitle] = useState(_title);
   const [index, setIndex] = useState(0);
   const [maxPages, setMaxPages] = useState(1);
 
@@ -111,7 +114,9 @@ export const MarpForm = ({
             sx={{
               width: '100%',
             }}
-            onClick={() => downloadFile({ content: markdown })}
+            onClick={() =>
+              downloadFile({ content: markdown, filename: title + '.md' })
+            }
           >
             Donwload Markdown
           </Button>
@@ -144,6 +149,7 @@ export const MarpForm = ({
           onSubmit={(e) => {
             setMarkdown(e.markdown);
             setIndex(e.pageIndex);
+            setTitle(e.title);
           }}
           markdown={markdown}
           pageIndex={index}
