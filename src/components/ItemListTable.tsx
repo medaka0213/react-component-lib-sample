@@ -74,14 +74,17 @@ export const ItemListTable: VFC<ItemListTableProps> = ({
                     props.onRowClick && (await props.onRowClick(row))
                   }
                 >
-                  {columns.map((column, j) => (
-                    /*row[column.field] &&*/ <TableCell
-                      key={column.field}
-                      colSpan={getColspan(row, columns, j)}
-                    >
-                      {row[column.field]}
-                    </TableCell>
-                  ))}
+                  {columns.map(
+                    (column, j) =>
+                      row[column.field] && (
+                        <TableCell
+                          key={column.field}
+                          colSpan={getColspan(row, columns, j)}
+                        >
+                          {row[column.field]}
+                        </TableCell>
+                      )
+                  )}
                 </TableRow>
               ))}
             </TableBody>
