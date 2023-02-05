@@ -27,3 +27,8 @@ MultiLine.args = {
   value:
     'line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1line1\nline2\n\nline3',
 };
+
+export const Boolean = Template.bind({});
+Boolean.args = {
+  value: true.toString(),
+};

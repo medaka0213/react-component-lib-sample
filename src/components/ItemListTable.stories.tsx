@@ -60,3 +60,27 @@ CustomWidth.args = {
     },
   ],
 };
+
+export const EmptyCell = Template.bind({});
+EmptyCell.args = {
+  columns: [
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 200,
+    },
+    {
+      field: 'age',
+      headerName: 'Age',
+    },
+  ],
+  rows: [
+    {
+      name: 'John',
+      age: 20,
+    },
+    {
+      name: 'Lopadotemachoselachogaleokranioleipsanodrimhypotrimmatosilphiokarabomelitokatakechymenokichlepikossyphophattoperisteralektryonoptekephalliokigklopeleiolagoiosiraiobaphetraganopterygon.',
+    },
+  ],
+};

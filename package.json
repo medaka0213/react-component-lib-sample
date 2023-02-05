@@ -20,6 +20,7 @@
     "@types/redux-logger": "^3.0.9",
     "dayjs": "^1.11.7",
     "formik": "^2.2.9",
+    "fs": "^0.0.1-security",
     "immutable": "^4.2.1",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.40",
