@@ -34,9 +34,18 @@ export class Event extends BaseModel {
 
   _extract_yt_id(url: string): string {
     if (url.includes('youtube.com')) {
-      return url.split('v=')[1].split('&')[0];
-    } else if (url.includes('youtu.be')) {
-      return url.split('/')[3].split('&')[0];
+      if (url.includes('v=')) {
+        return url.split('v=')[1].split('&')[0];
+      } else if (url.includes('/live/')) {
+        return url.split('/live/')[1].split('&')[0];
+      } else {
+        return '';
+      }
+    } else if (url.includes('youtu.be/')) {
+      if (url.includes('/live/')) {
+        return url.split('/live/')[1].split('&')[0];
+      }
+      return url.split('youtu.be/')[1].split('&')[0];
     } else {
       return '';
     }
