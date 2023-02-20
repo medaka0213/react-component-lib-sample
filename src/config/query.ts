@@ -250,18 +250,18 @@ export const DEFAULT_QUERY = {
   ],
   image: () => [
     {
-      key: 'title',
-      value: '*',
-    },
-    {
       key: 'updated_at',
       value: TimeRange.fromMode(new Date(), 'MONTH')
         .toString('datetime')
         .replace('datetime=', ''),
     },
     {
+      key: 'title',
+      value: '*',
+    },
+    {
       key: 'limit',
-      value: '1000',
+      value: '100000',
     },
   ],
 };

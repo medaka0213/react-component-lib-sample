@@ -84,3 +84,34 @@ EmptyCell.args = {
     },
   ],
 };
+
+export const EmptyCellWith0 = Template.bind({});
+EmptyCellWith0.args = {
+  columns: [
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 200,
+    },
+    {
+      field: 'age',
+      headerName: 'Age',
+    },
+    {
+      field: 'attr',
+      headerName: 'Attr',
+    },
+  ],
+  rows: [
+    {
+      name: 'John',
+      age: 20,
+      attr: 'hogehoge',
+    },
+    {
+      name: 'Lopadotemachoselachogaleokranioleipsanodrimhypotrimmatosilphiokarabomelitokatakechymenokichlepikossyphophattoperisteralektryonoptekephalliokigklopeleiolagoiosiraiobaphetraganopterygon.',
+      age: 0,
+      attr: 'hogehoge',
+    },
+  ],
+};

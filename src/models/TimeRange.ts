@@ -33,6 +33,7 @@ export class TimeRange {
   // 文字列から生成
   static fromString(str: string = ''): TimeRange {
     let data: QueryItem = ParamToQueryItem(str);
+    console.log('fromString', str, data);
 
     if (data.mode === 'BETWEEN') {
       return new TimeRange({

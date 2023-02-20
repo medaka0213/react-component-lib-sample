@@ -27,7 +27,7 @@ function getColspan(row: any, colums: any[], index: number) {
       break;
     }
 
-    if (!row[colums[i].field]) {
+    if (row[colums[i].field] === undefined) {
       colspan = colspan ? colspan + 1 : 2;
     } else {
       break;
@@ -57,7 +57,7 @@ export const ItemListTable: VFC<ItemListTableProps> = ({
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                {columns.map((column) => (
+                {columns.map((column: any) => (
                   <TableCell key={column.field} {...column}>
                     {column.headerName || column.field}
                   </TableCell>
@@ -65,7 +65,7 @@ export const ItemListTable: VFC<ItemListTableProps> = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row, i) => (
+              {rows.map((row: any, i) => (
                 <TableRow
                   hover
                   key={row.name}
@@ -75,8 +75,8 @@ export const ItemListTable: VFC<ItemListTableProps> = ({
                   }
                 >
                   {columns.map(
-                    (column, j) =>
-                      row[column.field] && (
+                    (column: any, j) =>
+                      row[column.field] !== undefined && (
                         <TableCell
                           key={column.field}
                           colSpan={getColspan(row, columns, j)}

@@ -120,16 +120,16 @@ export const ParamToSearchMode = (param: string): SearchMode => {
     const [v0 = '', v1 = ''] = param.split('...');
     if (v0.length && v1.length) {
       res = GetSearchMode('BETWEEN');
-    } else if (v0.length) {
-      res = GetSearchMode('LT_E');
     } else if (v1.length) {
+      res = GetSearchMode('LT_E');
+    } else if (v0.length) {
       res = GetSearchMode('GT_E');
     } else {
       res = GetSearchMode('EQ');
     }
   } else if (param.startsWith('..')) {
     res = GetSearchMode('LT');
-  } else if (param.endsWith('...')) {
+  } else if (param.endsWith('..')) {
     res = GetSearchMode('GT');
   } else if (param.startsWith('--')) {
     res = GetSearchMode('N_EQ');
@@ -184,7 +184,7 @@ export const ParamToQueryItem = (param: string): QueryItem => {
       type: 'string',
     };
   } else if (searchMode.value === 'LT_E') {
-    const value0 = value.split('...')[0];
+    const value0 = value.split('...')[1];
     return {
       key,
       value0: splitValue(value0),
@@ -204,7 +204,7 @@ export const ParamToQueryItem = (param: string): QueryItem => {
       type: 'string',
     };
   } else if (searchMode.value === 'GT_E') {
-    const value0 = value.split('...')[1];
+    const value0 = value.split('...')[0];
     return {
       key,
       value0: splitValue(value0),

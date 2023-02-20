@@ -145,24 +145,34 @@ PresetValue4.args = {
   keys: [
     {
       label: '値が存在するテスト',
-      value: 'string1',
+      value: 'datetime1',
       enabled: false,
-      type: 'string',
+      type: 'datetime',
     },
     {
-      label: '値が存在しないテスト',
-      value: 'string2',
+      label: '以前/以後のテスト',
+      value: 'datetime2',
       enabled: false,
-      type: 'string',
+      type: 'datetime',
+    },
+    {
+      label: '以前/以後のテスト (文字列)',
+      value: 'datetime3',
+      enabled: false,
+      type: 'datetime',
     },
   ],
   queries: [
     {
-      ...ParamToQueryItem('string1=*'),
+      ...ParamToQueryItem('datetime1=*'),
     },
     {
       ...TimeRange.fromMode(new Date(), 'GT_E').toQueryItem(),
       key: 'datetime2',
+    },
+    {
+      ...TimeRange.fromString('...2021-02-20T00:00:00').toQueryItem(),
+      key: 'datetime3',
     },
   ],
   onSubmit: (values) => {
