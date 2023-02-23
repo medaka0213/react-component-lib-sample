@@ -14,4 +14,29 @@ export const downloadFile = ({
   a.href = url;
   a.download = filename;
   a.click();
+  // FireFoxでダウンロード後にURLが残るのを防ぐ
+  setTimeout(() => {
+    window.URL.revokeObjectURL(url);
+  }, 250);
 };
+
+export async function downloadFileFromUrl({
+  filename,
+  fileurl,
+}: {
+  filename: string;
+  fileurl: string;
+}) {
+  const response = await fetch(fileurl);
+  const blob = await response.blob();
+  const newBlob = new Blob([blob]);
+  const url = window.URL.createObjectURL(newBlob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  // FireFoxでダウンロード後にURLが残るのを防ぐ
+  setTimeout(() => {
+    window.URL.revokeObjectURL(url);
+  }, 250);
+}
