@@ -13,11 +13,14 @@ export class Image extends BaseModel {
   }
 
   extention(): string {
-    if (this.mime.indexOf('/') !== 0) {
-      return this.mime.split('/')[1];
-    } else {
-      return this.mime;
+    let res = this.mime;
+    if (res.indexOf('/') !== 0) {
+      res = res.split('/')[1];
     }
+    if (res.indexOf('+') !== 0) {
+      res = res.split('+')[0];
+    }
+    return res;
   }
 
   src(): string {
@@ -28,6 +31,19 @@ export class Image extends BaseModel {
 
   alt() {
     return this.title || this.name || this.unique || this.pk;
+  }
+
+  filename() {
+    let res = this.alt()
+      .replace(/ /g, '_')
+      .replace(/:/g, '_')
+      .replace(/"/g, '_')
+      .replace(/'/g, '_')
+      .replace(/,/g, '_')
+      .replace(/\./g, '_')
+      .replace(/\(/g, '_');
+    res = res + `.${this.extention()}`;
+    return res;
   }
 
   markdown(alt: string = '') {

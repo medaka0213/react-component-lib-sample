@@ -17,6 +17,7 @@ export { CountDownClock } from './components/CountDownClock';
 export { TabsParent } from './components/TabsParent';
 export { MainBox } from './components/MainBox';
 export { DetailTable } from './components/DetailTable';
+export { ImagePreview } from './components/ImagePreview';
 
 //redux関連
 export { store } from './redux/store';
