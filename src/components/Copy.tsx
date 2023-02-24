@@ -23,7 +23,7 @@ export type CopyProps = BoxProps &
     buttonProps?: ButtonProps;
     buttonLabel?: string;
     multiLine?: boolean;
-    area: boolean;
+    area?: boolean;
   };
 
 const App: VFC<CopyProps> = ({
