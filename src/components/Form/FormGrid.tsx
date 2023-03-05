@@ -64,7 +64,7 @@ const App: VFC<FormGridProps> = ({
         ...sx,
       }}
     >
-      <form>
+      <form onSubmit={handleSubmit}>
         <Grid container>
           {buttonPosition === 'top' &&
             Object.keys(errors).map((k) => (
