@@ -24,7 +24,7 @@ export class Countdown extends BaseModel {
     timeline = sort_array(timeline, ['hours', 'minutes', 'seconds']);
     return new Countdown({
       ...this,
-      [key]: timeline,
+      [key]: key === 't_minus' ? timeline.reverse() : timeline,
     });
   }
   add_timeline(key: 't_plus' | 't_minus', value: any) {

@@ -33,8 +33,9 @@ const App: VFC<FormGridProps> = ({
   } = {},
 }) => {
   const Button = () => {
-    console.log('Button', { isSubmitting, handleSubmit, errors, values });
-    const _disabled = disabled || Object.keys(errors).length || isSubmitting;
+    const _disabled = Boolean(
+      disabled || Object.keys(errors).length || isSubmitting
+    );
     return (
       <SubmitButton
         color={color}
@@ -115,6 +116,7 @@ const App: VFC<FormGridProps> = ({
 import theme from '../theme';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { boolean } from 'yup';
 
 export const FormGrid = (props: FormGridProps) => (
   <ThemeProvider theme={theme}>
