@@ -24,18 +24,28 @@ const App: VFC<FormGridProps> = ({
   buttonPosition = 'bottom',
   buttonEnabled = true,
   xs = 12,
-  formik: { handleSubmit, errors = {}, values = {}, ...formik } = {},
+  formik: {
+    isSubmitting,
+    handleSubmit,
+    errors = {},
+    values = {},
+    ...formik
+  } = {},
 }) => {
-  const Button = () => (
-    <SubmitButton
-      color={color}
-      disabled={disabled || !errors}
-      onClick={async () => handleSubmit && (await handleSubmit(values))}
-      variant="contained"
-    >
-      {buttonLabel}
-    </SubmitButton>
-  );
+  const Button = () => {
+    console.log('Button', { isSubmitting, handleSubmit, errors, values });
+    const _disabled = disabled || Object.keys(errors).length || isSubmitting;
+    return (
+      <SubmitButton
+        color={color}
+        disabled={_disabled}
+        onClick={async () => handleSubmit && (await handleSubmit(values))}
+        variant="contained"
+      >
+        {_disabled ? '...' : buttonLabel}
+      </SubmitButton>
+    );
+  };
 
   let _childrenList = childrenList;
   if (buttonEnabled) {
@@ -54,48 +64,50 @@ const App: VFC<FormGridProps> = ({
         ...sx,
       }}
     >
-      <Grid container>
-        {buttonPosition === 'top' &&
-          Object.keys(errors).map((k) => (
-            <Box
-              sx={{
-                width: '100%',
-                color: 'error.main',
-              }}
-            >
-              入力検証エラー: {errors[k]}
-            </Box>
-          ))}
-        {_childrenList.map((childrenRow, i) => (
-          <>
-            {childrenRow.map((child, j) => (
-              <Grid key={j} xs={xs} sm={Number(xs / childrenRow.length)}>
-                <Box
-                  sx={{
-                    pr: 1,
-                    mb: 1,
-                    ...childrenSx,
-                  }}
-                >
-                  {child}
-                </Box>
-              </Grid>
+      <form>
+        <Grid container>
+          {buttonPosition === 'top' &&
+            Object.keys(errors).map((k) => (
+              <Box
+                sx={{
+                  width: '100%',
+                  color: 'error.main',
+                }}
+              >
+                入力検証エラー: {k}: {errors[k]}
+              </Box>
             ))}
-          </>
-        ))}
-        <Box sx={{ width: '100%' }}>{children}</Box>
-        {buttonPosition === 'bottom' &&
-          Object.keys(errors).map((k) => (
-            <Box
-              sx={{
-                width: '100%',
-                color: 'error.main',
-              }}
-            >
-              入力検証エラー: {errors[k]}
-            </Box>
+          {_childrenList.map((childrenRow, i) => (
+            <>
+              {childrenRow.map((child, j) => (
+                <Grid key={j} xs={xs} sm={Number(xs / childrenRow.length)}>
+                  <Box
+                    sx={{
+                      pr: 1,
+                      mb: 1,
+                      ...childrenSx,
+                    }}
+                  >
+                    {child}
+                  </Box>
+                </Grid>
+              ))}
+            </>
           ))}
-      </Grid>
+          <Box sx={{ width: '100%' }}>{children}</Box>
+          {buttonPosition === 'bottom' &&
+            Object.keys(errors).map((k) => (
+              <Box
+                sx={{
+                  width: '100%',
+                  color: 'error.main',
+                }}
+              >
+                入力検証エラー: {k}: {errors[k]}
+              </Box>
+            ))}
+        </Grid>
+      </form>
     </Box>
   );
 };

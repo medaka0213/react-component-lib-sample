@@ -14,6 +14,7 @@ export type Formik = {
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (v: any) => Promise<any>;
   setFieldValue: (field: string, value: any) => void;
+  isSubmitting: boolean;
 };
 
 export type CommonProps = {
