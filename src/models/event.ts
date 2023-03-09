@@ -27,6 +27,9 @@ export class Event extends BaseModel {
   public readonly watch_URL_option: string = '';
   public readonly watch_URL_liftoff_at!: number;
 
+  public readonly tweet: string = '';
+  public readonly tweet_JP: string = '';
+
   constructor(props: Fields<Event>) {
     super(props);
     Object.assign(this, props);
