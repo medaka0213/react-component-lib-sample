@@ -2,6 +2,7 @@ import React, { VFC, useState } from 'react';
 import theme from '../theme';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import LinearProgress from '@mui/material/LinearProgress';
 
 import Button, { ButtonProps } from '@mui/material/Button';
 
@@ -38,8 +39,9 @@ export const SubmitButton: VFC<SubmitButtonProps> = ({
         }}
         color={color}
       >
-        {isSubmitting ? 'loading...' : children || 'Submit'}
+        {children || 'Submit'}
       </Button>
+      {isSubmitting && <LinearProgress />}
     </ThemeProvider>
   );
 };
