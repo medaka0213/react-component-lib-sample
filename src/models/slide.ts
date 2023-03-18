@@ -67,6 +67,9 @@ export class Slide extends BaseModel {
     for (let i = start; i <= end; i++) {
       res += '---\n\n';
       res += `<!--スライド引用: \n${this.user} / ${this.name} #${i}\n-->\n\n`;
+      if (this.texts[i]) {
+        res += `<!--\n"${this.texts[i]}"\n-->\n\n`;
+      }
       res += `![bg fit](${this.imageLinksCached()[i]})\n\n`;
     }
     return res;

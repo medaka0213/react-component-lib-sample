@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack';
 import { MarpPreview } from './MarpPreview';
 import { MarpFormInput } from './MarpFormInput';
 import { MarpConvert } from './MarpConvert';
+import { Copy } from '../Copy';
 
 import { downloadFile } from '../../utils/download';
 
@@ -49,7 +50,7 @@ export const MarpForm = ({
   ...props
 }: MarpFormProps) => {
   const [markdown, setMarkdown] = useState(_markdown);
-  const [title, setTitle] = useState(_title);
+  const [title, setTitle] = useState<string>(_title);
   const [index, setIndex] = useState(0);
   const [maxPages, setMaxPages] = useState(1);
 
@@ -109,6 +110,13 @@ export const MarpForm = ({
       <Grid xs={12} md={6}>
         <MarpPreview markdown={markdown} customRender={customRendererSingle} />
         <Stack direction="row" spacing={2}>
+          <Copy
+            value={markdown}
+            showValue={false}
+            sx={{
+              width: '100%',
+            }}
+          />
           <Button
             variant="contained"
             sx={{
@@ -120,7 +128,7 @@ export const MarpForm = ({
           >
             Donwload Markdown
           </Button>
-          <MarpConvert markdown={markdown}>convert to PDF</MarpConvert>
+          <MarpConvert markdown={markdown}>Convert to PDF</MarpConvert>
         </Stack>
       </Grid>
       <Grid xs={12} md={6}>
@@ -153,6 +161,7 @@ export const MarpForm = ({
           }}
           markdown={markdown}
           pageIndex={index}
+          title={title}
         />
       </Grid>
       <MarpPreview markdown={markdown} customRender={customRendererList} />

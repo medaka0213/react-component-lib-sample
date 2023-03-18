@@ -24,6 +24,7 @@ export type CopyProps = BoxProps &
     buttonLabel?: string;
     multiLine?: boolean;
     area?: boolean;
+    showValue?: boolean;
   };
 
 const App: VFC<CopyProps> = ({
@@ -34,6 +35,7 @@ const App: VFC<CopyProps> = ({
   buttonProps,
   buttonLabel,
   area = true,
+  showValue = true,
 }) => {
   const [state, setState] = useState({
     open: false,
@@ -91,23 +93,25 @@ const App: VFC<CopyProps> = ({
           </IconButton>
         )}
       </CopyToClipboard>
-      <Box
-        sx={{
-          flex: 1,
-          my: 'auto',
-          p: multiLine ? 1 : 0,
-          'white-space': 'pre-line',
-          'overflow-wrap': 'anywhere',
-        }}
-      >
-        {link ? (
-          <Link href={value} external={external}>
-            {children || value}
-          </Link>
-        ) : (
-          children || value
-        )}
-      </Box>
+      {showValue && (
+        <Box
+          sx={{
+            flex: 1,
+            my: 'auto',
+            p: multiLine ? 1 : 0,
+            'white-space': 'pre-line',
+            'overflow-wrap': 'anywhere',
+          }}
+        >
+          {link ? (
+            <Link href={value} external={external}>
+              {children || value}
+            </Link>
+          ) : (
+            children || value
+          )}
+        </Box>
+      )}
       <Snackbar
         open={state.open}
         onClose={handleClose}

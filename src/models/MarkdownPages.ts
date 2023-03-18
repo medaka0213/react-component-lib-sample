@@ -83,8 +83,11 @@ export class MarkdownPages {
 
   parseText() {
     let _text = this.text;
-    _text = _text.replace(this.marpSettings, '');
     this.pages = _text.split(/\n\n-{3,}\n/g);
+    if (this.pages[0].indexOf('marp:') !== -1) {
+      const _splitted = this.pages[0].split('---');
+      this.pages[0] = _splitted[_splitted.length - 1];
+    }
   }
 
   genText() {
