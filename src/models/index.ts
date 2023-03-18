@@ -26,6 +26,7 @@ export { SlideText } from './slideText';
 export { Rocket } from './rocket';
 export { RocketSeries } from './rocketSeries';
 export { TimeRange } from './TimeRange';
+export { MarkdownPages } from './MarkdownPages';
 
 export { ItemReducer } from './itemReducer';
 

@@ -46,6 +46,7 @@ export {
   Slide,
   Meetup,
   Countdown,
+  MarkdownPages,
   Image,
   Wiki,
   Task,
