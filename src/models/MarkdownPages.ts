@@ -85,8 +85,7 @@ export class MarkdownPages {
     let _text = this.text;
     this.pages = _text.split(/\n\n-{3,}\n/g);
     if (this.pages[0].indexOf('marp:') !== -1) {
-      const _splitted = this.pages[0].split('---');
-      this.pages[0] = _splitted[_splitted.length - 1];
+      this.pages[0] = this.pages[0].replace(pageSettings, '');
     }
   }
 

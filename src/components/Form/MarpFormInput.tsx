@@ -73,6 +73,16 @@ export const MarpFormInput = ({
   };
 
   const renderForm = (formik: any) => {
+    useEffect(() => {
+      var _pages = MarkdownPages.fromText(markdown);
+      setInitialValues(_pages);
+      setInputValue(_pages.pages[pageIndex] || '');
+    }, [markdown]);
+
+    useEffect(() => {
+      setTitleValue(title);
+    }, [title]);
+
     return (
       <form key={pageIndex} className="bg-white p-3 m-3">
         <FormInput
@@ -115,7 +125,6 @@ export const MarpFormInput = ({
           title: titleValue,
           ...markdownPages.toPagesObj(),
         }}
-        //validationSchema={validationSchema}
         onSubmit={_onSubmit}
         render={renderForm}
       />

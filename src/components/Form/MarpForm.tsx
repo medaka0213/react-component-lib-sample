@@ -54,6 +54,14 @@ export const MarpForm = ({
   const [index, setIndex] = useState(0);
   const [maxPages, setMaxPages] = useState(1);
 
+  useEffect(() => {
+    setMarkdown(_markdown);
+  }, [_markdown]);
+
+  useEffect(() => {
+    setTitle(_title);
+  }, [_title]);
+
   const customRendererSingle = ({ slides }: { slides: any[] }) => {
     return (
       <>
@@ -128,7 +136,9 @@ export const MarpForm = ({
           >
             Donwload Markdown
           </Button>
-          <MarpConvert markdown={markdown}>Convert to PDF</MarpConvert>
+          <MarpConvert documentTitle={title} markdown={markdown}>
+            Convert to PDF
+          </MarpConvert>
         </Stack>
       </Grid>
       <Grid xs={12} md={6}>
