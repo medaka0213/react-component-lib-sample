@@ -57,6 +57,7 @@ export {
   GetModel,
   ParseItem,
   ParseItemList,
+  ParseItemByTypes,
   TimeRange,
 } from './models';
 
