@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
 
     steps:
     - name: Check out code
@@ -31,11 +32,12 @@ jobs:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
     - name: Bump version and create a release commit
+      id: package_version
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         npm version patch -m "chore(release): %s [skip ci]"
-        git push
+        echo "::set-output name=version::$(node -p "require('./package.json').version")"
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
@@ -43,3 +45,19 @@ jobs:
       run: npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+    - name: Push changes
+      run: |
+        git push --follow-tags
+
+    - name: Create GitHub Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      with:
+        tag_name: ${{ steps.package_version.outputs.version }}
+        release_name: Release ${{ steps.package_version.outputs.version }}
+        body: 'Release description'
+        draft: false
+        prerelease: false
