@@ -36,11 +36,6 @@ export default [
     external: ['react', 'react-dom', '@emotion/styled', '@emotion/react'],
   },
   {
-    input: 'dist/cjs/types/index.d.ts',
-    output: [{ file: 'dist/cjs/index.d.ts', format: 'cjs' }],
-    plugins: [dts()],
-  },
-  {
     input: 'dist/esm/types/index.d.ts',
     output: [{ file: 'dist/esm/index.d.ts', format: 'esm' }],
     plugins: [dts()],

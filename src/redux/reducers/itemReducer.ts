@@ -12,7 +12,7 @@ import {
   DELETE_ITEM_SUCCEEDED,
   GET_ITEMS,
   GET_ITEMS_SUCCEEDED,
-  GET_SINGLE_ITEM,,
+  GET_SINGLE_ITEM,
   GET_SINGLE_ITEM_SUCCEEDED,
   PUT_ITEM,
   PUT_ITEM_SUCCEEDED,
@@ -42,7 +42,7 @@ const initialState = {
   error: '',
 };
 const itemReducer = createReducer(initialState, (builder:any) => {
-  builder.addCase(GET_CONFIG, (state: any, action) => {
+  builder.addCase(GET_CONFIG, (state: any, action: any) => {
     const key = action.payload.type || 'unknown';
     state[key] = new ItemReducer({
       config: action.payload.Item,
