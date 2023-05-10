@@ -20,14 +20,14 @@ jobs:
       with:
         node-version: 16
 
+    - name: Set up npm authentication
+      run: cp .npmrc ${{ github.workspace }}
+
     - name: Install dependencies
       run: yarn install
 
     - name: Build package
       run: yarn build
-
-    - name: Set up npm authentication
-      run: cp .npmrc ${{ github.workspace }}
 
     - name: Bump version and create a release commit
       run: |
