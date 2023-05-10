@@ -62,7 +62,7 @@ export function ParseItem(item: any): any {
   return new Model(item);
 }
 
-export function ParseItemByTypes(items = []): any {
+export function ParseItemByTypes(items: any[] = []): any {
   let _res: any = {};
   let _items = items || [];
   _items.forEach((i: any) => {
@@ -80,7 +80,7 @@ export function ParseItemByTypes(items = []): any {
   return _res;
 }
 
-export function ParseItemList(items = []): any[] {
+export function ParseItemList(items: any[] = []): any[] {
   return items.map((i: any) => {
     const type = i.sk.replace('_item', '');
     const Model = GetModel(type);
