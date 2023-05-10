@@ -1,12 +1,13 @@
 name: Release
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
 
     steps:
     - name: Check out code
