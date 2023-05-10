@@ -34,3 +34,4 @@ yalc.lock
 yalc.sig
 example
 
+.env.local
