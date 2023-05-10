@@ -27,6 +27,7 @@ export class BaseModel {
     }
     return type;
   }
+
   itemDetailPath(mode: 'admin' | 'pub' = 'admin'): string {
     const type = this.itemType(mode);
     if (mode === 'admin') {
@@ -35,6 +36,7 @@ export class BaseModel {
       return `/${type}/detail/?pk=${this.pk}`;
     }
   }
+
   itemListPath(): string {
     return `/${this.itemType()}/`;
   }
