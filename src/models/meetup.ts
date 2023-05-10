@@ -28,6 +28,10 @@ export class Meetup extends BaseModel {
     Object.assign(this, props);
   }
 
+  thumbnail(){
+    return this.image_url;
+  }
+
   get_paretnt_type() {
     return this.missionID.split('_')[0];
   }

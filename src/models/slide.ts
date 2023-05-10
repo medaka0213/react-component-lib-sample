@@ -59,6 +59,10 @@ export class Slide extends BaseModel {
     return this.imageLinks();
   }
 
+  thumbnail(){
+    return this.imageLinksCached()[0];
+  }
+
   marpRef(start = 0, end = this['data-length'] - 1, includeCredit = false) {
     if (includeCredit) {
       return this.marpRefWithCredit(start, end);
