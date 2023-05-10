@@ -22,9 +22,13 @@ jobs:
 
     - name: Install dependencies
       run: yarn install
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
     - name: Build package
       run: yarn build
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
     - name: Bump version and create a release commit
       run: |
@@ -32,6 +36,8 @@ jobs:
         git config --local user.name "GitHub Action"
         npm version patch -m "chore(release): %s [skip ci]"
         git push
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
     - name: Publish package
       run: npm publish
