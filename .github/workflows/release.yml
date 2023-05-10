@@ -21,7 +21,7 @@ jobs:
         node-version: 16
 
     - name: Install dependencies
-      run: npm install
+      run: yarn install
 
     - name: Bump version and create a release commit
       run: |
