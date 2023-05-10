@@ -58,6 +58,6 @@ jobs:
       with:
         tag_name: ${{ steps.package_version.outputs.version }}
         release_name: Release ${{ steps.package_version.outputs.version }}
-        body: 'Release description'
+        body: "https://www.npmjs.com/package/react-vrw/v/${{ steps.package_version.outputs.version }}"
         draft: false
         prerelease: false
