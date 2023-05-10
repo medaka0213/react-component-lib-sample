@@ -19,6 +19,10 @@ export class Launch extends Event {
     Object.assign(this, props);
   }
 
+  thumbnail(): string {
+    return this.image_url || this.rocket_image_url;
+  }
+
   nextSpaceFlightLink(): string {
     return `https://nextspaceflight.com/launches/details/${this.NextSpaceFlight.replace(
       'a',

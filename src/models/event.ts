@@ -35,6 +35,10 @@ export class Event extends BaseModel {
     Object.assign(this, props);
   }
 
+  thumbnail(): string {
+    return this.image_url;
+  }
+
   _extract_yt_id(url: string): string {
     if (url.includes('youtube.com')) {
       if (url.includes('v=')) {
