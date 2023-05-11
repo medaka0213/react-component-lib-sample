@@ -37,7 +37,7 @@ jobs:
         git config --local user.name "GitHub Action"
         npm version patch -m "chore(release): %s [skip ci]"
         git push origin main
-        echo "::set-output name=version::$(node -p "require('./package.json').version")"
+        echo "::set-output name=version::$(node -p "'v'+require('./package.json').version")"
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
@@ -45,10 +45,6 @@ jobs:
       run: npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-
-    - name: Push changes
-      run: |
-        git push --follow-tags
 
     - name: Create GitHub Release
       id: create_release
