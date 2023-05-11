@@ -19,7 +19,7 @@ export const Default = Template.bind({});
 Default.args = {
   children: (
     <img
-      src="https://sxcontent9668.azureedge.us/cms-assets/assets/Launch_Page_Starlink1_vertical_18_DESKTOP_209c4e50a1.jpg/"
+      src="https://img.virtualrocketwatching.net/image/image_d7f3f479-51a7-4dfb-b387-15e754d2f11c.jpeg"
       alt="Starlink"
       width={'100%'}
       height={'100%'}

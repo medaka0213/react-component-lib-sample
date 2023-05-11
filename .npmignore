@@ -6,6 +6,7 @@ node_modules
 ## incase you have a git repositiory initiated
 .git
 .gitignore
+.github
 CVS
 .svn
 .hg
@@ -14,9 +15,13 @@ CVS
 .DS_Store
 npm-debug.log
 .npmrc
+.vscode
 
 config.gypi
 package-lock.json
 
 .storybook
 storybook-static
+*.stories.tsx
+*.stories.js
+*.stories.jsx
