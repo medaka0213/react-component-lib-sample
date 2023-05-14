@@ -22,8 +22,8 @@ const App: VFC<FormTemplateProps> = ({
     {...props}
     formik={formik}
     childrenList={childrenList.map(
-      (children) => children.map((child) => {
-        return <FormInput {...child} formik={formik} />;
+      (children, i) => children.map((child, j) => {
+        return <FormInput {...child} formik={formik} key={`${i}_${j}`} />;
       }))}
   />;
 }
