@@ -1,15 +1,15 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { FormInput, FormInputProps } from './FormInput';
+import { FormTemplate, FormTemplateProps } from './FormTemplate';
 
 export default {
-  component: FormInput,
+  component: FormTemplate,
   title: 'FormTemplate',
 };
 
-const Template: ComponentStory<typeof FormInput> = (args) => (
-  <FormInput {...args} />
+const Template: ComponentStory<typeof FormTemplate> = (args) => (
+  <FormTemplate {...args} />
 );
 
 export const Default = Template.bind({});
@@ -19,47 +19,30 @@ Default.args = {
   formik: {
     values: {
       sample: 'value',
+      sample_number: 1,
+      sample_select: 'value2',
     },
     errors: {
       sample: 'error',
     },
     touched: {},
   },
-};
-
-export const NoTiltle = Template.bind({});
-NoTiltle.args = {
-  ...Default.args,
-  title: '',
-};
-
-export const ChangeColor = Template.bind({});
-ChangeColor.args = {
-  ...Default.args,
-  color: 'secondary',
-};
-
-export const CopyText = Template.bind({});
-CopyText.args = {
-  ...Default.args,
-  copyBytton: true,
-};
-
-export const Multiline = Template.bind({});
-Multiline.args = {
-  ...Default.args,
-  type: 'textarea',
-  rows: 10,
-  formik: {
-    ...Default.args.formik,
-    values: {
-      sample: 'line1\nline2\n\nline3',
-    },
-  },
-};
-
-export const MultilineCopy = Template.bind({});
-MultilineCopy.args = {
-  ...Multiline.args,
-  copyBytton: true,
+  childrenList: [[{
+    name: 'sample',
+  }, {
+    name: 'sample_number',
+    type: 'number',
+  }], [{
+    name: 'sample_select',
+    type: 'select',
+    options: [
+      {
+        value: 'value1',
+      },
+      {
+        value: 'value2',
+        label: 'value2 (with divder)',
+        divider: true,
+      }]
+  }]]
 };
