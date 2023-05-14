@@ -5,7 +5,7 @@ import { FormInput, FormInputProps } from './FormInput';
 
 export default {
   component: FormInput,
-  title: 'FormInput',
+  title: 'FormTemplate',
 };
 
 const Template: ComponentStory<typeof FormInput> = (args) => (
@@ -63,36 +63,3 @@ MultilineCopy.args = {
   ...Multiline.args,
   copyBytton: true,
 };
-
-export const Select = Template.bind({});
-Select.args = {
-  ...Default.args,
-  type: 'select',
-  name: 'sample',
-  title: 'title',
-  onChange() {
-    //一秒待つ
-    return new Promise((resolve) => setTimeout(resolve, 1000));
-  },
-  formik: {
-    values: {},
-    errors: {
-      sample: 'error',
-    },
-    touched: {},
-  },
-  options: [
-    {
-      value: 'value1',
-    },
-    {
-      value: 'value2',
-      label: 'value2 (with divder)',
-      divider: true,
-    },
-    {
-      value: 'value2',
-    },
-  ],
-};
-

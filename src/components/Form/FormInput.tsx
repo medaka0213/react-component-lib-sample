@@ -8,6 +8,8 @@ import CopyToClipBoard from 'react-copy-to-clipboard';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -17,18 +19,27 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 
 import { FormProps } from '../types';
 
+export type SelectItem = {
+  label?: string;
+  value: any;
+  divider?: boolean;
+};
+
 export type FormInputProps = FormProps & {
   name: string;
   type?:
-    | 'string'
-    | 'text'
-    | 'textarea'
-    | 'datetime'
-    | 'datetime-local'
-    | 'number';
+  | 'string'
+  | 'text'
+  | 'textarea'
+  | 'datetime'
+  | 'datetime-local'
+  | 'select'
+  | 'number';
   rows?: string | number;
   copyBytton?: boolean;
   size?: 'small' | 'medium';
+  variant?: 'outlined' | 'filled' | 'standard';
+  options: SelectItem[];
 };
 
 export const App: VFC<FormInputProps> = ({
@@ -43,6 +54,8 @@ export const App: VFC<FormInputProps> = ({
   copyBytton = false,
   children,
   size = 'small',
+  variant = 'filled',
+  options = [],
   formik: { values = {}, errors = {}, handleChange },
 }) => {
   const [openTip, setOpenTip] = useState(false);
@@ -50,9 +63,12 @@ export const App: VFC<FormInputProps> = ({
     setOpenTip(true);
   };
 
+
+
+
   return (
-    <FormControl color={color} variant={'filled'} fullWidth focused>
-      {type !== 'datetime' ? (
+    <FormControl color={color} variant={variant} fullWidth focused>
+      {type !== 'datetime' && type !== 'select' &&
         <>
           <InputLabel htmlFor={name}>{title || name}</InputLabel>
           <FilledInput
@@ -92,7 +108,32 @@ export const App: VFC<FormInputProps> = ({
             }
           />
         </>
-      ) : (
+      }
+
+      {type === 'select' && <>
+        <InputLabel id={name + '-label'}>{title}</InputLabel>
+        <Select
+          size={size}
+          labelId={name + '-label'}
+          id={name}
+          value={values[name]}
+          label={title ? `${title} (${name})` : name}
+          onChange={async (e: any, child: ReactNode) => {
+            handleChange && (await handleChange(e));
+            onChange && (await onChange(e, child));
+          }}
+          name={name}
+          disabled={disabled}
+        >
+          {options.map((item, index) => (
+            <MenuItem key={index} value={item.value} divider={item.divider}>
+              {item.label || item.value}
+            </MenuItem>
+          ))}
+        </Select></>
+      }
+
+      {type === 'datetime' &&
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateTimePicker
             label={title || name}
@@ -120,10 +161,10 @@ export const App: VFC<FormInputProps> = ({
             )}
           />
         </LocalizationProvider>
-      )}
+      }
       <FormHelperText error>{errors[name]}</FormHelperText>
       {children}
-    </FormControl>
+    </FormControl >
   );
 };
 
