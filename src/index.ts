@@ -77,4 +77,4 @@ export { ParamToQueryItem } from './utils/query';
 export { downloadFile, downloadFileFromUrl } from './utils/download';
 
 // 構成関連
-export { SEARCH_ITEMS, DEFAULT_QUERY } from './config/query';
+export { getSearchItems, getDefaultQuery } from './config/query';

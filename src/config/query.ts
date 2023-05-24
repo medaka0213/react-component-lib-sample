@@ -265,3 +265,23 @@ export const DEFAULT_QUERY = {
     },
   ],
 };
+
+export const getDefaultQuery = (type: string) => {
+  if (DEFAULT_QUERY.hasOwnProperty(type)) {
+    // 値が関数なら実行
+    if (typeof DEFAULT_QUERY[type] === 'function') return DEFAULT_QUERY[type]();
+  }
+  return [
+    {
+      key: 'limit',
+      value: 100,
+    },
+  ];
+};
+
+export const getSearchItems = (type: string) => {
+  if (SEARCH_ITEMS.hasOwnProperty(type)) {
+    return SEARCH_ITEMS[type];
+  }
+  return [];
+};
