@@ -41,6 +41,7 @@ export {
 //モデル関連
 export {
   BaseModel,
+  Fields,
   Launch,
   Event,
   Config,
