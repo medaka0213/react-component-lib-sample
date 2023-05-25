@@ -38,59 +38,28 @@ style: |
 ---
 `;
 
-function extractText(target: string, regex: RegExp) {
-  const match = target.match(regex);
-  if (match) {
-    return {
-      text: match[0],
-      rest: target.replace(match[0], ''),
-    };
-  }
-  return {
-    text: '',
-    rest: target,
-  };
-}
-
 export class MarkdownPages {
   public text: string = '';
   public pages: string[] = [];
-  public marpSettings: string = pageSettings;
 
   constructor(props: Fields<MarkdownPages>) {
     Object.assign(this, props);
     this.parseText();
   }
 
-  static fromText(_text: string) {
-    let settingsEx = extractText(_text, /---([^(---)]+)---\n/g);
-
-    let marpSettings = settingsEx.text;
-    if (marpSettings === '') {
-      marpSettings = pageSettings;
-    }
-    _text = settingsEx.rest;
-
+  static fromText(text: string) {
     //pageの抽出
-    let pages = _text.split(/\n\n-{3,}\n/g);
+    let pages = text.split(/\n\n-{3,}\n/g);
 
-    return new MarkdownPages({
-      text: _text,
-      pages,
-      marpSettings,
-    });
+    return new MarkdownPages({ text, pages });
   }
 
   parseText() {
-    let _text = this.text;
-    this.pages = _text.split(/\n\n-{3,}\n/g);
-    if (this.pages[0].indexOf('marp:') !== -1) {
-      this.pages[0] = this.pages[0].replace(pageSettings, '');
-    }
+    this.pages = this.text.split(/\n\n-{3,}\n/g);
   }
 
   genText() {
-    this.text = this.marpSettings + this.pages?.join('\n\n---\n');
+    this.text = this.pages?.join('\n\n---\n');
     return this.text;
   }
 
@@ -110,11 +79,6 @@ export class MarkdownPages {
 
   changePage(index: number, text: string) {
     this.pages[index] = text;
-    this.reset();
-  }
-
-  setSettings(settings: string) {
-    this.marpSettings = settings;
     this.reset();
   }
 
