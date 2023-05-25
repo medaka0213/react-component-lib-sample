@@ -16,7 +16,8 @@ export class Countdown extends BaseModel {
   public readonly t_minus: any[] = [];
 
   constructor(props: Fields<Countdown>) {
-    const t_minus = props.t_minus.map((e) => {
+    let t_minus: any[] = props?.t_minus || [];
+    t_minus = t_minus.map((e) => {
       return {
         ...e,
         hours: Number(e.hours || 0),
@@ -24,7 +25,8 @@ export class Countdown extends BaseModel {
         seconds: Number(e.seconds || 0),
       };
     });
-    const t_plus = props.t_plus.map((e) => {
+    let t_plus: any[] = props?.t_plus || [];
+    t_plus = t_plus.map((e) => {
       return {
         ...e,
         hours: Number(e.hours || 0),
@@ -32,9 +34,8 @@ export class Countdown extends BaseModel {
         seconds: Number(e.seconds || 0),
       };
     });
-    props = Object.assign(props, { t_minus, t_plus });
-    super(props);
-    Object.assign(this, props);
+    super(Object.assign(props, { t_minus, t_plus }));
+    Object.assign(this, Object.assign(props, { t_minus, t_plus }));
   }
 
   set_timeline(key: 't_plus' | 't_minus', timeline: any[]): Countdown {
