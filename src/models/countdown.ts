@@ -16,6 +16,23 @@ export class Countdown extends BaseModel {
   public readonly t_minus: any[] = [];
 
   constructor(props: Fields<Countdown>) {
+    const t_minus = props.t_minus.map((e) => {
+      return {
+        ...e,
+        hours: Number(e.hours || 0),
+        minutes: Number(e.minutes || 0),
+        seconds: Number(e.seconds || 0),
+      };
+    });
+    const t_plus = props.t_plus.map((e) => {
+      return {
+        ...e,
+        hours: Number(e.hours || 0),
+        minutes: Number(e.minutes || 0),
+        seconds: Number(e.seconds || 0),
+      };
+    });
+    props = Object.assign(props, { t_minus, t_plus });
     super(props);
     Object.assign(this, props);
   }
