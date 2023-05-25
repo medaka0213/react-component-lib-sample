@@ -73,7 +73,6 @@ function LayoutApp(props: LayoutProps) {
             backgroundColor: bgColor,
           }}
         >
-          {props.loading && <LinearProgress />}
           <Toolbar>
             <IconButton
               color="inherit"
@@ -97,6 +96,7 @@ function LayoutApp(props: LayoutProps) {
             />
             {props.appBar}
           </Toolbar>
+          {props.loading && <LinearProgress />}
         </AppBar>
         <Box
           component="nav"
