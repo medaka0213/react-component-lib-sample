@@ -1,43 +1,5 @@
 import { Fields } from './baseModel';
 
-const pageSettings = `---
-marp: true
-paginate: false
-style: |
-  p, ul, ol {
-    font-size: 18px;
-  }
-  table {
-    font-size: 16px;
-  }
-  h1{
-    font-size: 42px;
-    padding: 10px 0;
-    margin: 10px 0;
-  }
-  h2{
-    font-size: 36px;
-    padding: 10px 0;
-    margin: 5px 0;
-  }
-  h3{
-    font-size: 30px;
-    padding: 10px 0;
-    margin: 5px 0;
-  }
-  h4{
-    font-size: 24px;
-    padding: 10px 0;
-    margin: 2px 0;
-  }
-  h5{
-    font-size: 18px;
-    padding: 10px 0;
-    margin: 2px 0;
-  }
----
-`;
-
 export class MarkdownPages {
   public text: string = '';
   public pages: string[] = [];

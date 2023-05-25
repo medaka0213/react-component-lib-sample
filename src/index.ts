@@ -20,24 +20,6 @@ export { MainBox } from './components/MainBox';
 export { DetailTable } from './components/DetailTable';
 export { ImagePreview } from './components/ImagePreview';
 
-//redux関連
-export { store } from './redux/store';
-export {
-  GET_CONFIG,
-  GET_ALL_CONFIG,
-  GET_ITEMS,
-  GET_SINGLE_ITEM,
-  DELETE_ITEM,
-  POST_ITEM,
-  PUT_ITEM,
-  GET_RELATION,
-  POST_RELATION,
-  DELETE_RELATION,
-  GET_REFERENCE,
-  POST_REFERENCE,
-  DELETE_REFERENCE,
-} from './redux/actions/itemActions';
-
 //モデル関連
 export {
   BaseModel,
