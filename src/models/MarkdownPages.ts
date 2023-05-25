@@ -4,7 +4,7 @@ const pageSettings = `---
 marp: true
 paginate: false
 style: |
-  p, ul {
+  p, ul, ol {
     font-size: 18px;
   }
   table {
