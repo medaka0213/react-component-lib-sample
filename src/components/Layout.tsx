@@ -1,7 +1,6 @@
 import React, { useState, ReactNode } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import theme from './theme';
 
 import { styled, useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
@@ -9,6 +8,7 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
+import LinearProgress from '@mui/material/LinearProgress';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
@@ -38,6 +38,7 @@ export type LayoutProps = {
   maxWidth?: number;
   drawerWidth?: number;
   sidebarWidth?: number;
+  loading?: boolean;
 };
 
 function LayoutApp(props: LayoutProps) {
@@ -72,6 +73,7 @@ function LayoutApp(props: LayoutProps) {
             backgroundColor: bgColor,
           }}
         >
+          {props.loading && <LinearProgress />}
           <Toolbar>
             <IconButton
               color="inherit"
