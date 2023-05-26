@@ -113,7 +113,7 @@ export class ApiClient {
 
 //Guppy AdminAPIのクライアント
 export class AdminApiClient extends ApiClient {
-  constructor({ baseURL, apiKey = API_KEY }: ApiClientProps) {
+  constructor({ baseURL = API_BASE_URL, apiKey = API_KEY }: ApiClientProps) {
     super({
       apiKey,
       baseURL: baseURL || API_BASE_URL,
