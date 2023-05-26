@@ -20,7 +20,7 @@ export class ApiClient {
   private apiKey: string;
   private baseURL: string;
 
-  constructor({ baseURL, apiKey = API_KEY }: ApiClientProps) {
+  constructor({ baseURL, apiKey = API_KEY }: ApiClientProps = {}) {
     this.apiKey = apiKey;
     this.baseURL = baseURL || API_BASE_URL;
   }
@@ -113,7 +113,10 @@ export class ApiClient {
 
 //Guppy AdminAPIのクライアント
 export class AdminApiClient extends ApiClient {
-  constructor({ baseURL = API_BASE_URL, apiKey = API_KEY }: ApiClientProps) {
+  constructor({
+    baseURL = API_BASE_URL,
+    apiKey = API_KEY,
+  }: ApiClientProps = {}) {
     super({
       apiKey,
       baseURL: baseURL || API_BASE_URL,
