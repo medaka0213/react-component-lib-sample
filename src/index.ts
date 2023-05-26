@@ -53,7 +53,7 @@ export {
   format_datetime_JP,
   format_countdown,
 } from './utils/time';
-export { ApiClient, AdminApiClient } from './utils/rest';
+export { ApiClient, DataApiClient } from './utils/rest';
 export { sort_array } from './utils/sort';
 export { ParamToQueryItem } from './utils/query';
 export { downloadFile, downloadFileFromUrl } from './utils/download';

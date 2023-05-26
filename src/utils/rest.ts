@@ -1,8 +1,3 @@
-const API_KEY =
-  process.env.API_KEY || process.env.NEXT_PUBLIC_API_KEY || 'API_KEY';
-const API_BASE_URL =
-  process.env.API_BASE_URL || process.env.NEXT_PUBLIC_API_BASE_URL || '/api';
-
 interface CallApiProps {
   params?: any;
   method?: string;
@@ -20,9 +15,9 @@ export class ApiClient {
   private apiKey: string;
   private baseURL: string;
 
-  constructor({ baseURL, apiKey = API_KEY }: ApiClientProps = {}) {
+  constructor({ baseURL = '', apiKey = '' }: ApiClientProps = {}) {
     this.apiKey = apiKey;
-    this.baseURL = baseURL || API_BASE_URL;
+    this.baseURL = baseURL;
   }
 
   private async callApi(
@@ -111,15 +106,12 @@ export class ApiClient {
   }
 }
 
-//Guppy AdminAPIのクライアント
-export class AdminApiClient extends ApiClient {
-  constructor({
-    baseURL = API_BASE_URL,
-    apiKey = API_KEY,
-  }: ApiClientProps = {}) {
+//データ入出力用のクライアント
+export class DataApiClient extends ApiClient {
+  constructor({ baseURL = '', apiKey = '' }: ApiClientProps = {}) {
     super({
       apiKey,
-      baseURL: baseURL || API_BASE_URL,
+      baseURL,
     });
   }
 
