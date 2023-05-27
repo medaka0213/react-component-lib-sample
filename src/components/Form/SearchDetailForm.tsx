@@ -113,9 +113,7 @@ const App: VFC<SearchDetailFromProps> = ({
               sx={{
                 ml: 0.25,
                 pr: 0.25,
-                py: 1.5,
                 width: '100%',
-                height: '100%',
               }}
               variant="outlined"
               color="primary"
@@ -130,7 +128,6 @@ const App: VFC<SearchDetailFromProps> = ({
           sx={{
             ml: 0.25,
             pr: 0.25,
-            py: 1.5,
             mb: 2,
             width: '100%',
             height: '100%',
@@ -145,9 +142,6 @@ const App: VFC<SearchDetailFromProps> = ({
     };
     return (
       <>
-        <Grid item xs={3} sm={2}>
-          <AddKeyModal />
-        </Grid>
         {formik.values.queries.map((q: any, i: number) => {
           return (
             <SearchDetailFormInput
@@ -184,6 +178,9 @@ const App: VFC<SearchDetailFromProps> = ({
             />
           );
         })}
+        <Grid item xs={3} sm={2}>
+          <AddKeyModal />
+        </Grid>
         <Grid container spacing={1}>
           <Grid
             item

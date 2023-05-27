@@ -35,3 +35,7 @@ yalc.sig
 example
 
 .env*
+
+yarn.lock
+package-lock.json
+

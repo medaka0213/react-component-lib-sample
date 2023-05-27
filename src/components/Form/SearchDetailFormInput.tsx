@@ -238,8 +238,6 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
                   color="primary"
                   sx={{
                     width: '100%',
-                    height: '100%',
-                    py: 1,
                   }}
                   onClick={async () => {
                     let pld = TimeRange.fromMode(
@@ -274,7 +272,6 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
                   color="info"
                   sx={{
                     width: '100%',
-                    height: '100%',
                   }}
                   onClick={async () => {
                     let pld = TimeRange.fromMode(
@@ -294,7 +291,7 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
                   }}
                 >
                   <HistoryIcon fontSize="small" />
-                  現在時刻の範囲で検索
+                  現在時刻で検索
                 </Button>
               </Grid>
               <Grid
