@@ -9,7 +9,7 @@ export { MarpForm } from './components/Form/MarpForm';
 export { ItemListTable } from './components/ItemListTable';
 export { SlideShow } from './components/SlideShow';
 export { DialogWrapper } from './components/DialogWrapper';
-export { DialogImageWrapper } from './components/DialogImageWrapper';
+export { ImageDownloadButton } from './components/ImageDownloadButton';
 export { Copy } from './components/Copy';
 export { Link } from './components/Link';
 export { YoutubePlayer as Youtube } from './components/Youtube';
