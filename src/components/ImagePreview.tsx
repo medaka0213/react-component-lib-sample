@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 
 import Box, { BoxProps } from '@mui/material/Box';
 
@@ -20,16 +19,22 @@ export const ImagePreview: React.FC<Props> = ({
 }) => {
   return (
     <Box {...props}>
-      <DialogWrapper>
+      <DialogWrapper showOnClick={
         <img
-          style={{
-            border: '1px solid #eee',
-            maxWidth: '100vw',
-            maxHeight: '95vh',
-            width: '100%',
-          }}
           src={src}
           alt={alt}
+          style={{
+              maxHeight: "90vh",
+              maxWidth: "90vw",
+            }}
+        />}
+      >
+        <img
+          src={src}
+          alt={alt}
+          style={{
+            width: "100%",
+          }}
         />
         {children}
       </DialogWrapper>

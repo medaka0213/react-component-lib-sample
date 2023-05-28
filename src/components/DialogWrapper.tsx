@@ -3,7 +3,7 @@ import { Modal, Box } from '@mui/material';
 
 type DialogWrapperProps = {
   children: ReactNode;
-  showOnClick: ReactNode;
+  showOnClick?: ReactNode;
 };
 
 export const DialogWrapper: VFC<DialogWrapperProps> = ({ children, showOnClick }) => {
@@ -20,7 +20,7 @@ export const DialogWrapper: VFC<DialogWrapperProps> = ({ children, showOnClick }
           }}
           onClick={() => setOpen(false)}
         >
-          {children || showOnClick}
+          {showOnClick || children}
         </Box>
       </Modal>
       <Box
