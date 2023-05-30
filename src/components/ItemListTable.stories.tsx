@@ -61,6 +61,31 @@ CustomWidth.args = {
   ],
 };
 
+export const CustomLink = Template.bind({});
+CustomLink.args = {
+  rowLink: (row: any) => 'https://www.youtube.com/watch?v=gsAy5TUPltw',
+  columns: [
+    {
+      field: 'name',
+      headerName: 'Name',
+    },
+    {
+      field: 'age',
+      headerName: 'Age',
+    },
+  ],
+  rows: [
+    {
+      name: 'John',
+      age: 20,
+    },
+    {
+      name: 'Jane',
+      age: 21,
+    },
+  ],
+};
+
 export const EmptyCell = Template.bind({});
 EmptyCell.args = {
   columns: [

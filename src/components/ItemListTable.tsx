@@ -1,4 +1,5 @@
 import React, { VFC } from 'react';
+import { Link as MuiLink } from '@mui/material';
 import Box, { BoxProps } from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -18,6 +19,8 @@ type ItemListTableProps = CommonProps &
     columns: GridColDef[];
     isLoading?: boolean;
     onRowClick: (row: any) => void;
+    rowLink?: (row: any) => string;
+    linkTarget?: '_blank' | '_self' | '_parent' | '_top' | undefined;
   };
 
 function getColspan(row: any, colums: any[], index: number) {
@@ -40,6 +43,8 @@ export const ItemListTable: VFC<ItemListTableProps> = ({
   rows = [],
   columns = [],
   sx,
+  rowLink,
+  linkTarget = '_self',
   ...props
 }) => {
   return (
@@ -81,7 +86,19 @@ export const ItemListTable: VFC<ItemListTableProps> = ({
                           key={column.field}
                           colSpan={getColspan(row, columns, j)}
                         >
-                          {row[column.field]}
+                          <MuiLink
+                            href={rowLink && rowLink(row)}
+                            key={i}
+                            target={linkTarget}
+                            underline="none"
+                            sx={{
+                              width: '100%',
+                              display: 'block',
+                              height: '100%',
+                            }}
+                          >
+                            {row[column.field]}
+                          </MuiLink>
                         </TableCell>
                       )
                   )}
