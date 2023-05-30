@@ -11,16 +11,19 @@ export type FormTemplateProps = FormProps & {
   buttonPosition?: 'top' | 'bottom';
   buttonEnabled?: boolean;
   xs?: number;
+  errorMessage?: string;
 };
 
 const App: VFC<FormTemplateProps> = ({
   childrenList = [[]],
   formik,
+  errorMessage,
   ...props
 }) => {
   return <FormGrid
     {...props}
     formik={formik}
+    errorMessage={errorMessage}
     childrenList={childrenList.map(
       (children, i) => children.map((child, j) => {
         return <FormInput {...child} formik={formik} key={`${i}_${j}`} />;

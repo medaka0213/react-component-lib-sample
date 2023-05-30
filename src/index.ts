@@ -1,6 +1,9 @@
 export { FileInput } from './components/Form/FileInput';
-export { FormGrid } from './components/Form/FormGrid';
-export { FormTemplate } from './components/Form/FormTemplate';
+export { FormGrid, FormGridProps } from './components/Form/FormGrid';
+export {
+  FormTemplate,
+  FormTemplateProps,
+} from './components/Form/FormTemplate';
 export { FormInput } from './components/Form/FormInput';
 export { FormSelect } from './components/Form/FormSelect';
 export { SubmitButton } from './components/Form/SubmitButton';

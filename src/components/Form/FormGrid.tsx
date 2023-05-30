@@ -11,6 +11,7 @@ export type FormGridProps = FormProps & {
   buttonPosition?: 'top' | 'bottom';
   buttonEnabled?: boolean;
   xs?: number;
+  errorMessage?: string;
 };
 
 const App: VFC<FormGridProps> = ({
@@ -23,6 +24,7 @@ const App: VFC<FormGridProps> = ({
   disabled = false,
   buttonPosition = 'bottom',
   buttonEnabled = true,
+  errorMessage,
   xs = 12,
   formik: {
     isSubmitting,
@@ -40,6 +42,7 @@ const App: VFC<FormGridProps> = ({
       <SubmitButton
         color={color}
         disabled={_disabled}
+        isSubmitting={isSubmitting}
         onClick={async () => handleSubmit && (await handleSubmit(values))}
         variant="contained"
       >
@@ -57,6 +60,24 @@ const App: VFC<FormGridProps> = ({
     }
   }
 
+  let Error = () => (
+    <>
+      {Object.keys(errors).map((k) => (
+        <Box
+          sx={{
+            width: '100%',
+            color: 'error.main',
+          }}
+        >
+          入力検証エラー: {k}: {errors[k]}
+        </Box>
+      ))}
+      {errorMessage && (
+        <Box sx={{ width: '100%', color: 'error.main' }}>{errorMessage}</Box>
+      )}
+    </>
+  );
+
   return (
     <Box
       sx={{
@@ -67,17 +88,7 @@ const App: VFC<FormGridProps> = ({
     >
       <form onSubmit={handleSubmit}>
         <Grid container>
-          {buttonPosition === 'top' &&
-            Object.keys(errors).map((k) => (
-              <Box
-                sx={{
-                  width: '100%',
-                  color: 'error.main',
-                }}
-              >
-                入力検証エラー: {k}: {errors[k]}
-              </Box>
-            ))}
+          {buttonPosition === 'top' && <Error />}
           {_childrenList.map((childrenRow, i) => (
             <>
               {childrenRow.map((child, j) => (
@@ -96,17 +107,7 @@ const App: VFC<FormGridProps> = ({
             </>
           ))}
           <Box sx={{ width: '100%' }}>{children}</Box>
-          {buttonPosition === 'bottom' &&
-            Object.keys(errors).map((k) => (
-              <Box
-                sx={{
-                  width: '100%',
-                  color: 'error.main',
-                }}
-              >
-                入力検証エラー: {k}: {errors[k]}
-              </Box>
-            ))}
+          {buttonPosition === 'bottom' && <Error />}
         </Grid>
       </form>
     </Box>
