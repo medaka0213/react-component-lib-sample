@@ -5,6 +5,7 @@ export {
   FormTemplateProps,
 } from './components/Form/FormTemplate';
 export { FormInput } from './components/Form/FormInput';
+export { FormToggle } from './components/Form/FormToggle';
 export { FormSelect } from './components/Form/FormSelect';
 export { SubmitButton } from './components/Form/SubmitButton';
 export { SearchDetailForm } from './components/Form/SearchDetailForm';

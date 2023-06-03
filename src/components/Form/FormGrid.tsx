@@ -96,7 +96,7 @@ const App: VFC<FormGridProps> = ({
                   <Box
                     sx={{
                       pr: 1,
-                      mb: 1,
+                      height: '100%',
                       ...childrenSx,
                     }}
                   >

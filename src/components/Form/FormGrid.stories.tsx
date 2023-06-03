@@ -3,6 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { FormGrid } from './FormGrid';
 import { FormInput } from './FormInput';
+import { FormToggle } from './FormToggle';
 
 const formik = {
   values: {},
@@ -33,7 +34,10 @@ Default.args = {
       <FormInput name="sample2" formik={formik} />,
       <FormInput name="sample2" formik={formik} />,
     ],
-    [<FormInput name="sample3" formik={formik} />],
+    [
+      <FormInput name="sample3" formik={formik} />,
+      <FormToggle name="sample4" formik={formik} />,
+    ],
   ],
 };
 

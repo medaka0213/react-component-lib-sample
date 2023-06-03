@@ -85,16 +85,22 @@ export const ItemListTable: VFC<ItemListTableProps> = ({
                         <TableCell
                           key={column.field}
                           colSpan={getColspan(row, columns, j)}
+                          sx={{
+                            py: 0,
+                            px: 0,
+                          }}
                         >
                           <MuiLink
                             href={rowLink && rowLink(row)}
-                            key={i}
+                            key={'link-' + i + '-' + j}
                             target={linkTarget}
                             underline="none"
                             sx={{
                               width: '100%',
                               display: 'block',
                               height: '100%',
+                              py: 2,
+                              px: 2,
                             }}
                           >
                             {row[column.field]}
