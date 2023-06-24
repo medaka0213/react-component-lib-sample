@@ -1,4 +1,4 @@
-import React, { VFC, useState, ChangeEvent } from 'react';
+import React, { VFC, useState, ChangeEvent, ReactNode } from 'react';
 
 import { FilledInput } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
@@ -27,19 +27,20 @@ export type SelectItem = {
 
 export type FormInputProps = FormProps & {
   name: string;
-  type?:
-  | 'string'
-  | 'text'
-  | 'textarea'
-  | 'datetime'
-  | 'datetime-local'
-  | 'select'
-  | 'number';
+  type?: string;
+  /*| 'string'
+    | 'text'
+    | 'textarea'
+    | 'datetime'
+    | 'datetime-local'
+    | 'select'
+    | 'number';*/
   rows?: string | number;
   copyBytton?: boolean;
   size?: 'small' | 'medium';
   variant?: 'outlined' | 'filled' | 'standard';
-  options: SelectItem[];
+  options?: SelectItem[];
+  formik: any;
 };
 
 export const App: VFC<FormInputProps> = ({
@@ -63,12 +64,9 @@ export const App: VFC<FormInputProps> = ({
     setOpenTip(true);
   };
 
-
-
-
   return (
     <FormControl color={color} variant={variant} fullWidth focused>
-      {type !== 'datetime' && type !== 'select' &&
+      {type !== 'datetime' && type !== 'select' && (
         <>
           <InputLabel htmlFor={name}>{title || name}</InputLabel>
           <FilledInput
@@ -108,38 +106,40 @@ export const App: VFC<FormInputProps> = ({
             }
           />
         </>
-      }
+      )}
 
-      {type === 'select' && <>
-        <InputLabel id={name + '-label'}>{title}</InputLabel>
-        <Select
-          size={size}
-          labelId={name + '-label'}
-          id={name}
-          value={values[name]}
-          label={title ? `${title} (${name})` : name}
-          onChange={async (e: any, child: ReactNode) => {
-            handleChange && (await handleChange(e));
-            onChange && (await onChange(e, child));
-          }}
-          name={name}
-          disabled={disabled}
-        >
-          {options.map((item, index) => (
-            <MenuItem key={index} value={item.value} divider={item.divider}>
-              {item.label || item.value}
-            </MenuItem>
-          ))}
-        </Select></>
-      }
+      {type === 'select' && (
+        <>
+          <InputLabel id={name + '-label'}>{title}</InputLabel>
+          <Select
+            size={size}
+            labelId={name + '-label'}
+            id={name}
+            value={values[name]}
+            label={title ? `${title} (${name})` : name}
+            onChange={async (e: any, child: ReactNode) => {
+              handleChange && (await handleChange(e));
+              onChange && (await onChange(e, child));
+            }}
+            name={name}
+            disabled={disabled}
+          >
+            {options.map((item, index) => (
+              <MenuItem key={index} value={item.value} divider={item.divider}>
+                {item.label || item.value}
+              </MenuItem>
+            ))}
+          </Select>
+        </>
+      )}
 
-      {type === 'datetime' &&
+      {type === 'datetime' && (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateTimePicker
             label={title || name}
             inputFormat="YYYY-MM-DDTHH:mm:ss"
             value={values[name] || ''}
-            onChange={async (e: any) => {
+            onChange={async (e) => {
               const event = {
                 target: {
                   value: e.format('YYYY-MM-DDTHH:mm:ss'),
@@ -161,10 +161,10 @@ export const App: VFC<FormInputProps> = ({
             )}
           />
         </LocalizationProvider>
-      }
+      )}
       <FormHelperText error>{errors[name]}</FormHelperText>
       {children}
-    </FormControl >
+    </FormControl>
   );
 };
 

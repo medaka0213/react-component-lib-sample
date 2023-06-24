@@ -3,6 +3,7 @@ import { Formik, useFormik, useField } from 'formik';
 import dayjs, { Dayjs } from 'dayjs';
 var utc = require('dayjs/plugin/utc');
 dayjs.extend(utc);
+dayjs.locale('utc');
 
 import * as Yup from 'yup';
 import { requiredString } from '../../utils/schema';
@@ -79,7 +80,7 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
         ModeList.filter((v) => v.value === _formik.values.mode).length === 0
       ) {
         _formik.setFieldValue('mode', 'WEEK_TEIKI');
-        _formik.setFieldValue('value0', dayjs.utc().format('YYYY-MM-DDTHH:mm'));
+        _formik.setFieldValue('value0', dayjs().format('YYYY-MM-DDTHH:mm'));
       }
     }
 

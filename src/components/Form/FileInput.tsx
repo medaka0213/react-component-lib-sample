@@ -8,6 +8,7 @@ import { FormProps, Color } from '../types';
 
 export type FileInputProps = FormProps & {
   color: Color;
+  formik: any;
 };
 
 const App: VFC<FileInputProps> = ({

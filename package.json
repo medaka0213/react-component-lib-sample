@@ -2,8 +2,8 @@
   "name": "react-vrw",
   "version": "1.0.0",
   "description": "Starter template to get up and running quickly with React and Storybook",
-  "main": "dist/cjs/index.js",
-  "module": "src/index.js",
+  "main": "src/index.ts",
+  "module": "src/index.ts",
   "author": "medaka0213",
   "license": "MIT",
   "dependencies": {

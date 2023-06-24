@@ -11,6 +11,7 @@ export type FormToggleProps = FormProps & {
   name: string;
   size?: 'small' | 'medium';
   variant?: 'outlined' | 'filled' | 'standard';
+  formik: any;
 };
 
 export const App: VFC<FormToggleProps> = ({

@@ -12,7 +12,7 @@ import { SlideText } from './slideText';
 import { Rocket } from './rocket';
 import { RocketSeries } from './rocketSeries';
 
-export { BaseModel, Fields } from './baseModel';
+export { BaseModel } from './baseModel';
 export { Launch } from './launch';
 export { Event } from './event';
 export { Config } from './config';

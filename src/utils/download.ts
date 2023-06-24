@@ -29,7 +29,6 @@ export async function downloadFileFromUrl({
 }) {
   const response = await fetch(fileurl, {
     mode: 'cors',
-    crossorigin: 'anonymous',
   });
   const blob = await response.blob();
   const newBlob = new Blob([blob]);

@@ -22,6 +22,7 @@ export type FormSelectProps = FormProps & {
   variant?: 'outlined' | 'filled' | 'standard';
   options: SelectItem[];
   size?: 'small' | 'medium';
+  formik: any;
 };
 
 export const App: VFC<FormSelectProps> = ({

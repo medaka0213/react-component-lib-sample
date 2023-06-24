@@ -118,7 +118,7 @@ export const SlideShowContent: VFC<SlideShowProps> = ({
           max={images.length - 1}
           valueLabelDisplay="auto"
           value={slideIndex}
-          onChange={(e) => {
+          onChange={(e: any) => {
             setSlideIndex(parseInt(e?.target?.value as string));
           }}
         />

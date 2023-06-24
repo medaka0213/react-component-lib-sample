@@ -17,6 +17,7 @@ import { QueryItem, SearchModeToParam } from '../../utils/query';
 export type SearchDetailFromProps = BoxProps & {
   keys?: SearchItem[];
   queries?: QueryItem[];
+  onSubmit?: (...queries: string[]) => Promise<any>;
 };
 
 const App: VFC<SearchDetailFromProps> = ({
@@ -54,9 +55,9 @@ const App: VFC<SearchDetailFromProps> = ({
     useEffect(() => {
       formik.setFieldValue(
         'queries',
-        queries.filter((q: any) => q.key !== 'limit')
+        [...queries].filter((q: any) => q.key !== 'limit')
       );
-      const limit = queries.filter((q: any) => q.key === 'limit')[0];
+      const limit = [...queries].filter((q: any) => q.key === 'limit')[0];
       formik.setFieldValue('limit', limit ? limit.value0 : 100);
     }, [queries]);
 
@@ -85,7 +86,9 @@ const App: VFC<SearchDetailFromProps> = ({
           <FormModal
             sx={{ mb: 2 }}
             title="検索条件を追加する"
-            onSubmit={(v: any) => {
+            childrenList={[]}
+            FormAttrs={{}}
+            onSubmit={async (v: any) => {
               //キーがかぶっている場合は上書き
               for (let i = 0; i < formik.values.queries.length; i++) {
                 if (formik.values.queries[i].key === v.key) {
@@ -208,11 +211,11 @@ const App: VFC<SearchDetailFromProps> = ({
   };
 
   let limit = 100;
-  let searchQuery = queries.filter((q) => q.key !== 'limit');
+  let searchQuery = [...queries].filter((q) => q.key !== 'limit');
   if (searchQuery.length !== queries.length) {
-    const limitQuery = queries.filter((q) => q.key === 'limit');
+    const limitQuery = [...queries].filter((q) => q.key === 'limit');
     if (limitQuery.length) {
-      limit = limitQuery[0].value0;
+      limit = Number(limitQuery[0].value0);
     }
   }
   return (
@@ -224,7 +227,7 @@ const App: VFC<SearchDetailFromProps> = ({
         }}
         onSubmit={async (values, { setSubmitting }) => {
           setSubmitting(false);
-          let queries = values.queries.map((q: QueryItem) => {
+          let queries = [...values.queries].map((q: any) => {
             if (q.type === 'datetime') {
               return TimeRange.fromMode(q.value0, q.mode, q.value1).toString(
                 q.key
@@ -234,7 +237,7 @@ const App: VFC<SearchDetailFromProps> = ({
             }
           });
           queries.push('limit=' + values.limit);
-          onSubmit && (await onSubmit(queries));
+          onSubmit && (await onSubmit(...queries));
         }}
       >
         {(formik) => render(formik)}

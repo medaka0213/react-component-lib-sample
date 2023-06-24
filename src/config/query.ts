@@ -1,6 +1,24 @@
 import { TimeRange } from '../models/TimeRange';
 
-export const SEARCH_ITEMS = {
+type SEARCH_MODE_TYPE = {
+  label: string;
+  value: string;
+  divider?: boolean;
+  type: 'number' | 'string' | 'datetime';
+  enabled?: boolean;
+};
+
+type SEARCH_ITEM_TYPE = {
+  [key: string]: SEARCH_MODE_TYPE[];
+  mission: SEARCH_MODE_TYPE[];
+  launch: SEARCH_MODE_TYPE[];
+  event: SEARCH_MODE_TYPE[];
+  meetup: SEARCH_MODE_TYPE[];
+  slide: SEARCH_MODE_TYPE[];
+  image: SEARCH_MODE_TYPE[];
+};
+
+export const SEARCH_ITEMS: SEARCH_ITEM_TYPE = {
   mission: [
     {
       label: '日時',
@@ -177,7 +195,18 @@ export const SEARCH_ITEMS = {
   ],
 };
 
-export const DEFAULT_QUERY = {
+type DEFAULT_QUERY_TYPE = {
+  [key: string]: () => { key: string; value: string }[];
+  mission: () => { key: string; value: string }[];
+  launch: () => { key: string; value: string }[];
+  event: () => { key: string; value: string }[];
+  meetup: () => { key: string; value: string }[];
+  slide: () => { key: string; value: string }[];
+  task: () => { key: string; value: string }[];
+  image: () => { key: string; value: string }[];
+};
+
+export const DEFAULT_QUERY: DEFAULT_QUERY_TYPE = {
   mission: () => [
     {
       key: 'datetime',

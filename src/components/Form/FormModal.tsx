@@ -29,6 +29,7 @@ export type FormModalProps = FormProps & {
   onSubmit: (v: any) => Promise<any>;
   FormAttrs: any;
   title: string;
+  formik?: any;
 };
 
 const App: VFC<FormModalProps> = ({
@@ -43,7 +44,7 @@ const App: VFC<FormModalProps> = ({
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const _onSubmit = async (e) => {
+  const _onSubmit = async (e: any) => {
     if (onSubmit) {
       await onSubmit(e);
     }

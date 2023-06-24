@@ -29,7 +29,7 @@ export const limitedString = (name: string, length: number) => {
   return requiredString(name).test(
     'limit-length',
     `文字数制限: 全角${length * 2}字/半角${length}字`,
-    (value: string) => {
+    (value: any) => {
       if (getLen(value) > length) {
         return false;
       } else {
