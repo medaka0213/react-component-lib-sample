@@ -17,7 +17,7 @@ import { QueryItem, SearchModeToParam } from '../../utils/query';
 export type SearchDetailFromProps = BoxProps & {
   keys?: SearchItem[];
   queries?: QueryItem[];
-  onSubmit?: (...queries: string[]) => Promise<any>;
+  onSubmit?: (queries: string[]) => Promise<any>;
 };
 
 const App: VFC<SearchDetailFromProps> = ({
@@ -237,7 +237,7 @@ const App: VFC<SearchDetailFromProps> = ({
             }
           });
           queries.push('limit=' + values.limit);
-          onSubmit && (await onSubmit(...queries));
+          onSubmit && (await onSubmit(queries));
         }}
       >
         {(formik) => render(formik)}
