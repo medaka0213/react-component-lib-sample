@@ -4,20 +4,17 @@ import dts from 'rollup-plugin-dts';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import json from '@rollup/plugin-json';
 
-const pkg = require('./package.json');
-
 export default [
   {
-    inlineDynamicImports: true,
     input: 'src/index.ts',
     output: [
       {
-        file: pkg.main,
+        file: 'dist/cjs/index.js',
         format: 'cjs',
         sourcemap: false,
       },
       {
-        file: pkg.module,
+        file: 'dist/esm/index.js',
         format: 'esm',
         sourcemap: false,
       },
