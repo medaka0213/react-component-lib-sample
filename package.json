@@ -16,7 +16,6 @@
     "@mui/material": "^5.11.4",
     "@mui/x-data-grid": "^5.17.18",
     "@mui/x-date-pickers": "^5.0.13",
-    "dayjs": "^1.11.7",
     "formik": "^2.2.9",
     "fs": "^0.0.1-security",
     "immutable": "^4.2.1",
