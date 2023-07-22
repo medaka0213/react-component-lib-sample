@@ -8,6 +8,8 @@ export class Meetup extends BaseModel {
   public readonly datetime: string = '';
   public readonly tweet: string = '';
   public readonly tweet_JP: string = '';
+  public readonly misskey: string = '';
+  public readonly misskey_JP: string = '';
   public readonly tweet_postpone: string = '';
   public readonly type: string = '';
   public readonly user: string = '';
@@ -18,6 +20,7 @@ export class Meetup extends BaseModel {
   public readonly isThumbDone?: boolean;
   public readonly isTweetDone?: boolean;
   public readonly isTwitterDone?: boolean;
+  public readonly isMisskeyDone?: boolean;
   public readonly isVRCEveDone?: boolean;
   public readonly image_url: string = '';
   public readonly image_credit: string = '';
@@ -28,7 +31,7 @@ export class Meetup extends BaseModel {
     Object.assign(this, props);
   }
 
-  thumbnail(){
+  thumbnail() {
     return this.image_url;
   }
 

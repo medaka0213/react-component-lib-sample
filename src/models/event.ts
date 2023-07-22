@@ -29,6 +29,8 @@ export class Event extends BaseModel {
 
   public readonly tweet: string = '';
   public readonly tweet_JP: string = '';
+  public readonly misskey: string = '';
+  public readonly misskey_JP: string = '';
 
   constructor(props: Fields<Event>) {
     super(props);
