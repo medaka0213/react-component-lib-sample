@@ -8,9 +8,10 @@ export class Meetup extends BaseModel {
   public readonly datetime: string = '';
   public readonly tweet: string = '';
   public readonly tweet_JP: string = '';
+  public readonly tweet_postpone: string = '';
   public readonly misskey: string = '';
   public readonly misskey_JP: string = '';
-  public readonly tweet_postpone: string = '';
+  public readonly misskey_postpone: string = '';
   public readonly type: string = '';
   public readonly user: string = '';
   public readonly missionStartsAt: string = '';
