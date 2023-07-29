@@ -9,3 +9,5 @@ COPY package.json yarn.lock ./
 RUN yarn install
 
 COPY . .
+
+ENTRYPOINT [ "npm", "run"]

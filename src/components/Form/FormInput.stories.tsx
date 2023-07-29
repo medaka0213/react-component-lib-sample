@@ -96,3 +96,19 @@ Select.args = {
   ],
 };
 
+export const Checkbox = Template.bind({});
+Checkbox.args = {
+  ...Default.args,
+  type: 'checkbox',
+  name: 'sample',
+  title: 'title',
+  formik: {
+    values: {
+      sample: true,
+    },
+    errors: {
+      sample: 'error',
+    },
+    touched: {},
+  },
+};

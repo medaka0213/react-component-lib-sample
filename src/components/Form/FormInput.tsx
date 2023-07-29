@@ -10,6 +10,8 @@ import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -66,7 +68,7 @@ export const App: VFC<FormInputProps> = ({
 
   return (
     <FormControl color={color} variant={variant} fullWidth focused>
-      {type !== 'datetime' && type !== 'select' && (
+      {type !== 'datetime' && type !== 'select' && type !== 'checkbox' && (
         <>
           <InputLabel htmlFor={name}>{title || name}</InputLabel>
           <FilledInput
@@ -161,6 +163,28 @@ export const App: VFC<FormInputProps> = ({
             )}
           />
         </LocalizationProvider>
+      )}
+      {type === 'checkbox' && (
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={values[name]}
+              onChange={async (e) => {
+                const event = {
+                  target: {
+                    value: e.target.checked,
+                    name,
+                  },
+                };
+                if (onChange) await onChange(event);
+                if (handleChange) await handleChange(event);
+              }}
+              name={name}
+              color={color}
+            />
+          }
+          label={title || name}
+        />
       )}
       <FormHelperText error>{errors[name]}</FormHelperText>
       {children}
