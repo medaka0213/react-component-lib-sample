@@ -116,14 +116,14 @@ export class DataApiClient extends ApiClient {
   }
 
   async getItem({ type, pk }: { type: string; pk: string }) {
-    const res = await this.callApiJson(`/q/${type}/i/${pk}`, {
+    const res = await this.callApiJson(`/q/${type}/i/${pk}/`, {
       method: 'GET',
     });
     return res.Item;
   }
 
   async postItem({ type, submission }: { type: string; submission: any }) {
-    const res = await this.callApiJson(`/q/${type}`, {
+    const res = await this.callApiJson(`/q/${type}/`, {
       method: 'POST',
       body: { submission },
     });
@@ -139,7 +139,7 @@ export class DataApiClient extends ApiClient {
     submission: any;
     overwrite: boolean;
   }) {
-    return await this.callApiJson(`/q/${type}`, {
+    return await this.callApiJson(`/q/${type}/`, {
       method: 'PUT',
       body: { submission },
       params: { overwrite },
@@ -147,13 +147,13 @@ export class DataApiClient extends ApiClient {
   }
 
   async deleteItem({ type, pk }: { type: string; pk: string }) {
-    return await this.callApiJson(`/q/${type}/i/${pk}`, {
+    return await this.callApiJson(`/q/${type}/i/${pk}/`, {
       method: 'DELETE',
     });
   }
 
   async listItem({ type, params }: { type: string; params: any }) {
-    const res = await this.callApiJson(`/q/${type}`, {
+    const res = await this.callApiJson(`/q/${type}/`, {
       method: 'GET',
       params,
     });
@@ -169,7 +169,7 @@ export class DataApiClient extends ApiClient {
     pk: string;
     pld_key?: string;
   }) {
-    let path = `/q/${type}/i/${pk}/rel`;
+    let path = `/q/${type}/i/${pk}/rel/`;
     if (pld_key) {
       path += `/${pld_key}`;
     }
@@ -187,7 +187,7 @@ export class DataApiClient extends ApiClient {
     pld_pk: any;
   }) {
     const submission = { pk: pld_pk };
-    return await this.callApiJson(`/q/${type}/i/${pk}/rel`, {
+    return await this.callApiJson(`/q/${type}/i/${pk}/rel/`, {
       method: 'POST',
       body: { submission },
     });
@@ -202,7 +202,7 @@ export class DataApiClient extends ApiClient {
     pk: string;
     submission: any;
   }) {
-    const res = await this.callApiJson(`/q/${type}/i/${pk}/rel`, {
+    const res = await this.callApiJson(`/q/${type}/i/${pk}/rel/`, {
       method: 'DELETE',
       body: { submission },
     });
@@ -218,7 +218,7 @@ export class DataApiClient extends ApiClient {
     pk: string;
     pld_key?: string;
   }) {
-    let path = `/q/${type}/i/${pk}/ref`;
+    let path = `/q/${type}/i/${pk}/ref/`;
     if (pld_key) {
       path += `/${pld_key}`;
     }
@@ -236,7 +236,7 @@ export class DataApiClient extends ApiClient {
     pld_pk: any;
   }) {
     const submission = { pk: pld_pk };
-    return await this.callApiJson(`/q/${type}/i/${pk}/ref`, {
+    return await this.callApiJson(`/q/${type}/i/${pk}/ref/`, {
       method: 'POST',
       body: { submission },
     });
@@ -251,7 +251,7 @@ export class DataApiClient extends ApiClient {
     pk: string;
     submission: any;
   }) {
-    const res = await this.callApiJson(`/q/${type}/i/${pk}/ref`, {
+    const res = await this.callApiJson(`/q/${type}/i/${pk}/ref/`, {
       method: 'DELETE',
       body: { submission },
     });
