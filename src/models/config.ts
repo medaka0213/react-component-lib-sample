@@ -6,6 +6,7 @@ export class Config extends BaseModel {
   public readonly display_keys: string[] = [];
   public readonly rel_types: string[] = [];
   public readonly unique_rel_types: string[] = [];
+  public readonly version: number = 1;
 
   constructor(props: Fields<Config>) {
     super(props);
