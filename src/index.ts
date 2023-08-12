@@ -20,6 +20,7 @@ export { TabsParent } from './components/TabsParent';
 export { MainBox } from './components/MainBox';
 export { DetailTable } from './components/DetailTable';
 export { ImagePreview } from './components/ImagePreview';
+export { OGPDisplay } from './components/OGPDisplay';
 
 //モデル関連
 export {
