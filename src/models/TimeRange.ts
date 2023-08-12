@@ -81,11 +81,11 @@ export class TimeRange {
     switch (mode) {
       case DatetimeSearchMode.DAY_UTC:
         start = moment(dt).tz('UTC').startOf('day');
-        end = moment(dt).add(1, 'day').startOf('day');
+        end = moment(dt).tz('UTC').startOf('day').add(1, 'day');
         break;
       case DatetimeSearchMode.DAY_JST:
-        start = moment(dt).tz('Asia/Tokyo').startOf('day');
-        end = moment(dt).tz('Asia/Tokyo').add(1, 'day').startOf('day');
+        start = moment(dt).tz('UTC').startOf('day').add(9, 'hours');
+        end = moment(dt).tz('UTC').startOf('day').add(1, 'day').add(9, 'hours');
         break;
       case DatetimeSearchMode.WEEK_TEIKI:
         start = moment(dt).startOf('week').add(1, 'day');
