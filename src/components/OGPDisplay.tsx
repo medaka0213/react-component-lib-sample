@@ -31,9 +31,9 @@ const App: VFC<OGPDisplayProps> = ({
         <CardContent>
           <Typography variant="h6">{title || ''}</Typography>
           <Typography variant="body2" color="textSecondary">
-            {description.length > 280
-              ? description.slice(0, 280) + '...'
-              : description}
+            {(description?.length || 0) > 280
+              ? (description || '').slice(0, 280) + '...'
+              : description || ''}
           </Typography>
         </CardContent>
       </CardActionArea>
