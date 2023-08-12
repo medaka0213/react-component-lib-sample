@@ -10,6 +10,8 @@ export enum DatetimeSearchMode {
   CUSTOM_AFTER = 'GT_E',
   CUSTOM_BEFORE = 'LT_E',
   WEEK_TEIKI = 'WEEK_TEIKI',
+  DAY_UTC = 'DAY_UTC',
+  DAY_JST = 'DAY_JST',
   WEEK = 'WEEK',
   MONTH = 'MONTH',
   YEAR = 'YEAR',
@@ -77,6 +79,14 @@ export class TimeRange {
     let start = moment(dt);
     let end = moment(dt);
     switch (mode) {
+      case DatetimeSearchMode.DAY_UTC:
+        start = moment(dt).tz('UTC').startOf('day');
+        end = moment(dt).add(1, 'day').startOf('day');
+        break;
+      case DatetimeSearchMode.DAY_JST:
+        start = moment(dt).tz('Asia/Tokyo').startOf('day');
+        end = moment(dt).tz('Asia/Tokyo').add(1, 'day').startOf('day');
+        break;
       case DatetimeSearchMode.WEEK_TEIKI:
         start = moment(dt).startOf('week').add(1, 'day');
         start.set('hour', 12);
@@ -136,6 +146,16 @@ export class TimeRange {
   // 次の範囲
   next(): TimeRange {
     switch (this.mode) {
+      case DatetimeSearchMode.DAY_UTC:
+        return TimeRange.fromMode(
+          moment(this.start).add(1, 'days').toDate(),
+          DatetimeSearchMode.DAY_UTC
+        );
+      case DatetimeSearchMode.DAY_JST:
+        return TimeRange.fromMode(
+          moment(this.start).add(1, 'days').toDate(),
+          DatetimeSearchMode.DAY_JST
+        );
       case DatetimeSearchMode.WEEK_TEIKI:
         return TimeRange.fromMode(
           moment(this.start).add(1, 'weeks').toDate(),
@@ -202,6 +222,16 @@ export class TimeRange {
   // 前の範囲
   prev(): TimeRange {
     switch (this.mode) {
+      case DatetimeSearchMode.DAY_UTC:
+        return TimeRange.fromMode(
+          moment(this.start).add(-1, 'days').toDate(),
+          DatetimeSearchMode.DAY_UTC
+        );
+      case DatetimeSearchMode.DAY_JST:
+        return TimeRange.fromMode(
+          moment(this.start).add(-1, 'days').toDate(),
+          DatetimeSearchMode.DAY_JST
+        );
       case DatetimeSearchMode.WEEK_TEIKI:
         return TimeRange.fromMode(
           moment(this.start).add(-1, 'weeks').toDate(),
@@ -256,6 +286,8 @@ export const parseMode = (start: string, end: string): DatetimeSearchMode => {
     mode: DatetimeSearchMode.CUSTOM_BETWEEN,
   });
   const targetModes = [
+    DatetimeSearchMode.DAY_UTC,
+    DatetimeSearchMode.DAY_JST,
     DatetimeSearchMode.WEEK_TEIKI,
     DatetimeSearchMode.WEEK,
     DatetimeSearchMode.MONTH,
@@ -279,6 +311,18 @@ const toParam = ({ key, value0, value1, mode }: QueryItem): string =>
   }).toString(key);
 
 export const SearchModeListDatetime: SearchMode[] = [
+  {
+    label: 'を含む日 (国際標準時)',
+    value: 'DAY_UTC',
+    nValues: 1,
+    toParam,
+  },
+  {
+    label: 'を含む日 (日本時間)',
+    value: 'DAY_JST',
+    nValues: 1,
+    toParam,
+  },
   {
     label: 'を含む週 (定期集会用 月曜21時締め)',
     value: 'WEEK_TEIKI',
