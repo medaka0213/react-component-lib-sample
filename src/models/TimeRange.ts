@@ -80,12 +80,12 @@ export class TimeRange {
     let end = moment(dt);
     switch (mode) {
       case DatetimeSearchMode.DAY_UTC:
-        start = moment(dt).tz('UTC').startOf('day');
-        end = moment(dt).tz('UTC').startOf('day').add(1, 'day');
+        start = moment(dt).startOf('day');
+        end = moment(dt).startOf('day').add(1, 'day');
         break;
       case DatetimeSearchMode.DAY_JST:
         start = moment(dt).tz('UTC').startOf('day').add(9, 'hours');
-        end = moment(dt).tz('UTC').startOf('day').add(1, 'day').add(9, 'hours');
+        end = moment(dt).tz('UTC').startOf('day').add(9, 'hours').add(1, 'day');
         break;
       case DatetimeSearchMode.WEEK_TEIKI:
         start = moment(dt).startOf('week').add(1, 'day');

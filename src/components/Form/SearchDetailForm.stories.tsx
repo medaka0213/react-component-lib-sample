@@ -114,6 +114,18 @@ PresetValue3.args = {
       enabled: false,
       type: 'datetime',
     },
+    {
+      label: '日時 (国際標準時の日次)',
+      value: 'datetime5',
+      enabled: false,
+      type: 'datetime',
+    },
+    {
+      label: '日時 (日本時間の日次)',
+      value: 'datetime6',
+      enabled: false,
+      type: 'datetime',
+    },
   ],
   queries: [
     {
@@ -133,6 +145,18 @@ PresetValue3.args = {
         '2021-01-01T00:00:00...2021-02-01T00:00:00'
       ).toQueryItem(),
       key: 'datetime4',
+    },
+    {
+      ...TimeRange.fromString(
+        '2021-01-01T00:00:00...2021-01-02T00:00:00'
+      ).toQueryItem(),
+      key: 'datetime5',
+    },
+    {
+      ...TimeRange.fromString(
+        '2021-01-01T09:00:00...2021-01-02T09:00:00'
+      ).toQueryItem(),
+      key: 'datetime6',
     },
   ],
   onSubmit: (values) => {
