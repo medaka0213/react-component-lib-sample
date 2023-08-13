@@ -44,6 +44,10 @@ export {
   ParseItemList,
   ParseItemByTypes,
   TimeRange,
+  NewsSummary,
+  NewsList,
+  TweeetSummary,
+  YoutubeTranscript,
 } from './models';
 //ユーティリティ関連
 export {

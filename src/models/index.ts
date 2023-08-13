@@ -11,6 +11,10 @@ import { Task } from './task';
 import { SlideText } from './slideText';
 import { Rocket } from './rocket';
 import { RocketSeries } from './rocketSeries';
+import { NewsSummary } from './newsSummary';
+import { NewsList } from './newsList';
+import { TweeetSummary } from './tweeetSummary';
+import { YoutubeTranscript } from './youtubeTranscript';
 
 export { BaseModel } from './baseModel';
 export { Launch } from './launch';
@@ -27,6 +31,10 @@ export { Rocket } from './rocket';
 export { RocketSeries } from './rocketSeries';
 export { TimeRange } from './TimeRange';
 export { MarkdownPages } from './MarkdownPages';
+export { NewsSummary } from './newsSummary';
+export { NewsList } from './newsList';
+export { TweeetSummary } from './tweeetSummary';
+export { YoutubeTranscript } from './youtubeTranscript';
 
 export { ItemReducer } from './itemReducer';
 
@@ -43,6 +51,10 @@ const Models: any = {
   'slide-text': SlideText,
   rocket: Rocket,
   rocketSeries: RocketSeries,
+  newSummary: NewsSummary,
+  newsList: NewsList,
+  tweeetSummary: TweeetSummary,
+  youtubeTranscript: YoutubeTranscript,
 };
 
 export function GetModel(type: string) {
