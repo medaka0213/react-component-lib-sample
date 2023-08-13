@@ -84,12 +84,10 @@ export class TimeRange {
         end = moment(dt).startOf('day').add(1, 'day');
         break;
       case DatetimeSearchMode.DAY_JST:
-        start = moment(dt)
-          .tz('UTC')
+        start = moment(dt).startOf('day').add(9, 'hours');
+        end = moment(dt)
           .startOf('day')
-          .add(9, 'hours')
-          .subtract(1, 'day');
-        end = moment(dt).tz('UTC').startOf('day').add(9, 'hours');
+          .add(9 + 24, 'hours');
         break;
       case DatetimeSearchMode.WEEK_TEIKI:
         start = moment(dt).startOf('week').add(1, 'day');
@@ -300,6 +298,7 @@ export const parseMode = (start: string, end: string): DatetimeSearchMode => {
   ];
   for (const mode of targetModes) {
     const range = TimeRange.fromMode(new Date(customRange.start), mode);
+    console.log('parseMode', mode, range, customRange);
     if (isSame(range, customRange)) {
       return mode;
     }
