@@ -84,8 +84,12 @@ export class TimeRange {
         end = moment(dt).startOf('day').add(1, 'day');
         break;
       case DatetimeSearchMode.DAY_JST:
-        start = moment(dt).tz('UTC').startOf('day').add(9, 'hours');
-        end = moment(dt).tz('UTC').startOf('day').add(9, 'hours').add(1, 'day');
+        start = moment(dt)
+          .tz('UTC')
+          .startOf('day')
+          .add(9, 'hours')
+          .subtract(1, 'day');
+        end = moment(dt).tz('UTC').startOf('day').add(9, 'hours');
         break;
       case DatetimeSearchMode.WEEK_TEIKI:
         start = moment(dt).startOf('week').add(1, 'day');
