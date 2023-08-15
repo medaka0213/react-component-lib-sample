@@ -46,15 +46,15 @@ export class Event extends BaseModel {
       if (url.includes('v=')) {
         return url.split('v=')[1].split('&')[0];
       } else if (url.includes('/live/')) {
-        return url.split('/live/')[1].split('&')[0];
+        return url.split('/live/')[1].split('?')[0];
       } else {
         return '';
       }
     } else if (url.includes('youtu.be/')) {
       if (url.includes('/live/')) {
-        return url.split('/live/')[1].split('&')[0];
+        return url.split('/live/')[1].split('?')[0];
       }
-      return url.split('youtu.be/')[1].split('&')[0];
+      return url.split('youtu.be/')[1].split('?')[0];
     } else {
       return '';
     }
