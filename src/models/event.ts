@@ -56,8 +56,37 @@ export class Event extends BaseModel {
       }
       return url.split('youtu.be/')[1].split('?')[0];
     } else {
+      const parts = url.split('/');
+      if (parts.length > 1) {
+        const id = (parts[parts.length - 1] || '').split('?');
+        if (id.length > 0) {
+          return id[0];
+        }
+      }
       return '';
     }
+  }
+
+  isUrlTwitter(): boolean {
+    if (
+      (this.watch_URL || this.watch_URL_short || '').indexOf('twitter.com') > -1
+    ) {
+      return true;
+    } else if (
+      (this.watch_URL || this.watch_URL_short || '').indexOf('x.com') > -1
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  isShortUrlTwitter(): boolean {
+    if ((this.watch_URL_short || '').indexOf('twitter.com') > -1) {
+      return true;
+    } else if ((this.watch_URL_short || '').indexOf('x.com') > -1) {
+      return true;
+    }
+    return false;
   }
 
   youtubeId(): string {
