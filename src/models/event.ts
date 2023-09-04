@@ -67,6 +67,28 @@ export class Event extends BaseModel {
     }
   }
 
+  isUrlYoutube(): boolean {
+    if (
+      (this.watch_URL || this.watch_URL_short || '').indexOf('youtube.com') > -1
+    ) {
+      return true;
+    } else if (
+      (this.watch_URL || this.watch_URL_short || '').indexOf('youtu.be') > -1
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  isShortUrlYoutube(): boolean {
+    if ((this.watch_URL_short || '').indexOf('youtube.com') > -1) {
+      return true;
+    } else if ((this.watch_URL_short || '').indexOf('youtu.be') > -1) {
+      return true;
+    }
+    return false;
+  }
+
   isUrlTwitter(): boolean {
     if (
       (this.watch_URL || this.watch_URL_short || '').indexOf('twitter.com') > -1
