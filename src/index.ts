@@ -56,6 +56,8 @@ export {
   time_between,
   format_datetime_JP,
   format_countdown,
+  format_timedelta,
+  deformate_timedelta,
 } from './utils/time';
 export { ApiClient, DataApiClient, DataApiClientV2 } from './utils/rest';
 export { sort_array } from './utils/sort';
