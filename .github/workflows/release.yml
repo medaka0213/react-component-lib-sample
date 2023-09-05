@@ -19,26 +19,19 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 18
+          registry-url: 'https://npm.pkg.github.com' # GitHub Package Registry URL
 
       - name: Install dependencies
         run: yarn install
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
       - name: ESLint
         run: yarn lint
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
       - name: Test
         run: yarn test
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
       - name: Build package
         run: yarn build
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
       - name: Bump version and create a release commit
         id: package_version
@@ -48,13 +41,11 @@ jobs:
           npm version patch -m "chore(release): %s [skip ci]"
           git push origin main
           echo "::set-output name=version::$(node -p "require('./package.json').version")"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
-      - name: Publish package
+      - name: Publish package to GitHub Packages
         run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create GitHub Release
         id: create_release

@@ -1,5 +1,5 @@
 {
-  "name": "react-vrw",
+  "name": "@medaka0213/react-vrw",
   "version": "1.0.23",
   "description": "Starter template to get up and running quickly with React and Storybook",
   "author": "medaka0213",
@@ -7,6 +7,9 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "license": "MIT",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/medaka0213"
+  },
   "dependencies": {
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.6.0",
