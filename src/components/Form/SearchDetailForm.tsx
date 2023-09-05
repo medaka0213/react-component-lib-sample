@@ -148,6 +148,7 @@ const App: VFC<SearchDetailFromProps> = ({
         {formik.values.queries.map((q: any, i: number) => {
           return (
             <SearchDetailFormInput
+              key="1"
               keys={restKeys(q)}
               name={'queries[' + i + ']'}
               formik={formik}

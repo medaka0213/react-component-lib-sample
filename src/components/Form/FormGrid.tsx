@@ -54,9 +54,9 @@ const App: VFC<FormGridProps> = ({
   let _childrenList = childrenList;
   if (buttonEnabled) {
     if (buttonPosition === 'bottom') {
-      _childrenList = _childrenList.concat([[<Button />]]);
+      _childrenList = _childrenList.concat([[<Button key="1" />]]);
     } else {
-      _childrenList = [[<Button />]].concat(_childrenList);
+      _childrenList = [[<Button key="2" />]].concat(_childrenList);
     }
   }
 
@@ -64,6 +64,7 @@ const App: VFC<FormGridProps> = ({
     <>
       {Object.keys(errors).map((k) => (
         <Box
+          key={k}
           sx={{
             width: '100%',
             color: 'error.main',

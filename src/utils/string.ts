@@ -1,8 +1,11 @@
 export function extractYoutubeId(url: string): string {
-  if (url.includes('youtube.com')) {
-    return url.split('v=')[1].split('&')[0];
-  } else {
+  try {
+    if (url.includes('youtube.com') && !url.includes('live/')) {
+      return url.split('v=')[1].split('&')[0];
+    }
     return extractTwitterId(url);
+  } catch (e) {
+    return '';
   }
 }
 

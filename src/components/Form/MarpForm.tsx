@@ -67,7 +67,9 @@ export const MarpForm = ({
       <>
         {slides.map(({ slide, comments }, i) => {
           if (i === index) {
-            return <SlidePage slide={slide} comments={comments} i={i} />;
+            return (
+              <SlidePage key="1" slide={slide} comments={comments} i={i} />
+            );
           }
         })}
       </>

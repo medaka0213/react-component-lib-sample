@@ -18,7 +18,9 @@ const Form = ({ onSubmit }: any) => (
       <form>
         <FormGrid
           formik={formik}
-          childrenList={[[<FormInput name="name" formik={formik} />]]}
+          childrenList={[
+            [<FormInput key="name" name="name" formik={formik} />],
+          ]}
         />
       </form>
     )}

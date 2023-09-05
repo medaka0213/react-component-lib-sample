@@ -12,6 +12,7 @@ const ComponentToPrint = React.forwardRef((props: any, ref: any) => {
     </div>
   );
 });
+ComponentToPrint.displayName = 'ComponentToPrint';
 
 export type MarpConvertProps = ButtonProps & {
   documentTitle?: string;

@@ -30,13 +30,13 @@ Default.args = {
   disabled: false,
   childrenList: [
     [
-      <FormInput name="sample1" formik={formik} />,
-      <FormInput name="sample2" formik={formik} />,
-      <FormInput name="sample2" formik={formik} />,
+      <FormInput key="1" name="sample1" formik={formik} />,
+      <FormInput key="2" name="sample2" formik={formik} />,
+      <FormInput key="3" name="sample2" formik={formik} />,
     ],
     [
-      <FormInput name="sample3" formik={formik} />,
-      <FormToggle name="sample4" formik={formik} />,
+      <FormInput key="1" name="sample3" formik={formik} />,
+      <FormToggle key="2" name="sample4" formik={formik} />,
     ],
   ],
 };
@@ -49,10 +49,10 @@ CustomButton.args = {
   buttonLabel: 'Custom Label',
   childrenList: [
     [
-      <FormInput name="sample1" formik={formik} />,
-      <FormInput name="sample2" formik={formik} />,
-      <FormInput name="sample2" formik={formik} />,
+      <FormInput key="1" name="sample1" formik={formik} />,
+      <FormInput key="2" name="sample2" formik={formik} />,
+      <FormInput key="3" name="sample2" formik={formik} />,
     ],
-    [<FormInput name="sample3" formik={formik} />],
+    [<FormInput key="1" name="sample3" formik={formik} />],
   ],
 };
