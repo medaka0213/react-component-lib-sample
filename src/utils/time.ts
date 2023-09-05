@@ -147,3 +147,24 @@ export const cowntdown_time = (
 
   return moment_to_dict(dt);
 };
+
+export const format_timedelta = (_seconds: number): string => {
+  const hours =
+    Math.floor(_seconds / 3600)
+      .toString()
+      .padStart(2, '0') || '00';
+  const minutes =
+    Math.floor((_seconds % 3600) / 60)
+      .toString()
+      .padStart(2, '0') || '00';
+  const seconds =
+    Math.floor(_seconds % 60)
+      .toString()
+      .padStart(2, '0') || '00';
+  return `${hours}:${minutes}:${seconds}`;
+};
+
+export const deformate_timedelta = (time: string): number => {
+  const [hours, minutes, seconds] = time.split(':').map(Number);
+  return hours * 3600 + minutes * 60 + seconds;
+};
