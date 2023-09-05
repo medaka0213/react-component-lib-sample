@@ -1,4 +1,5 @@
 import { BaseModel, Fields } from './baseModel';
+import { extractIdFromUrl, isYoutubeUrl, isTwitterUrl } from '../utils/string';
 
 import moment from 'moment-timezone';
 import 'moment/locale/ja';
@@ -41,82 +42,22 @@ export class Event extends BaseModel {
     return this.image_url;
   }
 
-  _extract_yt_id(url: string): string {
-    if (url.includes('youtube.com')) {
-      if (url.includes('v=')) {
-        return url.split('v=')[1].split('&')[0];
-      } else if (url.includes('/live/')) {
-        return url.split('/live/')[1].split('?')[0];
-      } else {
-        return '';
-      }
-    } else if (url.includes('youtu.be/')) {
-      if (url.includes('/live/')) {
-        return url.split('/live/')[1].split('?')[0];
-      }
-      return url.split('youtu.be/')[1].split('?')[0];
-    } else {
-      const parts = url.split('/');
-      if (parts.length > 1) {
-        const id = (parts[parts.length - 1] || '').split('?');
-        if (id.length > 0) {
-          return id[0];
-        }
-      }
-      return '';
+  watchUrlType(): string | undefined {
+    const url = this.watch_URL || this.watch_URL_short || '';
+    if (isYoutubeUrl(url)) {
+      return 'youtube';
+    } else if (isTwitterUrl(url)) {
+      return 'twitter';
     }
-  }
-
-  isUrlYoutube(): boolean {
-    if (
-      (this.watch_URL || this.watch_URL_short || '').indexOf('youtube.com') > -1
-    ) {
-      return true;
-    } else if (
-      (this.watch_URL || this.watch_URL_short || '').indexOf('youtu.be') > -1
-    ) {
-      return true;
-    }
-    return false;
-  }
-
-  isShortUrlYoutube(): boolean {
-    if ((this.watch_URL_short || '').indexOf('youtube.com') > -1) {
-      return true;
-    } else if ((this.watch_URL_short || '').indexOf('youtu.be') > -1) {
-      return true;
-    }
-    return false;
-  }
-
-  isUrlTwitter(): boolean {
-    if (
-      (this.watch_URL || this.watch_URL_short || '').indexOf('twitter.com') > -1
-    ) {
-      return true;
-    } else if (
-      (this.watch_URL || this.watch_URL_short || '').indexOf('x.com') > -1
-    ) {
-      return true;
-    }
-    return false;
-  }
-
-  isShortUrlTwitter(): boolean {
-    if ((this.watch_URL_short || '').indexOf('twitter.com') > -1) {
-      return true;
-    } else if ((this.watch_URL_short || '').indexOf('x.com') > -1) {
-      return true;
-    }
-    return false;
+    return undefined;
   }
 
   youtubeId(): string {
-    return this._extract_yt_id(this.watch_URL_option || this.watch_URL || '');
+    return extractIdFromUrl(this.watch_URL_option || this.watch_URL || '');
   }
 
   youtubeShortId(): string {
-    return this._extract_yt_id(this.watch_URL_short || '');
+    return extractIdFromUrl(this.watch_URL_short || '');
   }
 
   datetime_format_sort(): string {

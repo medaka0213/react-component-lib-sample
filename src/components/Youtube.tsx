@@ -1,6 +1,6 @@
 import React, { VFC } from 'react';
 import { Box, BoxProps } from '@mui/material';
-import { extract_youtube_id } from '../utils/string';
+import { extractYoutubeId } from '../utils/string';
 import { CommonProps } from './types';
 
 type YoutubeProps = CommonProps &
@@ -17,7 +17,7 @@ export const YoutubePlayer: VFC<YoutubeProps> = ({
   start = 0,
   ...props
 }) => {
-  const _videoId = videoId || extract_youtube_id(videoUrl || '');
+  const _videoId = videoId || extractYoutubeId(videoUrl || '');
   return (
     <Box {...props}>
       <div

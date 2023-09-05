@@ -61,6 +61,7 @@ export { ApiClient, DataApiClient, DataApiClientV2 } from './utils/rest';
 export { sort_array } from './utils/sort';
 export { ParamToQueryItem } from './utils/query';
 export { downloadFile, downloadFileFromUrl } from './utils/download';
+export { extractIdFromUrl, isYoutubeUrl, isTwitterUrl } from './utils/string';
 
 // 構成関連
 export { getSearchItems, getDefaultQuery } from './config/query';
