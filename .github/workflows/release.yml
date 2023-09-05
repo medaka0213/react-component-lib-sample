@@ -20,6 +20,11 @@ jobs:
         with:
           node-version: 18
 
+      - name: Install dependencies
+        run: yarn install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
       - name: ESLint
         run: yarn lint
         env:
@@ -27,11 +32,6 @@ jobs:
 
       - name: Test
         run: yarn test
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-
-      - name: Install dependencies
-        run: yarn install
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
