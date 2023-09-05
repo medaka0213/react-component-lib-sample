@@ -42,4 +42,16 @@ describe('deformate_timedelta', () => {
   test('should deformate 01:01:01 to 3661 seconds', () => {
     expect(deformate_timedelta('01:01:01')).toBe(3661);
   });
+
+  test('should deformate 01:01 to 61 seconds', () => {
+    expect(deformate_timedelta('01:01')).toBe(61);
+  });
+
+  test('should deformate 01 to 1 second', () => {
+    expect(deformate_timedelta('01')).toBe(1);
+  });
+
+  test('should empty to 0 second', () => {
+    expect(deformate_timedelta('0')).toBe(0);
+  });
 });

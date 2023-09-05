@@ -165,6 +165,11 @@ export const format_timedelta = (_seconds: number): string => {
 };
 
 export const deformate_timedelta = (time: string): number => {
-  const [hours, minutes, seconds] = time.split(':').map(Number);
-  return hours * 3600 + minutes * 60 + seconds;
+  const splitted = (time || '').split(':').map(Number);
+  if (splitted.length === 3) {
+    return splitted[0] * 3600 + splitted[1] * 60 + splitted[2];
+  } else if (splitted.length === 2) {
+    return splitted[0] * 60 + splitted[1];
+  }
+  return parseInt(time, 0);
 };
