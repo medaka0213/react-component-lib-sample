@@ -21,7 +21,6 @@ function getLen(str: string) {
       result += 2;
     }
   }
-  //結果を返す
   return result;
 }
 
