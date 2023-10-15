@@ -26,6 +26,9 @@ export class Meetup extends BaseModel {
   public readonly image_url: string = '';
   public readonly image_credit: string = '';
   public readonly calendar: string = '';
+  public readonly launch: string = '';
+  public readonly event: string = '';
+  public readonly slide: string = '';
 
   constructor(props: Fields<Meetup>) {
     super(props);
