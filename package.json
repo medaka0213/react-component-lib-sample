@@ -19,7 +19,6 @@
     "@mui/material": "^5.11.4",
     "@mui/x-data-grid": "^5.17.18",
     "@mui/x-date-pickers": "^5.0.13",
-    "@types/ramda": "^0.29.4",
     "formik": "^2.2.9",
     "fs": "^0.0.1-security",
     "immutable": "^4.2.1",
@@ -33,6 +32,7 @@
     "react-to-print": "^2.14.11",
     "react-youtube": "^10.1.0",
     "slick-carousel": "^1.8.1",
+    "types-ramda": "0.29.4",
     "yup": "^0.32.11"
   },
   "devDependencies": {
