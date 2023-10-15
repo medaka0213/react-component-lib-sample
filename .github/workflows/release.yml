@@ -37,6 +37,7 @@ jobs:
       - name: Bump version and create a release commit
         id: package_version
         run: |
+          git checkout .
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           npm version patch -m "chore(release): %s [skip ci]"
