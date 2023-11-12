@@ -38,4 +38,5 @@ example
 .env*
 
 package-lock.json
+storybook-static
 

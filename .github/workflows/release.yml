@@ -58,3 +58,14 @@ jobs:
           body: 'https://www.npmjs.com/package/react-vrw/v/${{ steps.package_version.outputs.version }}'
           draft: false
           prerelease: false
+
+      - name: Build Storybook
+        run: yarn build-storybook
+        if: github.ref == 'refs/heads/main'
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        if: github.ref == 'refs/heads/main'
+        with:
+          branch: gh-pages # デプロイ先のブランチ
+          folder: storybook-static # Storybookのビルドディレクトリ
