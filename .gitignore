@@ -27,6 +27,7 @@ typesversions
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
+yarn.lock
 .pnp.*
 *.tgz
 
