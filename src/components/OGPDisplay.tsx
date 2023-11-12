@@ -5,6 +5,7 @@ import {
   CardContent,
   CardActionArea,
   Typography,
+  Skeleton,
 } from '@mui/material';
 
 export type OGPDisplayProps = {
@@ -12,29 +13,41 @@ export type OGPDisplayProps = {
   description?: string;
   image?: string;
   url?: string;
+  image_height?: string;
 };
 const App: VFC<OGPDisplayProps> = ({
   title,
   image,
   description,
   url,
+  image_height = '140',
 }: OGPDisplayProps) => {
   return (
     <Card>
       <CardActionArea href={url || ''}>
-        <CardMedia
-          component="img"
-          height="140"
-          image={image || ''}
-          alt={title || url || ''}
-        />
+        {image ? (
+          <CardMedia
+            component="img"
+            height={image_height}
+            image={image}
+            alt={title || url || ''}
+          />
+        ) : (
+          <Skeleton
+            variant="rectangular"
+            width="100%"
+            height={Number(image_height)}
+          />
+        )}
         <CardContent>
-          <Typography variant="h6">{title || ''}</Typography>
-          <Typography variant="body2" color="textSecondary">
-            {(description?.length || 0) > 280
-              ? (description || '').slice(0, 280) + '...'
-              : description || ''}
-          </Typography>
+          <>
+            <Typography variant="h6">{title || <Skeleton />}</Typography>
+            <Typography variant="body2" color="textSecondary">
+              {(description?.length || 0) > 280
+                ? (description || '').slice(0, 280) + '...'
+                : description || <Skeleton />}
+            </Typography>
+          </>
         </CardContent>
       </CardActionArea>
     </Card>

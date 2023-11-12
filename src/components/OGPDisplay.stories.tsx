@@ -24,3 +24,6 @@ Default.args = {
   image: 'https://cdn.mos.cms.futurecdn.net/LVvCSvaRpPPtQ8xoWFg4jR-1200-80.jpg',
   url: 'https://www.space.com/this-week-in-space-podcast-twit',
 };
+
+export const Loading = Template.bind({});
+Loading.args = {};
