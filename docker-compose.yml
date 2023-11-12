@@ -4,10 +4,10 @@ services:
         build:
             context: .
             args:
-                NODE_AUTH_TOKEN: ${NODE_AUTH_TOKEN}
+                GITHUB_TOKEN: ${GITHUB_TOKEN}
         ports:
             - "6006:6006"
         volumes:
             - .:/app
             - /app/node_modules
-        command: npm run storybook
+        command: yarn storybook

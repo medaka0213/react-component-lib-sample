@@ -1,13 +1,11 @@
-FROM node:16-alpine
+FROM node:16
 
 WORKDIR /app
 
-ARG NODE_AUTH_TOKEN
-ENV NODE_AUTH_TOKEN=$NODE_AUTH_TOKEN
+ARG GITHUB_TOKEN
+ENV GITHUB_TOKEN=$GITHUB_TOKEN
 
-COPY package.json yarn.lock ./
+COPY package.json ./
 RUN yarn install
 
 COPY . .
-
-ENTRYPOINT [ "npm", "run"]
