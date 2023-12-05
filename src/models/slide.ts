@@ -9,6 +9,7 @@ export class Slide extends BaseModel {
   public readonly ['data-length']: number = 0;
   public readonly texts: string[] = [];
   public readonly paths: string[] = [];
+  public readonly image_resolution: string = '';
 
   constructor(props: Fields<Slide>) {
     super(props);
