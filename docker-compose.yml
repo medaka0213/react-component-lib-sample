@@ -1,13 +1,12 @@
 version: '3'
 services:
-    web:
-        build:
-            context: .
-            args:
-                GITHUB_TOKEN: ${GITHUB_TOKEN}
-        ports:
-            - "6006:6006"
-        volumes:
-            - .:/app
-            - /app/node_modules
-        command: yarn storybook
+  web:
+    build:
+      context: .
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    ports:
+      - "6006:6006"
+    volumes:
+      - .:/app
+    command: yarn storybook

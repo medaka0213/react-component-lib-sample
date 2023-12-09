@@ -49,17 +49,17 @@ export const App: VFC<FormInputProps> = ({
   color = 'primary',
   name = '',
   type = 'text',
-  title,
+  title = '',
   rows = '10',
   placeholder = '',
-  onChange,
+  onChange = undefined,
   disabled = false,
   copyBytton = false,
-  children,
+  children = null,
   size = 'small',
   variant = 'filled',
   options = [],
-  formik: { values = {}, errors = {}, handleChange },
+  formik: { values = {}, errors = {}, handleChange=undefined },
 }) => {
   const [openTip, setOpenTip] = useState(false);
   const handleClickButton = () => {

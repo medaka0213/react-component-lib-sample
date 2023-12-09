@@ -19,10 +19,10 @@ yarn install
 yarn run storybook
 ```
 
-## upload component
+## build component
 
 ```bash
-yarn build
-npm version patch
-npm publish
+docker compose run --rm web yarn build
+docker compose run --rm web npm version patch
+docker compose run --rm web npm publish
 ```
