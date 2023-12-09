@@ -27,7 +27,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export type LayoutProps = {
-  children: ReactNode;
+  children: ?ReactNode;
   window?: () => Window;
   drawer: ReactNode;
   sidebar?: ReactNode;

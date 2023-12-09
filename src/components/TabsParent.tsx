@@ -23,7 +23,7 @@ type TabListItem = {
 };
 
 export type TabsProps = BoxProps & {
-  children: ReactNode;
+  children: ?ReactNode;
   index: number;
   list: TabListItem[];
 };
