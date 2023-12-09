@@ -2,7 +2,7 @@ import React, { VFC, ReactNode, useState } from 'react';
 import { Modal, Box } from '@mui/material';
 
 type DialogWrapperProps = {
-  children: ?ReactNode;
+  children?: ReactNode;
   showOnClick?: ReactNode;
 };
 
