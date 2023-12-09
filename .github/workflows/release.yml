@@ -31,48 +31,27 @@ jobs:
       - name: Test
         run: yarn test
 
-  release:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    needs: build
-    env:
-      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 18
-          registry-url: 'https://npm.pkg.github.com' # GitHub Package Registry URL
-
-      - name: Install dependencies
-        run: yarn install
-
       - name: Build package
         run: yarn build
 
       - name: Bump version and create a release commit
         id: package_version
+        if: github.ref == 'refs/heads/main'
         run: |
           git checkout .
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           npm version patch -m "chore(release): %s [skip ci]"
           git push origin main
+          npm publish
           echo "::set-output name=version::$(node -p "require('./package.json').version")"
-
-      - name: Publish package to GitHub Packages
-        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
+        if: github.ref == 'refs/heads/main'
         with:
           tag_name: v${{ steps.package_version.outputs.version }}
           release_name: Release ${{ steps.package_version.outputs.version }}
@@ -80,32 +59,13 @@ jobs:
           draft: false
           prerelease: false
 
-  deploy-storybook:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    needs: build
-    env:
-      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 18
-          registry-url: 'https://npm.pkg.github.com' # GitHub Package Registry URL
-
-      - name: Install dependencies
-        run: yarn install
-
       - name: Build Storybook
         run: yarn build-storybook
+        if: github.ref == 'refs/heads/main'
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.4
+        if: github.ref == 'refs/heads/main'
         with:
           branch: gh-pages # デプロイ先のブランチ
           folder: storybook-static # Storybookのビルドディレクトリ
