@@ -19,6 +19,7 @@ export class Event extends BaseModel {
   public readonly overview_JP: string = '';
   public readonly description: string = '';
   public readonly description_JP: string = '';
+  public readonly rocket_image_url: string = '';
 
   public readonly slide: string = '';
 

@@ -12,7 +12,6 @@ export class Launch extends Event {
   public readonly provider: string = '';
   public readonly provider_JP: string = '';
   public readonly result: string = '';
-  public readonly rocket_image_url: string = '';
 
   constructor(props: Fields<Launch>) {
     super(props);
