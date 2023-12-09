@@ -2,21 +2,11 @@
 
 This is a sample UI component
 
-## installation
-
-```bash
-yarn install
-```
-
-## example
-
-WIP
-
 ## develop component
 
 ```bash
-yarn install
-yarn run storybook
+docker compose run --rm web yarn install
+docker compose up
 ```
 
 ## build component
@@ -25,4 +15,10 @@ yarn run storybook
 docker compose run --rm web yarn build
 docker compose run --rm web npm version patch
 docker compose run --rm web npm publish
+```
+
+## build storybook
+
+```bash
+docker compose run --rm web yarn build-storybook
 ```

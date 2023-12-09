@@ -79,3 +79,33 @@ jobs:
           body: 'https://www.npmjs.com/package/react-vrw/v/${{ steps.package_version.outputs.version }}'
           draft: false
           prerelease: false
+
+  deploy-storybook:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+          registry-url: 'https://npm.pkg.github.com' # GitHub Package Registry URL
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build Storybook
+        run: yarn build-storybook
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages # デプロイ先のブランチ
+          folder: storybook-static # Storybookのビルドディレクトリ
