@@ -43,7 +43,7 @@ export type FormInputProps = FormProps & {
   size?: 'small' | 'medium';
   variant?: 'outlined' | 'filled' | 'standard';
   options?: SelectItem[];
-  formik: any;
+  formik?: any;
 };
 
 export const App: VFC<FormInputProps> = ({

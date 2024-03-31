@@ -20,16 +20,20 @@ const App: VFC<FormTemplateProps> = ({
   errorMessage,
   ...props
 }) => {
-  return <FormGrid
-    {...props}
-    formik={formik}
-    errorMessage={errorMessage}
-    childrenList={childrenList.map(
-      (children, i) => children.map((child, j) => {
-        return <FormInput {...child} formik={formik} key={`${i}_${j}`} />;
-      }))}
-  />;
-}
+  return (
+    <FormGrid
+      {...props}
+      formik={formik}
+      errorMessage={errorMessage}
+      childrenList={childrenList.map((children, i) =>
+        children.map((child, j) => {
+          // formik は FormInputProps側の値を上書きする
+          return <FormInput {...child} formik={formik} key={`${i}_${j}`} />;
+        })
+      )}
+    />
+  );
+};
 
 import theme from '../theme';
 import { ThemeProvider } from '@mui/material/styles';
