@@ -29,7 +29,7 @@ export type SelectItem = {
 
 export type FormInputProps = FormProps & {
   name: string;
-  label: string;
+  label?: string;
   type?: string;
   /*| 'string'
     | 'text'
