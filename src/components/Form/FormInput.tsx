@@ -29,7 +29,6 @@ export type SelectItem = {
 
 export type FormInputProps = FormProps & {
   name: string;
-  label?: string;
   type?: string;
   /*| 'string'
     | 'text'
@@ -49,7 +48,6 @@ export type FormInputProps = FormProps & {
 export const App: VFC<FormInputProps> = ({
   color = 'primary',
   name = '',
-  label = '',
   type = 'text',
   title = '',
   rows = '10',
@@ -72,7 +70,7 @@ export const App: VFC<FormInputProps> = ({
     <FormControl color={color} variant={variant} fullWidth focused>
       {type !== 'datetime' && type !== 'select' && type !== 'checkbox' && (
         <>
-          <InputLabel htmlFor={name}>{label || title || name}</InputLabel>
+          <InputLabel htmlFor={name}>{title || name}</InputLabel>
           <FilledInput
             size={size}
             color={color}
@@ -114,13 +112,13 @@ export const App: VFC<FormInputProps> = ({
 
       {type === 'select' && (
         <>
-          <InputLabel id={name + '-label'}>{label || title}</InputLabel>
+          <InputLabel id={name + '-label'}>{title}</InputLabel>
           <Select
             size={size}
             labelId={name + '-label'}
             id={name}
             value={values[name]}
-            label={label || title ? `${label || title} (${name})` : name}
+            label={title ? `${title} (${name})` : name}
             onChange={async (e: any, child: ReactNode) => {
               handleChange && (await handleChange(e));
               onChange && (await onChange(e, child));
@@ -140,7 +138,7 @@ export const App: VFC<FormInputProps> = ({
       {type === 'datetime' && (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateTimePicker
-            label={label || title || name}
+            label={title || name}
             inputFormat="YYYY-MM-DDTHH:mm:ss"
             value={values[name] || ''}
             onChange={async (e) => {
@@ -185,7 +183,7 @@ export const App: VFC<FormInputProps> = ({
               color={color}
             />
           }
-          label={label || title || name}
+          label={title || name}
         />
       )}
       <FormHelperText error>{errors[name]}</FormHelperText>
