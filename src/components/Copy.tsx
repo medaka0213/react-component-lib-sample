@@ -36,6 +36,7 @@ const App: VFC<CopyProps> = ({
   buttonLabel,
   area = true,
   showValue = true,
+  multiLine = false,
 }) => {
   const [state, setState] = useState({
     open: false,
@@ -56,21 +57,21 @@ const App: VFC<CopyProps> = ({
     });
   };
   value = String(value) || '';
-  const multiLine = value.split('\n').length > 3;
+  const needMultiLine = multiLine || value.split('\n').length > 3;
   const link =
     value && (value.startsWith('http') || value.startsWith('mailto'));
 
   return (
     <Box
       sx={{
-        display: multiLine ? 'block' : 'flex',
+        display: needMultiLine ? 'block' : 'flex',
         backgroundColor: area && 'action.hover',
         border: area && '1px solid #ccc',
         ...sx,
       }}
     >
       <CopyToClipboard text={String(value) || ''} onCopy={handleClick(Slide)}>
-        {multiLine ? (
+        {needMultiLine ? (
           <Button
             sx={{
               width: '100%',
@@ -98,7 +99,7 @@ const App: VFC<CopyProps> = ({
           sx={{
             flex: 1,
             my: 'auto',
-            p: multiLine ? 1 : 0,
+            p: needMultiLine ? 1 : 0,
             'white-space': 'pre-line',
             'overflow-wrap': 'anywhere',
           }}
