@@ -35,6 +35,6 @@ export type FormProps = CommonProps & {
   name?: string;
   onChange?: any;
   disabled?: boolean;
-  formik?: Formik;
+  formik?: any;
   placeholder?: string;
 };
