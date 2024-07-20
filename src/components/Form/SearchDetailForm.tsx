@@ -1,5 +1,5 @@
-import React, { VFC, useState, useEffect } from 'react';
-import { Formik, useFormik } from 'formik';
+import React, { VFC, useEffect } from 'react';
+import { Formik } from 'formik';
 
 import { Button, Box, BoxProps, Grid } from '@mui/material';
 
@@ -14,10 +14,10 @@ import { SearchItem } from '../../utils/query';
 
 import { QueryItem, SearchModeToParam } from '../../utils/query';
 
-export type SearchDetailFromProps = BoxProps & {
+export type SearchDetailFromProps = Omit<BoxProps, 'onSubmit'> & {
   keys?: SearchItem[] | any[];
   queries?: QueryItem[];
-  onSubmit?: any;
+  onSubmit?: (queries: string[]) => Promise<void>;
 };
 
 const App: VFC<SearchDetailFromProps> = ({
