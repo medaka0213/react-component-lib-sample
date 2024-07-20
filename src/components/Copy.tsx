@@ -2,6 +2,7 @@ import React, { useState, VFC } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import LaunchIcon from '@mui/icons-material/Launch';
 import {
   Box,
   BoxProps,
@@ -12,7 +13,6 @@ import {
   Slide,
 } from '@mui/material';
 
-import { Link } from './Link';
 import { CommonProps } from './types';
 
 export type CopyProps = BoxProps &
@@ -104,14 +104,19 @@ const App: VFC<CopyProps> = ({
             'overflow-wrap': 'anywhere',
           }}
         >
-          {link ? (
-            <Link href={value} external={external}>
-              {children || value}
-            </Link>
-          ) : (
-            children || value
-          )}
+          children || value
         </Box>
+      )}
+      {link && showValue && (
+        <IconButton
+          sx={{
+            ml: 1,
+          }}
+          href={value}
+          target="_blank"
+        >
+          <LaunchIcon />
+        </IconButton>
       )}
       <Snackbar
         open={state.open}
