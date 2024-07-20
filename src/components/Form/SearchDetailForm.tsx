@@ -15,9 +15,9 @@ import { SearchItem } from '../../utils/query';
 import { QueryItem, SearchModeToParam } from '../../utils/query';
 
 export type SearchDetailFromProps = BoxProps & {
-  keys?: SearchItem[];
+  keys?: SearchItem[] | any[];
   queries?: QueryItem[];
-  onSubmit?: (queries: string[]) => Promise<any>;
+  onSubmit?: (queries: string[]) => Promise<any> | any;
 };
 
 const App: VFC<SearchDetailFromProps> = ({
