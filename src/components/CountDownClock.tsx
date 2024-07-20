@@ -18,7 +18,7 @@ export const CountDownClock: React.VFC<CountDownClockProps> = ({
     return () => clearInterval(timer);
   }, []);
 
-  return <>{time_format}</>;
+  return <span>{time_format}</span>;
 };
 
 export default CountDownClock;
