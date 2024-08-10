@@ -104,7 +104,7 @@ const App: VFC<CopyProps> = ({
             'overflow-wrap': 'anywhere',
           }}
         >
-          children || value
+          {children || value}
         </Box>
       )}
       {link && showValue && (
