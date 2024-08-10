@@ -18,8 +18,4 @@ export class Rocket extends RocketSeries {
     super(props);
     Object.assign(this, props);
   }
-
-  nextSpaceFlightLink() {
-    return `https://nextspaceflight.com/rockets/${this.NextSpaceFlight}`;
-  }
 }

@@ -24,12 +24,4 @@ export class TweeetSummary extends BaseModel {
     super(props);
     Object.assign(this, props);
   }
-
-  link(): string {
-    return 'https://twitter.com/' + this.UserName + '/status/' + this.StateId;
-  }
-
-  misskeyLink(): string {
-    return 'https://misskey.virtualrocketwatching.net/' + this.misskey_id;
-  }
 }

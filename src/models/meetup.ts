@@ -34,24 +34,4 @@ export class Meetup extends BaseModel {
     super(props);
     Object.assign(this, props);
   }
-
-  thumbnail() {
-    return this.image_url;
-  }
-
-  get_paretnt_type() {
-    return this.missionID.split('_')[0];
-  }
-
-  datetime_format(): string {
-    return format_datetime_JP(this.datetime);
-  }
-
-  twitterLink(): string {
-    return `https://twitter.com/vr_launch/status/${this.tweet}`;
-  }
-
-  twitterLinkJP(): string {
-    return `https://twitter.com/vr_launch/status/${this.get_jp_value('tweet')}`;
-  }
 }

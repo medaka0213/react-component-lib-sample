@@ -12,10 +12,4 @@ export class YoutubeTranscript extends BaseModel {
     super(props);
     Object.assign(this, props);
   }
-
-  url() {
-    return (
-      this.youtube_url || `https://www.youtube.com/watch?v=${this.youtube_id}`
-    );
-  }
 }

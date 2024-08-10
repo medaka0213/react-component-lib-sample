@@ -20,12 +20,4 @@ export class RocketSeries extends BaseModel {
     super(props);
     Object.assign(this, props);
   }
-
-  thumbnail(): string {
-    return this.image_url || this.rocket_image_url;
-  }
-
-  nextSpaceFlightLink() {
-    return `https://nextspaceflight.com/rockets/${this.NextSpaceFlight}`;
-  }
 }

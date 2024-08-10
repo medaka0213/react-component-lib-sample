@@ -16,8 +16,4 @@ export class NewsSummary extends BaseModel {
     super(props);
     Object.assign(this, props);
   }
-
-  misskeyLink(): string {
-    return 'https://misskey.virtualrocketwatching.net/' + this.misskey_id;
-  }
 }
