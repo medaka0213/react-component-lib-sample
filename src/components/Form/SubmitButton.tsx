@@ -19,6 +19,7 @@ export const SubmitButton: VFC<SubmitButtonProps> = ({
   disabled,
   color = 'primary',
   isSubmitting: _isSubmitting = false,
+  ...props
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(_isSubmitting);
 
@@ -44,6 +45,7 @@ export const SubmitButton: VFC<SubmitButtonProps> = ({
           ...sx,
         }}
         color={color}
+        {...props}
       >
         {children || 'Submit'}
       </Button>
