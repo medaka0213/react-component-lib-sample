@@ -48,7 +48,11 @@ export class ApiClient {
     if (method !== 'GET' && method !== 'HEAD') {
       req.body = body;
     }
-    return await fetch(url, req);
+    const res = await fetch(url, req);
+    if (!res.ok) {
+      throw new Error(`API error: ${res.status} ${res.statusText}`);
+    }
+    return res;
   }
 
   async callApiJson(
