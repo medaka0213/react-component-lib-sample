@@ -59,7 +59,7 @@ export {
   format_timedelta,
   deformate_timedelta,
 } from './utils/time';
-export { ApiClient, DataApiClient, DataApiClientV2 } from './utils/rest';
+export { ApiClient, DataApiClient } from './utils/rest';
 export { sort_array } from './utils/sort';
 export { ParamToQueryItem } from './utils/query';
 export { downloadFile, downloadFileFromUrl } from './utils/download';
