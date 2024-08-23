@@ -1,15 +1,16 @@
 import React, { VFC, useState, useRef, ChangeEvent, RefObject } from 'react';
 
 import UploadFileIcon from '@mui/icons-material/UploadFile';
-import Box from '@mui/material/Box';
+import Box, { BoxProps } from '@mui/material/Box';
 import { SubmitButton } from './SubmitButton';
 
 import { FormProps, Color } from '../types';
 
-export type FileInputProps = FormProps & {
-  color: Color;
-  formik: any;
-};
+export type FileInputProps = FormProps &
+  BoxProps & {
+    color: Color;
+    formik: any;
+  };
 
 const App: VFC<FileInputProps> = ({
   color = 'primary',
@@ -19,6 +20,8 @@ const App: VFC<FileInputProps> = ({
   disabled = false,
   children,
   formik: { values, handleChange },
+  sx = {},
+  ...props
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +34,13 @@ const App: VFC<FileInputProps> = ({
   };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        width: '100%',
+        ...sx,
+      }}
+      {...props}
+    >
       <SubmitButton
         color={color}
         disabled={isLoading}
