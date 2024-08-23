@@ -6,7 +6,6 @@ export { FormToggle } from './components/Form/FormToggle';
 export { FormSelect } from './components/Form/FormSelect';
 export { SubmitButton } from './components/Form/SubmitButton';
 export { SearchDetailForm } from './components/Form/SearchDetailForm';
-export { MarpForm } from './components/Form/MarpForm';
 export { ItemListTable } from './components/ItemListTable';
 export { SlideShow } from './components/SlideShow';
 export { DialogWrapper } from './components/DialogWrapper';
