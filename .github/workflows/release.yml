@@ -31,9 +31,6 @@ jobs:
       - name: Test
         run: yarn test
 
-      - name: Build package
-        run: yarn build
-
       - name: Bump version and create a release commit
         id: package_version
         if: github.ref == 'refs/heads/main'
@@ -47,6 +44,9 @@ jobs:
           echo "::set-output name=version::$(node -p "require('./package.json').version")"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build package
+        run: yarn build
 
       - name: Create GitHub Release
         id: create_release
