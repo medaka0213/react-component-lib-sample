@@ -92,6 +92,7 @@ export const App: VFC<FormInputProps> = ({
             }}
             multiline={type === 'textarea'}
             maxRows={type === 'textarea' ? rows : 1}
+            minRows={1}
             endAdornment={
               copyBytton && (
                 <InputAdornment position="end">
