@@ -2,7 +2,6 @@ import React, { VFC, ChangeEvent, useEffect } from 'react';
 import { Formik, useField } from 'formik';
 import moment from 'moment-timezone';
 import * as Yup from 'yup';
-import { requiredString } from '../../utils/schema';
 
 import AddIcon from '@mui/icons-material/Add';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -366,15 +365,15 @@ export const SearchDetailFormInput: VFC<SearchDetailFormInputProps> = ({
           })
         }
         validationSchema={Yup.object().shape({
-          key: requiredString('検索キー'),
-          mode: requiredString('検索モード'),
+          key: Yup.string().required('検索キーを入力してください'),
+          mode: Yup.string().required('検索モードを入力してください'),
           value0: Yup.string().when('mode', {
             is: (mode: string) => GetSearchMode(mode).nValues >= 1,
-            then: requiredString('値'),
+            then: Yup.string().required('値を入力してください'),
           }),
           value1: Yup.string().when('mode', {
             is: (mode: string) => GetSearchMode(mode).nValues >= 2,
-            then: requiredString('値 (上限)'),
+            then: Yup.string().required('値 (上限) を入力してください'),
           }),
         })}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
