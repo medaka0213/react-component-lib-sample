@@ -22,6 +22,15 @@ type SlideShowProps = CommonProps & {
   index?: number;
   fullScreen?: boolean;
   onFullScreen?: () => void;
+  customRender?: ({
+    src,
+    text,
+    index,
+  }: {
+    src: string;
+    text: string;
+    index: number;
+  }) => any;
 };
 
 export const SlideShowContent: VFC<SlideShowProps> = ({
@@ -30,6 +39,7 @@ export const SlideShowContent: VFC<SlideShowProps> = ({
   onChange,
   index = 0,
   fullScreen = false,
+  customRender,
   ...props
 }) => {
   const [slideIndex, setSlideIndex] = useState<number>(index);
@@ -55,14 +65,22 @@ export const SlideShowContent: VFC<SlideShowProps> = ({
             aspectRatio: '16/9',
           }}
         >
-          <img
-            alt={`slide-${slideIndex}`}
-            src={images[slideIndex]}
-            width={'100%'}
-            style={{
-              border: '1px solid #eee',
-            }}
-          />
+          {customRender ? (
+            customRender({
+              src: images[slideIndex],
+              text: texts?.[slideIndex] || '',
+              index: slideIndex,
+            })
+          ) : (
+            <img
+              alt={`slide-${slideIndex}`}
+              src={images[slideIndex]}
+              width={'100%'}
+              style={{
+                border: '1px solid #eee',
+              }}
+            />
+          )}
         </div>
       </Box>
       <Box
